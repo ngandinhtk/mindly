@@ -1,0 +1,202 @@
+import React, { useState, useEffect } from 'react';
+import { Calendar as CalendarIcon, Quote } from 'lucide-react';
+import { quotes } from '../data/quotes';
+import { emotions } from '../data/emotions';
+
+const Calendar = ({ entries, onDateSelect, selectedDate }) => {
+  const [currentMonth, setCurrentMonth] = useState(new Date());
+
+  const daysInMonth = (date) => {
+    return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  };
+
+  const firstDayOfMonth = (date) => {
+    return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+  };
+
+  const getEmotionForDate = (date) => {
+    const entry = entries.find(e => 
+      new Date(e.date).toDateString() === date.toDateString()
+    );
+    return entry?.emotion || null;
+  };
+
+  const getEmotionColor = (emotion) => {
+    const colors = {
+      'very_happy': '#A8E6CF',
+      'happy': '#C7EAE4',
+      'neutral': '#FFD98E',
+      'sad': '#FFB88C',
+      'very_sad': '#FF8B94'
+    };
+    return colors[emotion] || 'transparent';
+  };
+
+  const changeMonth = (delta) => {
+    setCurrentMonth(prev => {
+      const newDate = new Date(prev);
+      newDate.setMonth(prev.getMonth() + delta);
+      return newDate;
+    });
+  };
+
+  const renderCalendar = () => {
+    const days = [];
+    const totalDays = daysInMonth(currentMonth);
+    const firstDay = firstDayOfMonth(currentMonth);
+
+    // Add empty cells for days before the first day of the month
+    for (let i = 0; i < firstDay; i++) {
+      days.push(<div key={`empty-${i}`} className="h-12" />);
+    }
+
+    // Add cells for each day of the month
+    for (let day = 1; day <= totalDays; day++) {
+      const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+      const emotion = getEmotionForDate(date);
+      const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString();
+      const isToday = date.toDateString() === new Date().toDateString();
+
+      days.push(
+        <button
+          key={day}
+          onClick={() => onDateSelect(date)}
+          className={`h-12 relative flex items-center justify-center group ${
+            isSelected ? 'ring-2 ring-purple-500' : ''
+          }`}
+        >
+          <div 
+            className={`w-10 h-10 rounded-full flex items-center justify-center relative
+              ${isToday ? 'ring-2 ring-purple-300' : ''}
+            `}
+            style={{ backgroundColor: emotion ? getEmotionColor(emotion) : 'transparent' }}
+          >
+            {day}
+          </div>
+        </button>
+      );
+    }
+
+    return days;
+  };
+
+  return (
+    <div className="bg-white rounded-3xl shadow-lg p-6">
+      {/* Calendar Header */}
+      <div className="flex justify-between items-center mb-6">
+        <button 
+          onClick={() => changeMonth(-1)}
+          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+        >
+          ←
+        </button>
+        <h2 className="text-lg font-medium">
+          {currentMonth.toLocaleDateString('vi-VN', { month: 'long', year: 'numeric' })}
+        </h2>
+        <button 
+          onClick={() => changeMonth(1)}
+          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+        >
+          →
+        </button>
+      </div>
+
+      {/* Calendar Grid */}
+      <div className="grid grid-cols-7 gap-1">
+        {/* Weekday headers */}
+        {['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'].map(day => (
+          <div key={day} className="h-10 flex items-center justify-center text-sm font-medium text-gray-500">
+            {day}
+          </div>
+        ))}
+        {/* Calendar days */}
+        {renderCalendar()}
+      </div>
+    </div>
+  );
+};
+
+const Journal = () => {
+  const [entries, setEntries] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [dailyQuote, setDailyQuote] = useState(null);
+
+  useEffect(() => {
+    // Load entries from localStorage
+    const savedEntries = localStorage.getItem('moodEntries');
+    if (savedEntries) {
+      setEntries(JSON.parse(savedEntries));
+    }
+
+    // Set daily quote
+    const today = new Date().getDate();
+    const quoteIndex = today % quotes.length;
+    setDailyQuote(quotes[quoteIndex]);
+  }, []);
+
+  const handleDateSelect = (date) => {
+    setSelectedDate(date);
+  };
+
+  const getSelectedEntry = () => {
+    if (!selectedDate) return null;
+    return entries.find(e => 
+      new Date(e.date).toDateString() === selectedDate.toDateString()
+    );
+  };
+
+  return (
+    <div className="max-w-3xl mx-auto p-4 pt-8">
+      {/* Daily Quote */}
+      <div className="bg-white rounded-3xl shadow-lg p-6 mb-6">
+        <div className="flex items-start gap-4">
+          <Quote className="w-8 h-8 text-purple-400 flex-shrink-0" />
+          <div>
+            <p className="text-lg text-gray-800 font-medium mb-2">"{dailyQuote?.text}"</p>
+            <p className="text-sm text-gray-500">- {dailyQuote?.author}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Calendar */}
+      <Calendar 
+        entries={entries}
+        onDateSelect={handleDateSelect}
+        selectedDate={selectedDate}
+      />
+
+      {/* Selected Day Details */}
+      {selectedDate && (
+        <div className="mt-6 bg-white rounded-3xl shadow-lg p-6">
+          <h3 className="text-lg font-medium text-gray-700 mb-4">
+            {selectedDate.toLocaleDateString('vi-VN', { 
+              weekday: 'long', 
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric' 
+            })}
+          </h3>
+          {getSelectedEntry() ? (
+            <div>
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-2xl">
+                  {emotions.find(e => e.id === getSelectedEntry().emotion)?.emoji}
+                </span>
+                <span className="text-gray-600">
+                  {emotions.find(e => e.id === getSelectedEntry().emotion)?.label}
+                </span>
+              </div>
+              {getSelectedEntry().note && (
+                <p className="text-gray-600 italic">{getSelectedEntry().note}</p>
+              )}
+            </div>
+          ) : (
+            <p className="text-gray-500">Chưa có ghi chép cho ngày này</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Journal;

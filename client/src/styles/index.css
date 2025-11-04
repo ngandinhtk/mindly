@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Sure, here's the contents for the file: /mindly/mindly/client/src/styles/index.css */
+
+body {
+    background-color: #f0e5e5; /* Light pastel background */
+    font-family: 'Arial';
+    color: #333;
+}
+
+h1, h2, h3 {
+    color: #6a5acd; /* Pastel purple */
+}
+
+button {
+    background-color: #ffb6c1; /* Light pastel pink */
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ff69b4; /* Hot pink on hover */
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
