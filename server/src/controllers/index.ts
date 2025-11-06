@@ -3,7 +3,7 @@ import db from '../db';
 
 export async function health(req: Request, res: Response) {
     res.json({ status: 'ok', time: new Date().toISOString() });
-}
+}       
 
 export async function listEntries(req: Request, res: Response) {
     try {
@@ -32,3 +32,5 @@ export default {
     listEntries,
     createEntry,
 };
+
+        

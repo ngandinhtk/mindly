@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar as CalendarIcon, Quote } from 'lucide-react';
-import { quotes } from '../data/quotes';
+import { useTranslation } from 'react-i18next';
 import { emotions } from '../data/emotions';
 
 const Calendar = ({ entries, onDateSelect, selectedDate }) => {
+  const { t } = useTranslation();
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
   const daysInMonth = (date) => {
@@ -91,7 +92,7 @@ const Calendar = ({ entries, onDateSelect, selectedDate }) => {
           ←
         </button>
         <h2 className="text-lg font-medium">
-          {currentMonth.toLocaleDateString('vi-VN', { month: 'long', year: 'numeric' })}
+          {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
         </h2>
         <button 
           onClick={() => changeMonth(1)}
@@ -104,7 +105,7 @@ const Calendar = ({ entries, onDateSelect, selectedDate }) => {
       {/* Calendar Grid */}
       <div className="grid grid-cols-7 gap-1">
         {/* Weekday headers */}
-        {['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'].map(day => (
+        {[t('sun'), t('mon'), t('tue'), t('wed'), t('thu'), t('fri'), t('sat')].map(day => (
           <div key={day} className="h-10 flex items-center justify-center text-sm font-medium text-gray-500">
             {day}
           </div>
@@ -117,6 +118,7 @@ const Calendar = ({ entries, onDateSelect, selectedDate }) => {
 };
 
 const Journal = () => {
+  const { t, i18n } = useTranslation();
   const [entries, setEntries] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [dailyQuote, setDailyQuote] = useState(null);
@@ -128,11 +130,18 @@ const Journal = () => {
       setEntries(JSON.parse(savedEntries));
     }
 
-    // Set daily quote
-    const today = new Date().getDate();
-    const quoteIndex = today % quotes.length;
-    setDailyQuote(quotes[quoteIndex]);
-  }, []);
+    // Dynamically import quotes based on language
+    const loadQuotes = async () => {
+      const lang = i18n.language;
+      const quotesModule = await import(`../data/quotes_${lang}.js`);
+      const quotes = quotesModule.quotes;
+      const today = new Date().getDate();
+      const quoteIndex = today % quotes.length;
+      setDailyQuote(quotes[quoteIndex]);
+    };
+
+    loadQuotes();
+  }, [i18n.language]); // Re-run when language changes
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
@@ -149,6 +158,10 @@ const Journal = () => {
     <div className="max-w-3xl mx-auto p-4 pt-8">
       {/* Daily Quote */}
       <div className="bg-white rounded-3xl shadow-lg p-6 mb-6">
+        <h1 className="text-gray-700 mb-4 flex items-center gap-2">
+          <CalendarIcon className="w-5 h-5 text-purple-500" />
+          {t('daily_quote')}
+        </h1>
         <div className="flex items-start gap-4">
           <Quote className="w-8 h-8 text-purple-400 flex-shrink-0" />
           <div>
@@ -169,7 +182,7 @@ const Journal = () => {
       {selectedDate && (
         <div className="mt-6 bg-white rounded-3xl shadow-lg p-6">
           <h3 className="text-lg font-medium text-gray-700 mb-4">
-            {selectedDate.toLocaleDateString('vi-VN', { 
+            {selectedDate.toLocaleDateString('en-US', { 
               weekday: 'long', 
               year: 'numeric', 
               month: 'long', 
@@ -191,12 +204,13 @@ const Journal = () => {
               )}
             </div>
           ) : (
-            <p className="text-gray-500">Chưa có ghi chép cho ngày này</p>
+            <p className="text-gray-500">{t('no_entry')}</p>
           )}
         </div>
       )}
-    </div>
+      </div>
   );
 };
+
 
 export default Journal;

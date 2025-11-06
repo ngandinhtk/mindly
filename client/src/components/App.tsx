@@ -5,8 +5,10 @@ import Dashboard from './Dashboard';
 import Profile from './Profile';
 import Journal from './Journal';
 import '../styles/index.css';
+import { useTranslation } from 'react-i18next';
 
 const App: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <Router>
       <div className="app min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
@@ -24,21 +26,21 @@ const App: React.FC = () => {
               className="flex flex-col items-center p-2 text-gray-600 hover:text-purple-600 transition-colors"
             >
               <Home className="w-6 h-6" />
-              <span className="text-xs mt-1">Trang chủ</span>
+              <span className="text-xs mt-1">{t('home')}</span>
             </Link>
             <Link 
               to="/journal" 
               className="flex flex-col items-center p-2 text-gray-600 hover:text-purple-600 transition-colors"
             >
               <Calendar className="w-6 h-6" />
-              <span className="text-xs mt-1">Nhật ký</span>
+              <span className="text-xs mt-1">{t('journal')}</span>
             </Link>
             <Link 
               to="/profile" 
               className="flex flex-col items-center p-2 text-gray-600 hover:text-purple-600 transition-colors"
             >
               <User className="w-6 h-6" />
-              <span className="text-xs mt-1">Hồ sơ</span>
+              <span className="text-xs mt-1">{t('profile')}</span>
             </Link>
           </div>
         </nav>

@@ -1,12 +1,15 @@
 import React from 'react';
 import { Calendar, TrendingUp } from 'lucide-react';
-import { emotions, activities } from '../data/emotions';
+import { emotions } from '../data/emotions';
+import { useTranslation } from 'react-i18next';
 
 const Dashboard = () => {
+  const { t, i18n } = useTranslation();
   const [selectedEmotion, setSelectedEmotion] = React.useState(null);
   const [note, setNote] = React.useState('');
   const [entries, setEntries] = React.useState([]);
   const [todayEntry, setTodayEntry] = React.useState(null);
+  const [activities, setActivities] = React.useState({});
 
   // Load data from localStorage
   React.useEffect(() => {
@@ -14,7 +17,16 @@ const Dashboard = () => {
     if (savedEntries) {
       setEntries(JSON.parse(savedEntries));
     }
-  }, []);
+
+    // Dynamically import activities based on language
+    const loadActivities = async () => {
+      const lang = i18n.language;
+      const activitiesModule = await import(`../data/activities_${lang}.js`);
+      setActivities(activitiesModule.activities);
+    };
+
+    loadActivities();
+  }, [i18n.language]); // Re-run when language changes
 
   // Check today's entry
   React.useEffect(() => {
@@ -73,15 +85,15 @@ const Dashboard = () => {
   return (
     <div className="max-w-2xl mx-auto p-4 pt-8">
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-semibold text-gray-800">Xin chào!</h1>
+        <h1 className="text-2xl font-semibold text-gray-800">{t('greeting')}</h1>
         <div className="text-sm text-gray-500">
-          {new Date().toLocaleDateString('vi-VN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+          {new Date().toLocaleDateString(i18n.language, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
         </div>
       </div>
 
       {!todayEntry ? (
         <div className="bg-white rounded-3xl shadow-lg p-6 mb-6">
-          <h2 className="text-lg font-medium text-gray-700 mb-4">Hôm nay bạn cảm thấy thế nào?</h2>
+          <h2 className="text-lg font-medium text-gray-700 mb-4">{t('how_are_you_today')}</h2>
           <div className="grid grid-cols-5 gap-4 mb-6">
             {emotions.map(emotion => (
               <button
@@ -104,7 +116,7 @@ const Dashboard = () => {
               <textarea
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
-                placeholder="Ghi chú thêm về cảm xúc của bạn... (không bắt buộc)"
+                placeholder={t('note_placeholder')}
                 className="w-full p-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-400 focus:border-transparent resize-none"
                 rows={3}
               />
@@ -112,14 +124,14 @@ const Dashboard = () => {
                 onClick={handleSaveEntry}
                 className="mt-4 w-full bg-purple-600 text-white py-2 px-4 rounded-xl hover:bg-purple-700 transition-colors"
               >
-                Lưu lại
+                {t('save')}
               </button>
             </>
           )}
         </div>
       ) : (
         <div className="bg-white rounded-3xl shadow-lg p-6 mb-6">
-          <h2 className="text-lg font-medium text-gray-700 mb-4">Hôm nay của bạn</h2>
+          <h2 className="text-lg font-medium text-gray-700 mb-4">{t('your_day')}</h2>
           <div className="flex items-center space-x-4 mb-4">
             <span className="text-2xl">
               {emotions.find(e => e.id === todayEntry.emotion)?.emoji}
@@ -132,7 +144,7 @@ const Dashboard = () => {
             <p className="text-gray-600 italic">{todayEntry.note}</p>
           )}
           <div className="mt-4 p-4 bg-purple-50 rounded-xl">
-            <h3 className="text-sm font-medium text-purple-800 mb-2">Gợi ý cho bạn</h3>
+            <h3 className="text-sm font-medium text-purple-800 mb-2">{t('suggestion_for_you')}</h3>
             <p className="text-purple-900">{getRandomActivity(todayEntry.emotion)}</p>
           </div>
         </div>
@@ -140,16 +152,16 @@ const Dashboard = () => {
 
       {/* Statistics Section */}
       <div className="bg-white rounded-3xl shadow-lg p-6">
-        <h2 className="text-lg font-medium text-gray-700 mb-4">Tổng quan tháng</h2>
+        <h2 className="text-lg font-medium text-gray-700 mb-4">{t('monthly_overview')}</h2>
         <div className="grid grid-cols-2 gap-4">
           <div className="bg-purple-50 rounded-xl p-4">
             <Calendar className="w-5 h-5 text-purple-500 mb-2" />
             <div className="text-2xl font-semibold text-purple-900">{entries.length}</div>
-            <div className="text-sm text-purple-600">ngày đã ghi chép</div>
+            <div className="text-sm text-purple-600">{t('days_recorded')}</div>
           </div>
           <div className="bg-purple-50 rounded-xl p-4">
             <TrendingUp className="w-5 h-5 text-purple-500 mb-2" />
-            <div className="text-sm text-purple-600">Cảm xúc phổ biến</div>
+            <div className="text-sm text-purple-600">{t('most_common_emotion')}</div>
             <div className="text-2xl font-semibold text-purple-900">
               {getMostCommonEmotion()}
             </div>

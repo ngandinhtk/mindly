@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation, initReactI18next } from 'react-i18next';
 import { User, BarChart2 } from 'lucide-react';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Profile = () => {
+  const { t } = useTranslation();
   const [emotionHistory, setEmotionHistory] = useState([]);
   const [userData, setUserData] = useState({
-    username: 'Mindly User',
+    username: t('mindly_user'),
     avatar: null // Will store avatar URL when implemented
   });
 
@@ -32,11 +35,11 @@ const Profile = () => {
 
   const getEmotionLabel = (emotion) => {
     const labels = {
-      'very_happy': 'Rất vui',
-      'happy': 'Vui',
-      'neutral': 'Bình thường',
-      'sad': 'Buồn',
-      'very_sad': 'Rất buồn'
+      'very_happy': t('very_happy'),
+      'happy': t('happy'),
+      'neutral': t('neutral'),
+      'sad': t('sad'),
+      'very_sad': t('very_sad')
     };
     return labels[emotion] || emotion;
   };
@@ -61,6 +64,7 @@ const Profile = () => {
 
   return (
     <div className="p-4 pt-8">
+      <LanguageSwitcher /> {/* Language Switcher */}
       {/* Profile Header */}
       <div className="bg-white rounded-3xl shadow-lg p-6 mb-6">
         <div className="flex items-center space-x-4">
@@ -77,7 +81,7 @@ const Profile = () => {
           </div>
           <div>
             <h1 className="text-2xl font-semibold text-gray-800">{userData.username}</h1>
-            <p className="text-gray-500">Nhật ký cảm xúc của bạn</p>
+            <p className="text-gray-500">{t('your_emotion_journal')}</p>
           </div>
         </div>
       </div>
@@ -86,7 +90,7 @@ const Profile = () => {
       <div className="bg-white rounded-3xl shadow-lg p-6">
         <div className="flex items-center gap-2 mb-6">
           <BarChart2 className="w-5 h-5 text-purple-500" />
-          <h2 className="text-lg font-medium text-gray-700">Lịch sử cảm xúc 7 ngày qua</h2>
+          <h2 className="text-lg font-medium text-gray-700">{t('emotion_history_7_days')}</h2>
         </div>
         
         <div className="space-y-4">
