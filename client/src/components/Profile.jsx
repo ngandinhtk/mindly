@@ -24,7 +24,7 @@ const Profile = () => {
 
   const getEmotionColor = (emotion) => {
     const colors = {
-      'very_happy': '#A8E6CF',
+      'very_happy': '#e6a8dcff',
       'happy': '#C7EAE4',
       'neutral': '#FFD98E',
       'sad': '#FFB88C',
@@ -138,6 +138,11 @@ const Profile = () => {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Author Information */}
+      <div className="mt-6 text-center text-gray-500 text-sm">
+        {t('developed_by')}
       </div>
     </div>
   );

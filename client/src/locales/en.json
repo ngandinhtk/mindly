@@ -1,5 +1,5 @@
 {
-  "daily_quote": "Daily Quote",
+  "daily_quote": "Today's Quote",
   "sun": "Sun",
   "mon": "Mon",
   "tue": "Tue", 
@@ -8,6 +8,7 @@
   "fri": "Fri",
   "sat": "Sat",
   "no_entry": "No entry for this day",
+  "felt": "I feel",
   "very_happy": "Very Happy",
   "happy": "Happy",
   "neutral": "Neutral",
@@ -19,13 +20,14 @@
   "home": "Home",
   "journal": "Journal",
   "profile": "Profile",
-  "greeting": "Hello!",
+  "greeting": "Hello! How are you feeling today?",
   "how_are_you_today": "How are you feeling today?",
   "note_placeholder": "Add a note about your feelings... (optional)",
-  "save": "Save",
+  "save": "Save mood",
   "your_day": "Your Day",
   "suggestion_for_you": "Suggestion for you",
   "monthly_overview": "Monthly Overview",
   "days_recorded": "days recorded",
-  "most_common_emotion": "Most Common Emotion"
+  "most_common_emotion": "Most Common Emotion",
+  "developed_by": "Developed by: GiniD"
 }

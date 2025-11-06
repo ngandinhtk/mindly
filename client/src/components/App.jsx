@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import '../styles/index.css';
 import Dashboard from './Dashboard';
 import Profile from './Profile';
-import { Home, User } from 'lucide-react';
+import { Home, User, CircleUserRound  } from 'lucide-react';
 
 const App = () => {
   return (
@@ -28,7 +28,7 @@ const App = () => {
               to="/profile" 
               className="flex flex-col items-center p-2 text-gray-600 hover:text-purple-600 transition-colors"
             >
-              <User className="w-6 h-6" />
+              <CircleUserRound className="w-6 h-6" />
               <span className="text-xs mt-1">Hồ sơ</span>
             </Link>
           </div>
