@@ -3,6 +3,7 @@ import { useTranslation, initReactI18next } from 'react-i18next';
 import { User, BarChart2 } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
 
+
 const Profile = () => {
   const { t } = useTranslation();
   const [emotionHistory, setEmotionHistory] = useState([]);
@@ -10,6 +11,15 @@ const Profile = () => {
     username: t('mindly_user'),
     avatar: null // Will store avatar URL when implemented
   });
+  const [selectedNote, setSelectedNote] = useState(null);
+
+  const handleNoteClick = (note) => {
+    setSelectedNote(note);
+  };
+
+  const closePopup = () => {
+    setSelectedNote(null);
+  };
 
   // Load emotion history from localStorage
   useEffect(() => {
@@ -64,9 +74,8 @@ const Profile = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-4 pt-8">
-      <LanguageSwitcher /> {/* Language Switcher */}
       {/* Profile Header */}
-      <div className="bg-white rounded-3xl shadow-lg p-6 mb-6">
+      <div className="bg-white rounded-3xl shadow-lg p-6 mb-6" style={{ position: 'relative' }}>
         <div className="flex items-center space-x-4">
           <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
             {userData.avatar ? (
@@ -83,6 +92,7 @@ const Profile = () => {
             <h1 className="text-2xl font-semibold text-gray-800">{userData.username}</h1>
             <p className="text-gray-500">{t('your_emotion_journal')}</p>
           </div>
+          <LanguageSwitcher />
         </div>
       </div>
 
@@ -115,7 +125,12 @@ const Profile = () => {
                   )}
                 </div>
                 {day.note && (
-                  <p className="text-sm text-gray-500 mt-1 line-clamp-1">{day.note}</p>
+                  <p 
+                    className="text-sm text-gray-500 mt-1 line-clamp-1 cursor-pointer"
+                    onClick={() => handleNoteClick(day.note)}
+                  >
+                    {day.note}
+                  </p>
                 )}
               </div>
             </div>
@@ -126,7 +141,7 @@ const Profile = () => {
         <div className="mt-6 pt-6 border-t">
           <div className="flex flex-wrap gap-4">
             {['very_happy', 'happy', 'neutral', 'sad', 'very_sad'].map(emotion => (
-              <div key={emotion} className="flex items-center gap-2">
+              <div key={emotion} className="flex items-center gap-1">
                 <div 
                   className="w-3 h-3 rounded-full"
                   style={{ backgroundColor: getEmotionColor(emotion) }}
@@ -139,6 +154,28 @@ const Profile = () => {
           </div>
         </div>
       </div>
+
+      {/* Note Popup */}
+      {selectedNote && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center z-50 transition-opacity duration-300"
+          onClick={closePopup}
+        >
+          <div 
+            className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full transform transition-all duration-300 scale-95 opacity-0 animate-fade-in-up"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="text-xl font-semibold text-gray-800 mb-4">{t('note_details')}</h3>
+            <p className="text-gray-600 mb-6 whitespace-pre-wrap">{selectedNote}</p>
+            <button
+              onClick={closePopup}
+              className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
+            >
+              {t('close')}
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Author Information */}
       <div className="mt-6 text-center text-gray-400 text-sm">

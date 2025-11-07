@@ -3,32 +3,82 @@ export const activities = {
     "Chia sẻ niềm vui với người thân",
     "Ghi lại khoảnh khắc đẹp này",
     "Làm điều gì đó tốt cho người khác",
-    "Lên kế hoạch cho mục tiêu mới"
+    "Lên kế hoạch cho mục tiêu mới",
+    "Ăn mừng thành công của bạn bằng một bữa ăn đặc biệt",
+    "Bắt đầu một dự án sáng tạo mà bạn đã suy nghĩ",
+    "Viết một lá thư cho chính bạn trong tương lai",
+    "Làm một hành động tử tế ngẫu nhiên cho một người lạ",
+    "Tạo một danh sách phát các bài hát vui vẻ yêu thích của bạn",
+    "Nhảy múa như không có ai đang xem",
+    "Tham gia một cuộc phiêu lưu tự phát",
+    "Tự thưởng cho mình một thứ gì đó bạn đã muốn",
+    "Dành thời gian cho thiên nhiên và đánh giá cao vẻ đẹp của nó",
+    "Tổ chức một đêm chơi game với bạn bè"
   ],
   happy: [
     "Đi dạo và tận hưởng không khí",
     "Đọc một chương sách yêu thích",
     "Học một kỹ năng mới",
-    "Gọi điện thăm hỏi người thân"
+    "Gọi điện thăm hỏi người thân",
+    "Thử một công thức nấu ăn mới",
+    "Tham quan bảo tàng hoặc phòng trưng bày nghệ thuật",
+    "Dành thời gian với thú cưng",
+    "Làm vườn",
+    "Ngắm bình minh hoặc hoàng hôn",
+    "Đi xe đạp",
+    "Nghe podcast",
+    "Chơi xếp hình",
+    "Lên kế hoạch cho một chuyến đi cuối tuần",
+    "Học chơi một loại nhạc cụ"
   ],
   neutral: [
     "Dọn dẹp không gian sống",
     "Nghe nhạc thư giãn",
     "Viết nhật ký suy nghĩ",
-    "Tập thể dục nhẹ nhàng"
+    "Tập thể dục nhẹ nhàng",
+    "Sắp xếp tủ quần áo của bạn",
+    "Thiền trong 10 phút",
+    "Kéo dãn cơ thể",
+    "Đi bộ chánh niệm",
+    "Dọn dẹp không gian kỹ thuật số của bạn",
+    "Tưới cây",
+    "Nghe sách nói",
+    "Thử một loại trà hoặc cà phê mới",
+    "Duyệt qua một hiệu sách hoặc thư viện",
+    "Phác thảo hoặc vẽ nguệch ngoạc"
   ],
   sad: [
     "Đi bộ ngoài trời 15-20 phút",
     "Nghe nhạc yêu thích",
     "Gọi điện cho bạn thân",
     "Xem video/phim hài",
-    "Viết ra 3 điều biết ơn"
+    "Viết ra 3 điều biết ơn",
+    "Tắm nước ấm",
+    "Ôm một chiếc chăn mềm",
+    "Xem một bộ phim an ủi",
+    "Ăn một miếng sô cô la đen",
+    "Thực hiện một buổi tập yoga nhẹ nhàng",
+    "Nhìn vào những bức ảnh cũ khiến bạn mỉm cười",
+    "Viết ra cảm xúc của bạn trong một cuốn nhật ký",
+    "Nghe những âm thanh êm dịu như mưa hoặc sóng",
+    "Dành thời gian với một người bạn hoặc thành viên gia đình luôn ủng hộ",
+    "Vẽ hoặc sơn cảm xúc của bạn"
   ],
   very_sad: [
     "Thở sâu 5 phút",
     "Uống trà ấm và nghỉ ngơi",
     "Nói chuyện với người thân",
     "Xem ảnh những kỷ niệm đẹp",
-    "Cho phép bản thân được yếu đuối"
+    "Cho phép bản thân được yếu đuối",
+    "Quấn mình trong một chiếc chăn có trọng lượng",
+    "Cầm một tách trà hoặc cà phê ấm",
+    "Nghe một bài thiền có hướng dẫn cho nỗi buồn",
+    "Hãy khóc nếu bạn cần",
+    "Viết một lá thư cho người bạn nhớ",
+    "Nhìn vào hình ảnh của những con vật dễ thương",
+    "Ngửi một mùi hương dễ chịu như hoa oải hương hoặc hoa cúc",
+    "Lặp lại những lời khẳng định tích cực",
+    "Tập trung vào hơi thở của bạn, hít vào và thở ra",
+    "Nhắc nhở bản thân rằng không sao cả khi không ổn"
   ]
 };

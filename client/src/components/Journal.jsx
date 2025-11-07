@@ -21,17 +21,6 @@ const Calendar = ({ entries, onDateSelect, selectedDate, currentMonth, setCurren
     return entry?.emotion || null;
   };
 
-  const getEmotionColor = (emotion) => {
-    const colors = {
-      'very_happy': '#A8E6CF',
-      'happy': '#C7EAE4',
-      'neutral': '#FFD98E',
-      'sad': '#FFB88C',
-      'very_sad': '#FF8B94'
-    };
-    return colors[emotion] || 'transparent';
-  };
-
   const changeMonth = (delta) => {
     setCurrentMonth(prev => {
       const newDate = new Date(prev);
@@ -53,7 +42,8 @@ const Calendar = ({ entries, onDateSelect, selectedDate, currentMonth, setCurren
     // Add cells for each day of the month
     for (let day = 1; day <= totalDays; day++) {
       const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
-      const emotion = getEmotionForDate(date);
+      const emotionId = getEmotionForDate(date);
+      const emotionObject = emotions.find(e => e.id === emotionId);
       const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString();
       const isToday = date.toDateString() === new Date().toDateString();
 
@@ -65,13 +55,17 @@ const Calendar = ({ entries, onDateSelect, selectedDate, currentMonth, setCurren
             isSelected ? 'ring-2 ring-purple-500' : ''
           }`}
         >
-          <div 
+          <div
             className={`w-10 h-10 rounded-full flex items-center justify-center relative
               ${isToday ? 'ring-2 ring-purple-300' : ''}
             `}
-            style={{ backgroundColor: emotion ? getEmotionColor(emotion) : 'transparent' }}
+            style={{ backgroundColor: emotionObject ? emotionObject.color : 'transparent' }}
           >
-            {day}
+            {emotionObject ? (
+              <span className="text-2xl">{emotionObject.emoji}</span>
+            ) : (
+              day
+            )}
           </div>
         </button>
       );

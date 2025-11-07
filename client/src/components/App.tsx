@@ -11,7 +11,7 @@ const App: React.FC = () => {
   const { t } = useTranslation();
   return (
     <Router>
-      <div className="app min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+      <div className="app min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-60">
         <Switch>
           <Route exact path="/" component={Dashboard} />
           <Route path="/profile" component={Profile} />
@@ -19,7 +19,7 @@ const App: React.FC = () => {
         </Switch>
 
         {/* Navigation Bar */}
-        <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 py-2">
+        <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 py-1">
           <div className="max-w-2xl mx-auto flex justify-around">
             <Link 
               to="/" 

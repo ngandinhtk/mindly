@@ -4,21 +4,34 @@ import { useTranslation } from 'react-i18next';
 const LanguageSwitcher: React.FC = () => {
   const { i18n } = useTranslation();
 
-  const changeLanguage = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    i18n.changeLanguage(event.target.value);
+  const toggleLanguage = () => {
+    const newLanguage = i18n.language === 'en' ? 'vi' : 'en';
+    i18n.changeLanguage(newLanguage);
   };
 
   return (
-    <div className="language-switcher">
-      <select
-        onChange={changeLanguage}
-        value={i18n.language}
-        className="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
-      >
-        <option value="en">English</option>
-        <option value="vi">Tiếng Việt</option>
-      </select>
-    </div>
+    <button
+      onClick={toggleLanguage}
+      className="language-switcher-button"
+      data-testid="language-switcher"
+      style={{
+        position: 'absolute',
+        top: '45px',
+        right: '20px',
+        border: '1px solid #707070ff',
+        padding: '5px 10px',
+        borderRadius: '5px',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '50px',
+        cursor: 'pointer',
+        textTransform: 'uppercase',
+        color: '#707070ff',
+        backgroundColor: 'transparent',
+      }}
+    >
+      {i18n.language === 'en' ? 'EN' : 'VI'}
+    </button>
   );
 };
 

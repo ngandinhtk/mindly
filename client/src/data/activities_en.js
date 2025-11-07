@@ -3,32 +3,82 @@ export const activities = {
     "Share your joy with loved ones",
     "Capture this beautiful moment",
     "Do something good for others",
-    "Plan for new goals"
+    "Plan for new goals",
+    "Celebrate your success with a special meal",
+    "Start a creative project you've been thinking about",
+    "Write a letter to your future self",
+    "Do a random act of kindness for a stranger",
+    "Create a playlist of your favorite happy songs",
+    "Dance like nobody's watching",
+    "Go on a spontaneous adventure",
+    "Treat yourself to something you've been wanting",
+    "Spend time in nature and appreciate its beauty",
+    "Host a game night with friends"
   ],
   happy: [
     "Take a walk and enjoy the fresh air",
     "Read a favorite chapter",
     "Learn a new skill",
-    "Call and visit loved ones"
+    "Call and visit loved ones",
+    "Try a new recipe",
+    "Visit a museum or art gallery",
+    "Spend time with a pet",
+    "Do some gardening",
+    "Watch the sunrise or sunset",
+    "Go for a bike ride",
+    "Listen to a podcast",
+    "Do a puzzle",
+    "Plan a weekend trip",
+    "Learn to play a musical instrument"
   ],
   neutral: [
     "Clean up your living space",
     "Listen to relaxing music",
     "Write a thought journal",
-    "Do light exercise"
+    "Do light exercise",
+    "Organize your closet",
+    "Meditate for 10 minutes",
+    "Stretch your body",
+    "Go for a mindful walk",
+    "Declutter your digital space",
+    "Water your plants",
+    "Listen to an audiobook",
+    "Try a new type of tea or coffee",
+    "Browse a bookstore or library",
+    "Sketch or doodle"
   ],
   sad: [
     "Walk outdoors for 15-20 minutes",
     "Listen to your favorite music",
     "Call a close friend",
     "Watch a funny video/movie",
-    "Write down 3 things you are grateful for"
+    "Write down 3 things you are grateful for",
+    "Take a warm bath",
+    "Cuddle with a soft blanket",
+    "Watch a comfort movie",
+    "Eat a piece of dark chocolate",
+    "Do a gentle yoga session",
+    "Look at old photos that make you smile",
+    "Write down your feelings in a journal",
+    "Listen to calming sounds like rain or waves",
+    "Spend time with a supportive friend or family member",
+    "Draw or paint your emotions"
   ],
   very_sad: [
     "Breathe deeply for 5 minutes",
     "Drink warm tea and rest",
     "Talk to a loved one",
     "Look at photos of beautiful memories",
-    "Allow yourself to be vulnerable"
+    "Allow yourself to be vulnerable",
+    "Wrap yourself in a weighted blanket",
+    "Hold a warm cup of tea or coffee",
+    "Listen to a guided meditation for sadness",
+    "Cry it out if you need to",
+    "Write a letter to someone you miss",
+    "Look at pictures of cute animals",
+    "Smell a comforting scent like lavender or chamomile",
+    "Repeat positive affirmations",
+    "Focus on your breath, in and out",
+    "Remind yourself that it's okay to not be okay"
   ]
 };

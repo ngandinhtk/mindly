@@ -1,10 +1,11 @@
 import React from 'react';
-// import '../styles/index.css';
 import Dashboard from './components/Dashboard';
+// import LanguageSwitcher from './components/LanguageSwitcher';
 
 const App: React.FC = () => {
     return (
-        <div className="app">
+        <div className="app" >
+            {/* <LanguageSwitcher /> */}
             <Dashboard />
         </div>
     );
