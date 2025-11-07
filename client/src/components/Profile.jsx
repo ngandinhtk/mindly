@@ -63,12 +63,12 @@ const Profile = () => {
   };
 
   return (
-    <div className="p-4 pt-8">
+    <div className="max-w-3xl mx-auto p-4 pt-8">
       <LanguageSwitcher /> {/* Language Switcher */}
       {/* Profile Header */}
       <div className="bg-white rounded-3xl shadow-lg p-6 mb-6">
         <div className="flex items-center space-x-4">
-          <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center">
+          <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
             {userData.avatar ? (
               <img 
                 src={userData.avatar} 
@@ -141,11 +141,11 @@ const Profile = () => {
       </div>
 
       {/* Author Information */}
-      <div className="mt-6 text-center text-gray-500 text-sm">
+      <div className="mt-6 text-center text-gray-400 text-sm">
         {t('developed_by')}
       </div>
     </div>
   );
 };
-
+                                                                                                  
 export default Profile;

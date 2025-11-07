@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar as CalendarIcon, Quote } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { emotions } from '../data/emotions';
+import EmotionStats from './EmotionStats';
 
-const Calendar = ({ entries, onDateSelect, selectedDate }) => {
+const Calendar = ({ entries, onDateSelect, selectedDate, currentMonth, setCurrentMonth }) => {
   const { t } = useTranslation();
-  const [currentMonth, setCurrentMonth] = useState(new Date());
 
   const daysInMonth = (date) => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
@@ -121,7 +120,7 @@ const Journal = () => {
   const { t, i18n } = useTranslation();
   const [entries, setEntries] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [dailyQuote, setDailyQuote] = useState(null);
+  const [currentMonth, setCurrentMonth] = useState(new Date());
 
   useEffect(() => {
     // Load entries from localStorage
@@ -129,18 +128,6 @@ const Journal = () => {
     if (savedEntries) {
       setEntries(JSON.parse(savedEntries));
     }
-
-    // Dynamically import quotes based on language
-    const loadQuotes = async () => {
-      const lang = i18n.language;
-      const quotesModule = await import(`../data/quotes_${lang}.js`);
-      const quotes = quotesModule.quotes;
-      const today = new Date().getDate();
-      const quoteIndex = today % quotes.length;
-      setDailyQuote(quotes[quoteIndex]);
-    };
-
-    loadQuotes();
   }, [i18n.language]); // Re-run when language changes
 
   const handleDateSelect = (date) => {
@@ -156,27 +143,18 @@ const Journal = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-4 pt-8">
-      {/* Daily Quote */}
-      <div className="bg-white rounded-3xl shadow-lg p-6 mb-6">
-        <h1 className="text-gray-700 mb-4 flex items-center gap-2">
-          <CalendarIcon className="w-5 h-5 text-purple-500" />
-          {t('daily_quote')}
-        </h1>
-        <div className="flex items-start gap-4">
-          <Quote className="w-8 h-8 text-purple-400 flex-shrink-0" />
-          <div>
-            <p className="text-lg text-gray-800 font-medium mb-2">"{dailyQuote?.text}"</p>
-            <p className="text-sm text-gray-500">- {dailyQuote?.author}</p>
-          </div>
-        </div>
-      </div>
 
       {/* Calendar */}
       <Calendar 
         entries={entries}
         onDateSelect={handleDateSelect}
         selectedDate={selectedDate}
+        currentMonth={currentMonth}
+        setCurrentMonth={setCurrentMonth}
       />
+
+      {/* Emotion Stats */}
+      <EmotionStats entries={entries} currentMonth={currentMonth} />
 
       {/* Selected Day Details */}
       {selectedDate && (

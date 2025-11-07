@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, TrendingUp } from 'lucide-react';
+import { Calendar, TrendingUp, Quote, CalendarIcon } from 'lucide-react';
 import { emotions } from '../data/emotions';
 import { useTranslation } from 'react-i18next';
 
@@ -10,6 +10,7 @@ const Dashboard = () => {
   const [entries, setEntries] = React.useState([]);
   const [todayEntry, setTodayEntry] = React.useState(null);
   const [activities, setActivities] = React.useState({});
+  const [dailyQuote, setDailyQuote] = React.useState(null);
 
   // Load data from localStorage
   React.useEffect(() => {
@@ -25,7 +26,17 @@ const Dashboard = () => {
       setActivities(activitiesModule.activities);
     };
 
+    const loadQuotes = async () => {
+      const lang = i18n.language;
+      const quotesModule = await import(`../data/quotes_${lang}.js`);
+      const quotes = quotesModule.quotes;
+      const today = new Date().getDate();
+      const quoteIndex = today % quotes.length;
+      setDailyQuote(quotes[quoteIndex]);
+    };
+
     loadActivities();
+    loadQuotes();
   }, [i18n.language]); // Re-run when language changes
 
   // Check today's entry
@@ -88,6 +99,21 @@ const Dashboard = () => {
         <h1 className="text-2xl font-semibold text-gray-800">{t('greeting')}</h1>
         <div className="text-sm text-gray-500">
           {new Date().toLocaleDateString(i18n.language, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+        </div>
+      </div>
+
+      {/* Daily Quote */}
+      <div className="bg-white rounded-3xl shadow-lg p-6 mb-6">
+        <h1 className="text-gray-700 mb-4 flex items-center gap-2">
+          <CalendarIcon className="w-5 h-5 text-purple-500" />
+          {t('daily_quote')}
+        </h1>
+        <div className="flex items-start gap-4">
+          <Quote className="w-8 h-8 text-purple-400 flex-shrink-0" />
+          <div>
+            <p className="text-lg text-gray-800 font-medium mb-2">"{dailyQuote?.text}"</p>
+            <p className="text-sm text-gray-500">- {dailyQuote?.author}</p>
+          </div>
         </div>
       </div>
 
