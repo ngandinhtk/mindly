@@ -35,7 +35,7 @@ const Profile = () => {
   const getEmotionColor = (emotion) => {
     const colors = {
       'very_happy': '#e6a8dcff',
-      'happy': '#C7EAE4',
+      'happy': '#cffff7ff',
       'neutral': '#FFD98E',
       'sad': '#FFB88C',
       'very_sad': '#FF8B94'
