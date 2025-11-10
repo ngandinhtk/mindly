@@ -1,5 +1,11 @@
 {
-  "devDependencies": {
-    "gh-pages": "^6.3.0"
+  "name": "mindly-heroku-root",
+  "version": "1.0.0",
+  "description": "Root for Heroku deployment",
+  "scripts": {
+    "heroku-postbuild": "npm install --prefix server && npm run build --prefix server && npm install --prefix client && npm run build --prefix client"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }

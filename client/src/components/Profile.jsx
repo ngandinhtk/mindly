@@ -73,7 +73,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-4 pt-8">
+    <div className="max-w-3xl mx-auto p-4 pt-6">
       {/* Profile Header */}
       <div className="bg-white rounded-3xl shadow-lg p-6 mb-6" style={{ position: 'relative' }}>
         <div className="flex items-center space-x-4">

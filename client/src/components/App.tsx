@@ -11,9 +11,9 @@ const App: React.FC = () => {
   const { t } = useTranslation();
   return (
     <Router>
-      <div className="app min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-60">
+      <div className="app h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-60">
         <Switch>
-          <Route exact path="/mindly" component={Dashboard} />
+          <Route exact path="/" component={Dashboard} />
           <Route path="/profile" component={Profile} />
           <Route path="/journal" component={Journal} />
         </Switch>
