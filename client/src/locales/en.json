@@ -31,5 +31,8 @@
   "most_common_emotion": "Most Common Emotion",
   "developed_by": "© 2025 - Developed by GiniD",
   "monthly_summary": "Monthly Summary",
-  "note_details": "Note Details"
+  "note_details": "Note Details",
+  "profile_public_warning": "This information will be displayed publicly so be careful what you share.",
+  "username": "Username",
+  "submit": "Submit"
 }

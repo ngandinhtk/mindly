@@ -2,6 +2,7 @@ import React from 'react';
 import { Calendar, TrendingUp, Quote, CalendarIcon } from 'lucide-react';
 import { emotions } from '../data/emotions';
 import { useTranslation } from 'react-i18next';
+import UserPage from './UserPage';
 
 const Dashboard = () => {
   const { t, i18n } = useTranslation();
@@ -11,7 +12,10 @@ const Dashboard = () => {
   const [todayEntry, setTodayEntry] = React.useState(null);
   const [activities, setActivities] = React.useState({});
   const [dailyQuote, setDailyQuote] = React.useState(null);
-
+  const [UserPage, setUserData] = React.useState({
+    username: null,
+    avatar: null
+  });
   // Load data from localStorage
   React.useEffect(() => {
     const savedEntries = localStorage.getItem('moodEntries');
@@ -94,7 +98,11 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4 pt-6">
+    <div>
+      {
+        UserPage.username && UserPage.username !== null ? (
+
+             <div  className="max-w-2xl mx-auto p-4 pt-6">
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-2xl font-semibold text-gray-800">{t('greeting')}</h1>
         <div className="text-sm text-gray-500 ml-2">
@@ -194,8 +202,18 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+        </div>
+
+         ) : (
+          <div>
+            <UserPage />  
+          </div>
+         )
+      }
+    
     </div>
   );
+
 };
 
 export default Dashboard;

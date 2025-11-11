@@ -31,5 +31,8 @@
   "most_common_emotion": "Cảm xúc phổ biến",
   "developed_by": "© 2025 - Phát triển bởi GiniD",
   "monthly_summary": "Tổng kết tháng",
-  "note_details" : "Chi tiết ghi chú"
+  "note_details" : "Chi tiết ghi chú",
+  "profile_public_warning": "Thông tin này sẽ được hiển thị công khai vì vậy hãy cẩn thận với những gì bạn chia sẻ.",
+  "username": "Tên người dùng",
+  "submit": "Gửi"
 }
