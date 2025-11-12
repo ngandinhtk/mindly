@@ -20,7 +20,7 @@
   "home": "Home",
   "journal": "Journal",
   "profile": "Profile",
-  "greeting": "Hello! How are you feeling today?",
+  "greeting": "Hi! How are you feeling today? ",
   "how_are_you_today": "How are you feeling today?",
   "note_placeholder": "Add a note about your feelings... (optional)",
   "save": "Save mood",
@@ -34,5 +34,7 @@
   "note_details": "Note Details",
   "profile_public_warning": "This information will be displayed publicly so be careful what you share.",
   "username": "Username",
-  "submit": "Submit"
+  "submit": "Submit",
+  "clear_data_confirmation": "Are you sure you want to clear all your mood entries? This action cannot be undone.",
+  "logout_confirmation": "Are you sure you want to log out?"
 }

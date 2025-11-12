@@ -12,6 +12,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={Dashboard} />
           <Route path="/profile" component={Profile} />
+            
         </Switch>
 
         {/* Navigation Bar */}

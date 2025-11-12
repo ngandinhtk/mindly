@@ -20,7 +20,7 @@
   "home": "Trang chủ",
   "journal": "Nhật ký",
   "profile": "Hồ sơ",
-  "greeting": "Xin chào! Hôm nay bạn cảm thấy thế nào?",
+  "greeting": "Xin chào! Hôm nay bạn cảm thấy thế nào? ",
   "how_are_you_today": "Hôm nay bạn cảm thấy thế nào?",
   "note_placeholder": "Ghi chú thêm về cảm xúc của bạn... (không bắt buộc)",
   "save": "Lưu lại cảm xúc",
@@ -34,5 +34,7 @@
   "note_details" : "Chi tiết ghi chú",
   "profile_public_warning": "Thông tin này sẽ được hiển thị công khai vì vậy hãy cẩn thận với những gì bạn chia sẻ.",
   "username": "Tên người dùng",
-  "submit": "Gửi"
+  "submit": "Gửi",
+  "clear_data_confirmation": "Bạn có chắc chắn muốn xóa tất cả các mục tâm trạng của mình không? Hành động này không thể được hoàn tác.",
+  "logout_confirmation": "Bạn có chắc chắn muốn đăng xuất không?"
 }

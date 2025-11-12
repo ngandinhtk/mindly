@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation, initReactI18next } from 'react-i18next';
-import { User, BarChart2 } from 'lucide-react';
+import { User, BarChart2, LogOut, Trash2 } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
 
 
@@ -8,7 +8,7 @@ const Profile = () => {
   const { t } = useTranslation();
   const [emotionHistory, setEmotionHistory] = useState([]);
   const [userData, setUserData] = useState({
-    username: t('mindly_user'),
+    username: '',
     avatar: null // Will store avatar URL when implemented
   });
   const [selectedNote, setSelectedNote] = useState(null);
@@ -21,7 +21,21 @@ const Profile = () => {
     setSelectedNote(null);
   };
 
-  // Load emotion history from localStorage
+  const handleLogout = () => {
+    if (window.confirm(t('logout_confirmation'))) {
+      localStorage.removeItem('username');
+      window.location.href = '/';
+    }
+  };
+
+  const handleClearData = () => {
+    if (window.confirm(t('clear_data_confirmation'))) {
+      localStorage.removeItem('moodEntries');
+      window.location.reload();
+    }
+  };
+
+  // Load emotion history and username from localStorage
   useEffect(() => {
     const savedEntries = localStorage.getItem('moodEntries');
     if (savedEntries) {
@@ -29,6 +43,11 @@ const Profile = () => {
       // Sort entries by date
       const sortedEntries = entries.sort((a, b) => new Date(a.date) - new Date(b.date));
       setEmotionHistory(sortedEntries);
+    }
+
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      setUserData(prevUserData => ({ ...prevUserData, username: storedUsername }));
     }
   }, []);
 
@@ -92,7 +111,23 @@ const Profile = () => {
             <h1 className="text-2xl font-semibold text-gray-800">{userData.username}</h1>
             <p className="text-gray-500">{t('your_emotion_journal')}</p>
           </div>
-          <LanguageSwitcher />
+          <div className="flex items-center space-x-2">
+            <LanguageSwitcher />
+            <button
+              onClick={handleLogout}
+              className="flex items-center p-2 text-gray-600 hover:text-red-600 transition-colors"
+              title={t('logout')}
+            >
+              <LogOut className="w-6 h-6" />
+            </button>
+            <button
+              onClick={handleClearData}
+              className="flex items-center p-2 text-gray-600 hover:text-red-600 transition-colors"
+              title={t('clear_data')}
+            >
+              <Trash2 className="w-6 h-6" />
+            </button>
+          </div>
         </div>
       </div>
 
