@@ -12,21 +12,29 @@ const Profile = () => {
     avatar: null // Will store avatar URL when implemented
   });
   const [selectedNote, setSelectedNote] = useState(null);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   const handleNoteClick = (note) => {
     setSelectedNote(note);
   };
+  
 
   const closePopup = () => {
     setSelectedNote(null);
   };
 
   const handleLogout = () => {
-    if (window.confirm(t('logout_confirmation'))) {
-      localStorage.removeItem('username');
-      window.location.href = '/';
-    }
+    setShowLogoutConfirm(true);
   };
+
+  const confirmLogout = () => {
+    localStorage.removeItem('username');
+    window.location.href = '/';
+  }
+
+  const cancelLogout = () => {
+    setShowLogoutConfirm(false);
+  }
 
   const handleClearData = () => {
     if (window.confirm(t('clear_data_confirmation'))) {
@@ -94,7 +102,7 @@ const Profile = () => {
   return (
     <div className="max-w-3xl mx-auto p-4 pt-6">
       {/* Profile Header */}
-      <div className="bg-white rounded-3xl shadow-lg p-6 mb-6" style={{ position: 'relative' }}>
+      <div className="bg-white rounded-3xl shadow-lg p-6 mb-6 flex items-center justify-between" >
         <div className="flex items-center space-x-4">
           <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
             {userData.avatar ? (
@@ -111,7 +119,7 @@ const Profile = () => {
             <h1 className="text-2xl font-semibold text-gray-800">{userData.username}</h1>
             <p className="text-gray-500">{t('your_emotion_journal')}</p>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center flex space-x-2 ml-auto">
             <LanguageSwitcher />
             <button
               onClick={handleLogout}
@@ -120,13 +128,13 @@ const Profile = () => {
             >
               <LogOut className="w-6 h-6" />
             </button>
-            <button
+            {/* <button
               onClick={handleClearData}
               className="flex items-center p-2 text-gray-600 hover:text-red-600 transition-colors"
               title={t('clear_data')}
             >
               <Trash2 className="w-6 h-6" />
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
@@ -208,6 +216,38 @@ const Profile = () => {
             >
               {t('close')}
             </button>
+          </div>
+        </div>
+      )}
+
+
+
+      {/* Logout Confirmation Popup */}
+      {showLogoutConfirm && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center z-50 transition-opacity duration-300"
+          onClick={cancelLogout}
+        >
+          <div 
+            className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full transform transition-all duration-300 scale-95 opacity-0 animate-fade-in-up"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="text-xl font-semibold text-gray-800 mb-4">{t('logout')}</h3>
+            <p className="text-gray-600 mb-6">{t('logout_confirmation')}</p>
+            <div className="flex justify-end gap-4">
+              <button
+                onClick={cancelLogout}
+                className="px-6 py-2 rounded-lg text-gray-600 bg-gray-100 hover:bg-gray-200 transition-colors"
+              >
+                {t('cancel')}
+              </button>
+              <button
+                onClick={confirmLogout}
+                className="px-6 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition-colors"
+              >
+                {t('logout')}
+              </button>
+            </div>
           </div>
         </div>
       )}

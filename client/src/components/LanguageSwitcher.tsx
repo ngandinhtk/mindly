@@ -15,19 +15,20 @@ const LanguageSwitcher: React.FC = () => {
       className="language-switcher-button"
       data-testid="language-switcher"
       style={{
-        position: 'absolute',
-        top: '45px',
-        right: '20px',
-        border: '1px solid #707070ff',
+        // position: 'absolute',
+        // top: '45px',
+        // right: '20px',
+        // border: '1px solid #707070ff',
         padding: '5px 10px',
         borderRadius: '5px',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '50px',
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        width: '40px',
+        height: '40px',
         cursor: 'pointer',
         textTransform: 'uppercase',
-        color: '#707070ff',
-        backgroundColor: 'transparent',
+        color: '#252525ff',
+        // backgroundColor: 'transparent',
       }}
     >
       {i18n.language === 'en' ? 'EN' : 'VI'}

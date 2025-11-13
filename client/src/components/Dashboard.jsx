@@ -112,7 +112,7 @@ const Dashboard = () => {
         {/* Daily Quote */}
         <div className="bg-white rounded-3xl shadow-lg p-6 mb-6">
           <h1 className="text-gray-700 mb-4 flex items-center gap-2">
-            <CalendarIcon className="w-7 h-7 text-purple-600" />
+            <CalendarIcon className="w-8 h-8 text-purple-600" />
             {t('daily_quote')}
           </h1>
           <div className="flex items-start gap-4">
