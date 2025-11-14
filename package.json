@@ -5,8 +5,8 @@
   "description": "Root for Heroku deployment",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -b master -d build"
-
+    "deploy": "gh-pages -b master -d build",
+    "build": "react-scripts build"
   },
   "engines": {
     "node": "16.x"
