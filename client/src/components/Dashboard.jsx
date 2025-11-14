@@ -1,7 +1,10 @@
-import React from 'react';
-import { Calendar, TrendingUp, Quote, CalendarIcon } from 'lucide-react';
+// import React from 'react';
+import React, { useState } from 'react';
+import { Calendar, TrendingUp, LogOut , Heart, Brain, Plus, Menu, X  } from 'lucide-react';
 import { emotions } from '../data/emotions';
 import { useTranslation } from 'react-i18next';
+// import { useNavigate } from 'react-router-dom';
+
 
 const Dashboard = () => {
   const { t, i18n } = useTranslation();
@@ -10,8 +13,20 @@ const Dashboard = () => {
   const [entries, setEntries] = React.useState([]);
   const [todayEntry, setTodayEntry] = React.useState(null);
   const [activities, setActivities] = React.useState({});
+    const [selectedMood, setSelectedMood] = useState(null);
   const [dailyQuote, setDailyQuote] = React.useState(null);
   const [username, setUsername] = React.useState(null);
+  const [showMenu, setShowMenu] = React.useState(false);
+    const [activeTab, setActiveTab] = useState('journal');
+
+  // const navigate = useNavigate();
+
+
+
+  const handleLogout = () => {
+    localStorage.removeItem('username');
+    navigate('/user');
+  };
 
   // Load data from localStorage
   React.useEffect(() => {
@@ -102,33 +117,60 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div className="max-w-2xl mx-auto p-4 pt-6">
-        <div className="flex items-center justify-between mb-4 p-1">
+      <div className="max-w-2xl ">
+        {/* <div className="flex items-center justify-between mb-4 p-1">
           <h1 className="text-2xl font-semibold text-gray-800">{t('greeting')}<span className='italic font-light'>{username}</span></h1> 
-          <div className="text-sm text-gray-500 ml-4">
-            {new Date().toLocaleDateString(i18n.language, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' })}
-          </div>
-        </div>
-
-        {/* Daily Quote */}
-        <div className="bg-white rounded-3xl shadow-lg p-6 mb-6">
-          <h1 className="text-gray-700 text-xl mb-4 flex items-center gap-2">
-            <CalendarIcon className="w-8 h-8 text-purple-600" />
-            {t('daily_quote')}
-          </h1>
-          <div className="flex items-start gap-4">
-            <Quote className="w-7 h-7 text-purple-400 flex-shrink-0" />
-            <div>
-              <p className="text-lg text-gray-800 font-medium mb-2">"{dailyQuote?.text}"</p>
-              <p className="text-sm text-gray-500">- {dailyQuote?.author}</p>
+          <div className="flex items-center">
+            <div className="text-sm text-gray-500 mr-4">
+              {new Date().toLocaleDateString(i18n.language, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' })}
             </div>
+            <button onClick={handleLogout} title={t('logout')} className="flex items-center text-gray-500 hover:text-gray-700">
+              <LogOut className="w-5 h-5" />
+              <span className="ml-2">{t('logout')}</span>
+            </button>
           </div>
-        </div>
+        </div> */}
+
+
+       {/* Today's Entry Card */}
+            <div className="px-8 pt-8 transform hover:scale-[1.01] transition-transform">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-800 mb-1">{t('greeting')}<span className='italic font-light'>{username}</span></h2>
+                  <p className="text-gray-500 flex items-center">
+                    <Calendar className="w-4 h-4 mr-2" />
+                   {new Date().toLocaleDateString(i18n.language, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+
+                  </p>
+                </div>
+              </div>  
+          </div>
+      
+           {/* Mood Selection */}
+             
 
         {!todayEntry ? (
-          <div className="bg-white rounded-3xl shadow-lg p-6 mb-6">
+          <div className="p-6 mb-6">
             <h2 className="text-lg font-medium text-gray-700 mb-4">{t('how_are_you_today')}</h2>
-            <div className="grid grid-cols-5 gap-4 mb-6">
+             <div className="mb-6 px-8">
+                {/* <p className="text-sm font-medium text-gray-600 mb-3">Chọn tâm trạng của bạn</p> */}
+                <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
+                  {emotions.map((mood, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => handleEmotionSelect(mood.id)}
+                      className={`${mood.color} p-4 rounded-xl transition-all transform hover:scale-105 ${
+                        selectedMood?.emoji === mood.emoji ? 'ring-2 ring-purple-500 scale-105' : ''
+                      }`}
+                    >
+                      <div className="text-3xl mb-1">{mood.emoji}</div>
+                      <div className="text-xs font-medium text-gray-700">{mood.label}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+            {/* <div className="grid grid-cols-5 gap-4 mb-6">
               {emotions.map(emotion => (
                 <button
                   key={emotion.id}
@@ -143,24 +185,26 @@ const Dashboard = () => {
                   <span className="text-sm text-gray-600">{emotion.label}</span>
                 </button>
               ))}
-            </div>
+            </div> */}
             
             {selectedEmotion && (
-              <>
+              <div className="space-y-3">
                 <textarea
                   value={note}
                   onChange={(e) => setNote(e.target.value)}
                   placeholder={t('note_placeholder')}
-                  className="w-full p-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-400 focus:border-transparent resize-none"
+                  className=" shadow-lg w-full h-32 px-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-xl focus:outline-none focus:border-purple-300 focus:bg-white transition-all resize-none"
                   rows={3}
                 />
-                <button
+      
+                 <button  
                   onClick={handleSaveEntry}
-                  className="mt-4 w-full bg-purple-600 text-white py-2 px-4 rounded-xl hover:bg-purple-700 transition-colors"
-                >
-                  {t('save')}
+
+                 className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium rounded-xl hover:shadow-lg transform hover:scale-[1.02] transition-all flex items-center justify-center space-x-2">
+                  <Plus className="w-5 h-5" />
+                  <span>{t('save')}</span>
                 </button>
-              </>
+              </div>
             )}
           </div>
         ) : (

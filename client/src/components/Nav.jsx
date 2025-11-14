@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import '../styles/index.css';
 import Dashboard from './Dashboard';
 import Profile from './Profile';
-import { Home, CircleUserRound  } from 'lucide-react';
+import { Home, CircleUserRound, TrendingUp  } from 'lucide-react';
 
 const App = () => {
   return (
@@ -22,6 +22,13 @@ const App = () => {
               className="flex flex-col items-center  text-gray-600 hover:text-purple-600 transition-colors"
             >
               <Home className="w-6 h-6" />
+              <span className="text-xs mt-1">Trang chủ</span>
+            </Link>
+            <Link 
+              to="/insights" 
+              className="flex flex-col items-center  text-gray-600 hover:text-purple-600 transition-colors"
+            >
+               <Home className="w-6 h-6" />
               <span className="text-xs mt-1">Trang chủ</span>
             </Link>
             <Link 

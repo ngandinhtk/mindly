@@ -39,5 +39,6 @@
   "logout_confirmation": "Are you sure you want to log out?",
   "logout": "Log Out",
   "cancel": "Cancel",
-  "close": "Close"
+  "close": "Close",
+  "insights": "Insights"
 }

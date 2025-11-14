@@ -22,11 +22,11 @@ const UserPage = ({ onLogin }) => {
         <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-3xl mx-4 px-6  py-8">
           <div className="mb-4">
             <h2 className="text-left text-3xl font-bold text-gray-900">Welcome to Mindly!</h2>
-            <p className="mt-2 text-left  italic text-gray-600">Let me know your name</p>
+            <p className="mt-2 text-left italic text-gray-600">Let me know your name</p>
           </div>
           <div className="mb-4">
             {/* <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">Username</label> */}
-            <div className="flex items-center appearance-none flex justify-between w-full">
+            <div className="flex items-center appearance-none">
               <input
                 id="username"
                 type="text"
@@ -38,7 +38,7 @@ const UserPage = ({ onLogin }) => {
               />
               <button
                 type="submit"
-                className=" flex flex-col items-center font-mono p-2 rounded-xl bg-purple-700 ring-2 ring-purple-400  duration-300 text-gray-100 font-bold rounded-full hover:shadow-lg hover:shadow-rose-400 dark:shadow-md "
+                className="bg-[#975ebd] flex flex-col items-center font-mono p-2 rounded-xl bg-purple-100 ring-2 ring-purple-400 hover:bg-[#fc76b9] duration-300 text-gray-100 font-bold rounded-full hover:shadow-lg hover:shadow-rose-400 dark:shadow-md dark:shadow-purple-500"
               >
                 Submit
               </button>

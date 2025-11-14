@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { emotions } from '../data/emotions';
 import EmotionStats from './EmotionStats';
+import { CalendarIcon, Quote  } from 'lucide-react';
 
 const Calendar = ({ entries, onDateSelect, selectedDate, currentMonth, setCurrentMonth }) => {
   const { t } = useTranslation();
@@ -115,6 +116,8 @@ const Journal = () => {
   const [entries, setEntries] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [dailyQuote, setDailyQuote] = React.useState(null);
+  
 
   useEffect(() => {
     // Load entries from localStorage
@@ -122,6 +125,18 @@ const Journal = () => {
     if (savedEntries) {
       setEntries(JSON.parse(savedEntries));
     }
+
+    // Fetch daily quote
+        const loadQuotes = async () => {
+      const lang = i18n.language;
+      const quotesModule = await import(`../data/quotes_${lang}.js`);
+      const quotes = quotesModule.quotes;
+      const today = new Date().getDate();
+      const quoteIndex = today % quotes.length;
+      setDailyQuote(quotes[quoteIndex]);
+    };
+    loadQuotes();
+
   }, [i18n.language]); // Re-run when language changes
 
   const handleDateSelect = (date) => {
@@ -136,7 +151,22 @@ const Journal = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-4 pt-6">
+    <div className="max-w-3xl ">
+
+      {/* Daily Quote */}
+             <div className="p-6 mb-6">
+                <h1 className="text-gray-700 text-xl mb-4 flex items-center gap-2">
+                  <CalendarIcon className="w-8 h-8 text-purple-600" />
+                  {t('daily_quote')}
+                </h1>
+                <div className="flex items-start gap-4">
+                  <Quote className="w-7 h-7 text-purple-400 flex-shrink-0" />
+                  <div>
+                    <p className="text-lg text-gray-800 font-medium mb-2">"{dailyQuote?.text}"</p>
+                    <p className="text-sm text-gray-500">- {dailyQuote?.author}</p>
+                  </div>
+                </div>
+              </div>
 
       {/* Calendar */}
       <Calendar 
@@ -152,7 +182,7 @@ const Journal = () => {
 
       {/* Selected Day Details */}
       {selectedDate && (
-        <div className="mt-6 bg-white rounded-3xl shadow-lg p-6">
+        <div className="mt-6 p-8 rounded-3xl shadow-lg p-6">
           <h3 className="text-lg font-medium text-gray-700 mb-4">
             {selectedDate.toLocaleDateString('en-US', { 
               weekday: 'long', 
