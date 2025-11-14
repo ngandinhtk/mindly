@@ -26,7 +26,7 @@ const UserPage = ({ onLogin }) => {
           </div>
           <div className="mb-4">
             {/* <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">Username</label> */}
-            <div className="flex items-center appearance-none">
+            <div className="flex items-center appearance-none flex justify-between w-full">
               <input
                 id="username"
                 type="text"
