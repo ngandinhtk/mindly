@@ -38,5 +38,7 @@
   "clear_data_confirmation": "Bạn có chắc chắn muốn xóa tất cả các mục tâm trạng của mình không? Hành động này không thể được hoàn tác.",
   "logout_confirmation": "Bạn có chắc chắn muốn đăng xuất không?",
   "logout": "Đăng xuất",
-  "cancel": "Hủy"
+  "cancel": "Hủy",
+  "close": "Đóng"
+
 }

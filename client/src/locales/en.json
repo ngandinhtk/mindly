@@ -38,5 +38,6 @@
   "clear_data_confirmation": "Are you sure you want to clear all your mood entries? This action cannot be undone.",
   "logout_confirmation": "Are you sure you want to log out?",
   "logout": "Log Out",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "close": "Close"
 }

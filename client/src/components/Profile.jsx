@@ -102,9 +102,9 @@ const Profile = () => {
   return (
     <div className="max-w-3xl mx-auto p-4 pt-6">
       {/* Profile Header */}
-      <div className="bg-white rounded-3xl shadow-lg p-6 mb-6 flex items-center justify-between" >
+      <div className="bg-white rounded-3xl shadow-lg p-4 mb-6" >
         <div className="flex items-center space-x-4">
-          <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
+          <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center">
             {userData.avatar ? (
               <img 
                 src={userData.avatar} 
@@ -115,32 +115,28 @@ const Profile = () => {
               <User className="w-12 h-12 text-gray-400" />
             )}
           </div>
-          <div>
-            <h1 className="text-2xl font-semibold text-gray-800">{userData.username}</h1>
-            <p className="text-gray-500">{t('your_emotion_journal')}</p>
-          </div>
-          <div className="flex items-center flex space-x-2 ml-auto">
-            <LanguageSwitcher />
-            <button
-              onClick={handleLogout}
-              className="flex items-center p-2 text-gray-600 hover:text-red-600 transition-colors"
-              title={t('logout')}
-            >
-              <LogOut className="w-6 h-6" />
-            </button>
-            {/* <button
-              onClick={handleClearData}
-              className="flex items-center p-2 text-gray-600 hover:text-red-600 transition-colors"
-              title={t('clear_data')}
-            >
-              <Trash2 className="w-6 h-6" />
-            </button> */}
+          <div className="flex-1 flex items-center gap-4">
+            <div>
+
+              <h1 className="text-2xl font-semibold text-gray-800">{userData.username}</h1>
+              <p className="text-gray-500 text-sm">{t('your_emotion_journal')}</p>
+            </div>
+            <div className="flex items-center space-x-2 ml-auto">
+              <LanguageSwitcher />
+              <button
+                onClick={handleLogout}
+                className="flex items-center p-2 text-gray-600 hover:text-red-600 transition-colors"
+                title={t('logout')}
+                >
+                <LogOut className="w-6 h-6" />
+              </button>
+              </div>
           </div>
         </div>
       </div>
 
       {/* Emotion Chart */}
-      <div className="bg-white rounded-3xl shadow-lg p-6">
+      <div className="bg-white rounded-3xl shadow-lg p-4">
         <div className="flex items-center gap-2 mb-6">
           <BarChart2 className="w-5 h-5 text-purple-500" />
           <h2 className="text-lg font-medium text-gray-700">{t('emotion_history_7_days')}</h2>

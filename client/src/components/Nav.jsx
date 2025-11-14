@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import '../styles/index.css';
 import Dashboard from './Dashboard';
@@ -20,14 +19,14 @@ const App = () => {
           <div className="max-w-2xl mx-auto flex justify-around">
             <Link 
               to="/" 
-              className="flex flex-col items-center p-2 text-gray-600 hover:text-purple-600 transition-colors"
+              className="flex flex-col items-center  text-gray-600 hover:text-purple-600 transition-colors"
             >
               <Home className="w-6 h-6" />
               <span className="text-xs mt-1">Trang chủ</span>
             </Link>
             <Link 
               to="/profile" 
-              className="flex flex-col items-center p-2 text-gray-600 hover:text-purple-600 transition-colors"
+              className="flex flex-col items-center  text-gray-600 hover:text-purple-600 transition-colors"
             >
               <CircleUserRound className="w-6 h-6" />
               <span className="text-xs mt-1">Hồ sơ</span>

@@ -33,21 +33,21 @@ const App: React.FC = () => {
               <div className="max-w-2xl mx-auto flex justify-around">
                 <Link
                   to="/"
-                  className="flex flex-col items-center p-2 text-gray-600 hover:text-purple-600 transition-colors"
+                  className="flex flex-col items-center p-1 text-gray-600 hover:text-purple-600 transition-colors"
                 >
                   <Home className="w-6 h-6" />
                   <span className="text-xs mt-1">{t('home')}</span>
                 </Link>
                 <Link
                   to="/journal"
-                  className="flex flex-col items-center p-2 text-gray-600 hover:text-purple-600 transition-colors"
+                  className="flex flex-col items-center p-1 text-gray-600 hover:text-purple-600 transition-colors"
                 >
                   <Calendar className="w-6 h-6" />
                   <span className="text-xs mt-1">{t('journal')}</span>
                 </Link>
                 <Link
                   to="/profile"
-                  className="flex flex-col items-center p-2 text-gray-600 hover:text-purple-600 transition-colors"
+                  className="flex flex-col items-center p-1 text-gray-600 hover:text-purple-600 transition-colors"
                 >
                   <User className="w-6 h-6" />
                   <span className="text-xs mt-1">{t('profile')}</span>
