@@ -104,7 +104,7 @@ const Dashboard = () => {
     <div>
       <div className="max-w-2xl mx-auto p-4 pt-6">
         <div className="flex items-center justify-between mb-4 p-1">
-          <h1 className="text-2xl font-semibold text-gray-800">{t('greeting')}<span className='italic font-light'>{username}🥰</span></h1> 
+          <h1 className="text-2xl font-semibold text-gray-800">{t('greeting')}<span className='italic font-light'>{username}</span></h1> 
           <div className="text-sm text-gray-500 ml-4">
             {new Date().toLocaleDateString(i18n.language, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' })}
           </div>
