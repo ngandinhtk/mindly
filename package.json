@@ -1,11 +1,17 @@
 {
   "name": "mindly-heroku-root",
   "version": "1.0.0",
+  "homepage": "https://ngandinhtk.github.io/mindly",
   "description": "Root for Heroku deployment",
   "scripts": {
-    "heroku-postbuild": "npm install --prefix server && npm run build --prefix server && npm install --prefix client && npm run build --prefix client"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -b master -d build"
+
   },
   "engines": {
     "node": "16.x"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }
