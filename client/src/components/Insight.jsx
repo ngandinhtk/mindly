@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { emotions } from '../data/emotions';
+import { t } from 'i18next';
 
 const Insight = () => {
     const [emotionStats, setEmotionStats] = useState([]);
@@ -46,18 +47,18 @@ const Insight = () => {
         
         // Simple trend message based on the most frequent emotion's ID
         if (['happy', 'excited', 'grateful'].includes(topEmotion.id)) {
-            return "Bạn đang có xu hướng tích cực! Tiếp tục duy trì nhé 🌟";
+            return t('positive_trend');
         }
         if (['sad', 'angry', 'anxious'].includes(topEmotion.id)) {
-            return "Có vẻ bạn đã trải qua một số ngày khó khăn. Hãy nhớ chăm sóc bản thân nhé.";
+            return t('negative_trend');
         }
-        return "Cảm xúc của bạn khá ổn định.";
+        return t('netive_trend');
     };
 
     return (
          <div className="space-y-6">
-            <div className="shadow-lg p-8 rounded-2xl bg-white">
-              <h3 className="text-2xl font-bold text-gray-800 mb-6">Thống kê cảm xúc</h3>
+            <div className=" p-8 ">
+              <h3 className="text-2xl font-bold text-gray-800 mb-6">{t('emotion_stats')}</h3>
               
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 {emotionStats.length > 0 ? (
@@ -77,7 +78,7 @@ const Insight = () => {
               </div>
 
               <div className="border-t pt-6">
-                <h4 className="font-semibold text-gray-800 mb-3">Xu hướng chung</h4>
+                <h4 className="font-semibold text-gray-800 mb-3">{t('trending_analysis')}</h4>
                 <p className="text-gray-600">
                   {getOverallTrend()}
                 </p>

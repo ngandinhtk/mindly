@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation, initReactI18next } from 'react-i18next';
 import { User, BarChart2, LogOut, Trash2 } from 'lucide-react';
-import LanguageSwitcher from './LanguageSwitcher';
 
 
 const Profile = () => {
@@ -63,9 +62,13 @@ const Profile = () => {
     const colors = {
       'very_happy': '#e6a8dcff',
       'happy': '#cffff7ff',
-      'neutral': '#FFD98E',
-      'sad': '#FFB88C',
-      'very_sad': '#FF8B94'
+      'neutral': '#c9dba7ff',
+      'sad': '#fce6a9ff',
+      'very_sad': '#FF8B94',
+      'amazing': '#fabd62ff',
+      'worried': '#bffafaff',
+      'angry': '#ec6c6cff',
+      'tired': '#e3bff8ff',
     };
     return colors[emotion] || '#E0E0E0';
   };
@@ -76,7 +79,11 @@ const Profile = () => {
       'happy': t('happy'),
       'neutral': t('neutral'),
       'sad': t('sad'),
-      'very_sad': t('very_sad')
+      'very_sad': t('very_sad'),
+      'amazing': t('amazing'),
+      'worried': t('worried'),
+      'angry': t('angry'),
+      'tired': t('tired'),
     };
     return labels[emotion] || emotion;
   };
@@ -121,16 +128,7 @@ const Profile = () => {
               <h1 className="text-2xl font-semibold text-gray-800">{userData.username}</h1>
               <p className="text-gray-500 text-sm">{t('your_emotion_journal')}</p>
             </div>
-            <div className="flex items-center space-x-2 ml-auto">
-              <LanguageSwitcher />
-              <button
-                onClick={handleLogout}
-                className="flex items-center p-2 text-gray-600 hover:text-red-600 transition-colors"
-                title={t('logout')}
-                >
-                <LogOut className="w-6 h-6" />
-              </button>
-              </div>
+       
           </div>
         </div>
       </div>
@@ -179,7 +177,7 @@ const Profile = () => {
         {/* Legend */}
         <div className="mt-6 pt-6 border-t">
           <div className="flex flex-wrap gap-4">
-            {['very_happy', 'happy', 'neutral', 'sad', 'very_sad'].map(emotion => (
+            {['very_happy', 'happy', 'neutral', 'sad', 'very_sad', 'amazing', 'worried', 'angry', 'tired'].map(emotion => (
               <div key={emotion} className="flex items-center gap-1">
                 <div 
                   className="w-3 h-3 rounded-full"
@@ -216,37 +214,6 @@ const Profile = () => {
         </div>
       )}
 
-
-
-      {/* Logout Confirmation Popup */}
-      {showLogoutConfirm && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center z-50 transition-opacity duration-300"
-          onClick={cancelLogout}
-        >
-          <div 
-            className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full transform transition-all duration-300 scale-95 opacity-0 animate-fade-in-up"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">{t('logout')}</h3>
-            <p className="text-gray-600 mb-6">{t('logout_confirmation')}</p>
-            <div className="flex justify-end gap-4">
-              <button
-                onClick={cancelLogout}
-                className="px-6 py-2 rounded-lg text-gray-600 bg-gray-100 hover:bg-gray-200 transition-colors"
-              >
-                {t('cancel')}
-              </button>
-              <button
-                onClick={confirmLogout}
-                className="px-6 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition-colors"
-              >
-                {t('logout')}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Author Information */}
       <div className="mt-6 text-center text-gray-400 text-sm">

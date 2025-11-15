@@ -19,16 +19,19 @@ const LanguageSwitcher: React.FC = () => {
         // top: '45px',
         // right: '20px',
         // border: '1px solid #707070ff',
-        padding: '5px 10px',
+        padding: '7px 10px',
         borderRadius: '5px',
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        width: '40px',
-        height: '40px',
+
+        fontSize: '12px',
+        justifyContent: 'center',
+        display: 'flex',
+        alignItems: 'center',
+        width: '30px',
+        height: '30px',
         cursor: 'pointer',
         textTransform: 'uppercase',
-        color: '#252525ff',
-        // backgroundColor: 'transparent',
+        color: 'white',
+        fontWeight: 'bold'
       }}
     >
       {i18n.language === 'en' ? 'EN' : 'VI'}

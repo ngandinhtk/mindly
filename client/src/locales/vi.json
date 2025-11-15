@@ -14,6 +14,10 @@
   "neutral": "Bình thường",
   "sad": "Buồn",
   "very_sad": "Rất buồn",
+  "amazing": "Tuyệt vời",
+  "worried": "Lo lắng",
+  "angry": "Tức giận",
+  "tired": "Mệt mỏi",
   "mindly_user": "Người dùng Mindly",
   "your_emotion_journal": "Nhật ký cảm xúc của bạn",
   "emotion_history_7_days": "Lịch sử cảm xúc (7 ngày qua)",
@@ -40,6 +44,11 @@
   "logout": "Đăng xuất",
   "cancel": "Hủy",
   "close": "Đóng",
-  "insights": "Thống kê"
+  "insights": "Thống kê",
+  "emotion_stats": "Thống kê cảm xúc",
+  "trending_analysis": "Xu hướng chung",
+  "positive_trend" : "Bạn đang có xu hướng tích cực! Hãy tiếp tục phát huy 🌟",
+  "negative_trend" : "Bạn đang có xu hướng tiêu cực. Hãy nhớ rằng, có những lúc thăng trầm là điều bình thường. Hãy chăm sóc bản thân nhé! 🌈",
+  "netive_trend" : "Bạn đang duy trì trạng thái ổn định. Hãy tiếp tục giữ vững tinh thần nhé! 🌟"
 
 }

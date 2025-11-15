@@ -3,8 +3,11 @@ import '../styles/index.css';
 import Dashboard from './Dashboard';
 import Profile from './Profile';
 import { Home, CircleUserRound, TrendingUp  } from 'lucide-react';
+import { useState } from 'react';
 
 const App = () => {
+ 
+
   return (
     <Router>
       <div className="app min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-60">
@@ -41,6 +44,7 @@ const App = () => {
           </div>
         </nav>
       </div>
+
     </Router>
   );
 };

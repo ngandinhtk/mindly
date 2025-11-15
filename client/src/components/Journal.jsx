@@ -100,7 +100,7 @@ const Calendar = ({ entries, onDateSelect, selectedDate, currentMonth, setCurren
       <div className="grid grid-cols-7 gap-1">
         {/* Weekday headers */}
         {[t('sun'), t('mon'), t('tue'), t('wed'), t('thu'), t('fri'), t('sat')].map(day => (
-          <div key={day} className="h-10 flex items-center justify-center text-sm font-medium text-gray-500">
+          <div key={day} className="h-10 flex items-center justify-center text-sm font-medium text-gray-800">
             {day}
           </div>
         ))}
@@ -151,13 +151,13 @@ const Journal = () => {
   };
 
   return (
-    <div className="max-w-3xl ">
+    <div className="max-w-3xl mx-auto px-4">
 
       {/* Daily Quote */}
              <div className="p-6 mb-6">
                 <h1 className="text-gray-700 text-xl mb-4 flex items-center gap-2">
-                  <CalendarIcon className="w-8 h-8 text-purple-600" />
-                  {t('daily_quote')}
+                  <CalendarIcon className="w-8 h-8  text-purple-600" />
+                  <div className='font-bold'>{t('daily_quote')}</div>
                 </h1>
                 <div className="flex items-start gap-4">
                   <Quote className="w-7 h-7 text-purple-400 flex-shrink-0" />

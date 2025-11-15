@@ -14,6 +14,10 @@
   "neutral": "Neutral",
   "sad": "Sad",
   "very_sad": "Very Sad",
+  "amazing": "Amazing",
+  "worried": "Worried",
+  "angry": "Angry",
+  "tired": "Tired",
   "mindly_user": "Mindly User",
   "your_emotion_journal": "Your Emotion Journal",
   "emotion_history_7_days": "Emotion History (Last 7 Days)",
@@ -40,5 +44,10 @@
   "logout": "Log Out",
   "cancel": "Cancel",
   "close": "Close",
-  "insights": "Insights"
+  "insights": "Insights",
+  "emotion_stats": "Emotion Statistics",
+  "trending_analysis": "Trending Analysis",
+  "positive_trend" : "You are showing a positive trend! Keep it up 🌟",
+  "negative_trend" : "You are showing a negative trend. Remember, it's okay to have ups and downs. Take care of yourself! 🌈",
+  "netive_trend" : "You are maintaining a stable state. Keep up the good spirit! 🌟"
 }
