@@ -36,7 +36,7 @@ const EmotionStats = ({ entries, currentMonth }) => {
 
   return (
     <div className="bg-white rounded-3xl shadow-lg p-6 mt-6">
-      <h3 className="text-lg font-medium text-gray-700 mb-4">{t('monthly_summary')}</h3>
+      <h3 className="text-lg font-bold text-gray-700 mb-4">{t('monthly_summary')}</h3>
       <div className="space-y-2">
         {emotions.map(emotion => {
           const count = emotionCounts[emotion.id];
@@ -44,11 +44,11 @@ const EmotionStats = ({ entries, currentMonth }) => {
           const percentage = totalEntries > 0 ? (count / totalEntries) * 100 : 0;
           return (
             <div key={emotion.id} className="flex items-center">
-              <div className="w-1/4 text-gray-600">{t(emotion.id)}</div>
-              <div className="w-3/4 bg-gray-200 rounded-full h-4">
+              <div className="w-2/6 text-sm text-gray-600">{t(emotion.id)}</div>
+              <div className="w-4/6 bg-gray-200 rounded-full h-4">
                 <div
-                  className="h-4 rounded-full"
-                  style={{ width: `${percentage}%`, backgroundColor: emotion.color }}
+                  className={`h-4 rounded-full ${emotion.graphColor}`}
+                  style={{ width: `${percentage}%` }}
                 ></div>
               </div>
               <div className="w-1/6 text-right text-gray-600">{count}</div>

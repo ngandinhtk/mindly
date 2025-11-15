@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation, initReactI18next } from 'react-i18next';
 import { User, BarChart2, LogOut, Trash2 } from 'lucide-react';
+import { emotions } from '../data/emotions';
 
 
 const Profile = () => {
@@ -58,34 +59,9 @@ const Profile = () => {
     }
   }, []);
 
-  const getEmotionColor = (emotion) => {
-    const colors = {
-      'very_happy': '#e6a8dcff',
-      'happy': '#cffff7ff',
-      'neutral': '#c9dba7ff',
-      'sad': '#fce6a9ff',
-      'very_sad': '#FF8B94',
-      'amazing': '#fabd62ff',
-      'worried': '#bffafaff',
-      'angry': '#ec6c6cff',
-      'tired': '#e3bff8ff',
-    };
-    return colors[emotion] || '#E0E0E0';
-  };
-
-  const getEmotionLabel = (emotion) => {
-    const labels = {
-      'very_happy': t('very_happy'),
-      'happy': t('happy'),
-      'neutral': t('neutral'),
-      'sad': t('sad'),
-      'very_sad': t('very_sad'),
-      'amazing': t('amazing'),
-      'worried': t('worried'),
-      'angry': t('angry'),
-      'tired': t('tired'),
-    };
-    return labels[emotion] || emotion;
+  const getEmotionColor = (emotionId) => {
+    const emotion = emotions.find(e => e.id === emotionId);
+    return emotion ? emotion.graphColor : '#E0E0E0';
   };
 
   // Group emotions by date for the chart
@@ -156,8 +132,8 @@ const Profile = () => {
                   }}
                 >
                   {day.emotion !== 'no_data' && (
-                    <div className="opacity-0 group-hover:opacity-100 absolute left-2 top-1/2 -translate-y-1/2 bg-white px-3 py-1 rounded-full text-sm transition-opacity">
-                      {getEmotionLabel(day.emotion)}
+                    <div className="flex items-center h-full px-3">
+                      <span className="text-sm text-gray-800">{t(day.emotion)}</span>
                     </div>
                   )}
                 </div>
@@ -177,14 +153,14 @@ const Profile = () => {
         {/* Legend */}
         <div className="mt-6 pt-6 border-t">
           <div className="flex flex-wrap gap-4">
-            {['very_happy', 'happy', 'neutral', 'sad', 'very_sad', 'amazing', 'worried', 'angry', 'tired'].map(emotion => (
-              <div key={emotion} className="flex items-center gap-1">
+            {emotions.map(emotion => (
+              <div key={emotion.id} className="flex items-center gap-1">
                 <div 
                   className="w-3 h-3 rounded-full"
-                  style={{ backgroundColor: getEmotionColor(emotion) }}
+                  style={{ backgroundColor: getEmotionColor(emotion.id) }}
                 />
                 <span className="text-sm text-gray-600">
-                  {getEmotionLabel(emotion)}
+                  {t(emotion.id)}
                 </span>
               </div>
             ))}
@@ -199,7 +175,7 @@ const Profile = () => {
           onClick={closePopup}
         >
           <div 
-            className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full transform transition-all duration-300 scale-95 opacity-0 animate-fade-in-up"
+            className="bg-white rounded-2xl shadow-2xl p-8 w-4/5 max-w-xl transform transition-all duration-300 scale-95 opacity-0 animate-fade-in-up"
             onClick={(e) => e.stopPropagation()}
           >
             <h3 className="text-xl font-semibold text-gray-800 mb-4">{t('note_details')}</h3>

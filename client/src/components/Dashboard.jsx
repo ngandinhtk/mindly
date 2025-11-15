@@ -13,7 +13,6 @@ const Dashboard = () => {
   const [entries, setEntries] = React.useState([]);
   const [todayEntry, setTodayEntry] = React.useState(null);
   const [activities, setActivities] = React.useState({});
-    const [selectedMood, setSelectedMood] = useState(null);
   const [dailyQuote, setDailyQuote] = React.useState(null);
   const [username, setUsername] = React.useState(null);
   const [showMenu, setShowMenu] = React.useState(false);
@@ -44,9 +43,12 @@ const Dashboard = () => {
     const loadActivities = async () => {
       const lang = i18n.language;
       const activitiesModule = await import(`../data/activities_${lang}.js`);
+      console.log(activitiesModule.activities);
+      
       setActivities(activitiesModule.activities);
     };
 
+    
     const loadQuotes = async () => {
       const lang = i18n.language;
       const quotesModule = await import(`../data/quotes_${lang}.js`);
@@ -134,12 +136,11 @@ const Dashboard = () => {
           </div>
       
            {/* Mood Selection */}
-             
-
+          
         {!todayEntry ? (
           <div className="p-6 mb-6">
             <h2 className="text-lg font-medium text-gray-700 mb-4">{t('how_are_you_today')}</h2>
-             <div className="mb-6 px-8">
+             <div className="mb-6">
                 {/* <p className="text-sm font-medium text-gray-600 mb-3">Chọn tâm trạng của bạn</p> */}
                 <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
                   {emotions.map((mood, idx) => (
@@ -147,7 +148,7 @@ const Dashboard = () => {
                       key={idx}
                       onClick={() => handleEmotionSelect(mood.id)}
                       className={`${mood.color} p-4 rounded-xl transition-all transform hover:scale-105 ${
-                        selectedMood?.emoji === mood.emoji ? 'ring-2 ring-purple-500 scale-105' : ''
+                        selectedEmotion === mood.id ? 'ring-2 ring-purple-500 scale-105' : ''
                       }`}
                     >
                       <div className="text-3xl mb-1">{mood.emoji}</div>
@@ -196,7 +197,7 @@ const Dashboard = () => {
           </div>
         ) : (
           <div className="bg-white rounded-3xl shadow-lg p-6 mb-6">
-            <h2 className="text-lg font-medium text-gray-700 mb-4">{t('your_day')}</h2>
+            <h2 className="text-lg font-bold text-gray-800 mb-4">{t('your_day')}</h2>
             <div className="flex items-center space-x-4 mb-4">
               <span className="text-2xl">
                 {emotions.find(e => e.id === todayEntry.emotion)?.emoji}

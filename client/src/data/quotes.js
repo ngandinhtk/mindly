@@ -96,6 +96,10 @@ export const quotes = [
     author: "Unknown"
   },
   {
+    text: "Cảm xúc lo lắng là điều bình thường, hãy hít thở sâu và tiếp tục tiến bước",
+    author: "Unknown"
+  },
+  {
     text: "Bạn không thể thay đổi quá khứ, nhưng bạn có thể bắt đầu thay đổi từ bây giờ",
     author: "Unknown"
   }

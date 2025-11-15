@@ -98,7 +98,7 @@ const App: React.FC = () => {
           </header>
         )}
            
-        <main className="flex-grow overflow-y-auto pb-20">
+        <main className="flex-grow overflow-y-auto pb-20 max-w-3xl mx-auto w-full">
           <Switch>
             <Route path="/login">
               <UserPage onLogin={handleLogin} />
@@ -152,11 +152,11 @@ const App: React.FC = () => {
  {/* Logout Confirmation Popup */}
       {showLogoutConfirm && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center z-50 transition-opacity duration-300"
+          className="fixed w-3xs inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center z-50 transition-opacity duration-300"
           onClick={cancelLogout}
         >
           <div 
-            className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full transform transition-all duration-300 scale-95 opacity-0 animate-fade-in-up"
+            className="bg-white rounded-2xl shadow-2xl p-8 w-4/5 max-w-xl transform transition-all duration-300 scale-95 opacity-0 animate-fade-in-up"
             onClick={(e) => e.stopPropagation()}
           >
             <h3 className="text-xl font-semibold text-gray-800 mb-4">{t('logout')}</h3>

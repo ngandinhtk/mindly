@@ -57,8 +57,8 @@ const Calendar = ({ entries, onDateSelect, selectedDate, currentMonth, setCurren
           }`}
         >
           <div
-            className={`w-10 h-10 rounded-full flex items-center justify-center relative
-              ${isToday ? 'ring-2 ring-purple-300' : ''}
+            className={`w-8 h-8 rounded-full flex items-center justify-center relative
+              ${isToday ? 'ring-2 ring-purple-500' : ''}
             `}
             style={{ backgroundColor: emotionObject ? emotionObject.color : 'transparent' }}
           >
@@ -85,7 +85,7 @@ const Calendar = ({ entries, onDateSelect, selectedDate, currentMonth, setCurren
         >
           ←
         </button>
-        <h2 className="text-lg font-medium">
+        <h2 className="text-lg font-bold">
           {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
         </h2>
         <button 
@@ -152,7 +152,6 @@ const Journal = () => {
 
   return (
     <div className="max-w-3xl mx-auto px-4">
-
       {/* Daily Quote */}
              <div className="p-6 mb-6">
                 <h1 className="text-gray-700 text-xl mb-4 flex items-center gap-2">
@@ -182,7 +181,7 @@ const Journal = () => {
 
       {/* Selected Day Details */}
       {selectedDate && (
-        <div className="mt-6 p-8 rounded-3xl shadow-lg p-6">
+        <div className="bg-white mt-6 p-8 rounded-3xl shadow-lg p-6">
           <h3 className="text-lg font-medium text-gray-700 mb-4">
             {selectedDate.toLocaleDateString('en-US', { 
               weekday: 'long', 

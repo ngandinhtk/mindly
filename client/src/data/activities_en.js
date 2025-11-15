@@ -1,5 +1,5 @@
 export const activities = {
-  very_happy: [
+  amazing: [
     "Share your joy with loved ones",
     "Capture this beautiful moment",
     "Do something good for others",
@@ -64,7 +64,7 @@ export const activities = {
     "Spend time with a supportive friend or family member",
     "Draw or paint your emotions"
   ],
-  very_sad: [
+  worried: [
     "Breathe deeply for 5 minutes",
     "Drink warm tea and rest",
     "Talk to a loved one",
@@ -80,5 +80,29 @@ export const activities = {
     "Repeat positive affirmations",
     "Focus on your breath, in and out",
     "Remind yourself that it's okay to not be okay"
+  ],
+  angry: [
+    "Take a few deep breaths to calm down",
+    "Go for a run or do some intense exercise",
+    "Listen to loud, energetic music",
+    "Punch a pillow or scream into it",
+    "Write down why you're angry",
+    "Take a cold shower",
+    "Do something distracting, like a puzzle or game",
+    "Talk to someone you trust about your anger",
+    "Practice mindfulness or meditation",
+    "Channel your anger into something productive"
+  ],
+  tired: [
+    "Take a short nap (20-30 minutes)",
+    "Do some gentle stretching",
+    "Get some fresh air",
+    "Drink a glass of cold water",
+    "Listen to calming music",
+    "Avoid caffeine and sugar",
+    "Eat a light, healthy snack",
+    "Go to bed a little earlier tonight",
+    "Read a book or listen to a podcast",
+    "Take a warm bath before bed"
   ]
 };

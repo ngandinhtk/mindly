@@ -1,5 +1,5 @@
 export const activities = {
-  very_happy: [
+  amazing: [
     "Chia sẻ niềm vui với người thân",
     "Ghi lại khoảnh khắc đẹp này",
     "Làm điều gì đó tốt cho người khác",
@@ -64,7 +64,7 @@ export const activities = {
     "Dành thời gian với một người bạn hoặc thành viên gia đình luôn ủng hộ",
     "Vẽ hoặc sơn cảm xúc của bạn"
   ],
-  very_sad: [
+  worried: [
     "Thở sâu 5 phút",
     "Uống trà ấm và nghỉ ngơi",
     "Nói chuyện với người thân",
@@ -80,5 +80,29 @@ export const activities = {
     "Lặp lại những lời khẳng định tích cực",
     "Tập trung vào hơi thở của bạn, hít vào và thở ra",
     "Nhắc nhở bản thân rằng không sao cả khi không ổn"
+  ],
+  angry: [
+    "Hít thở sâu vài lần để bình tĩnh lại",
+    "Chạy bộ hoặc tập thể dục cường độ cao",
+    "Nghe nhạc lớn, tràn đầy năng lượng",
+    "Đấm hoặc la vào gối",
+    "Viết ra lý do tại sao bạn tức giận",
+    "Tắm nước lạnh",
+    "Làm điều gì đó gây xao lãng, như giải đố hoặc chơi game",
+    "Nói chuyện với người bạn tin tưởng về sự tức giận của mình",
+    "Thực hành chánh niệm hoặc thiền định",
+    "Chuyển sự tức giận của bạn thành một cái gì đó hiệu quả"
+  ],
+  tired: [
+    "Ngủ một giấc ngắn (20-30 phút)",
+    "Thực hiện một số động tác giãn cơ nhẹ nhàng",
+    "Ra ngoài hít thở không khí trong lành",
+    "Uống một ly nước lạnh",
+    "Nghe nhạc êm dịu",
+    "Tránh caffeine và đường",
+    "Ăn một bữa ăn nhẹ, lành mạnh",
+    "Đi ngủ sớm hơn một chút vào tối nay",
+    "Đọc sách hoặc nghe podcast",
+    "Tắm nước ấm trước khi đi ngủ"
   ]
 };
