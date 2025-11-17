@@ -7,14 +7,14 @@
 //   { id: 'very_sad', emoji: '😢', label: 'Very Sad', color: '#FF8B94' }
 // ];
 
-
 export const emotions = [
-    {  id: 'happy', emoji: '😊', label: 'Vui vẻ', color: 'bg-yellow-100 hover:bg-yellow-200', graphColor: '#FBBF24' },
-    {  id: 'amazing', emoji: '🤩', label: 'Tuyệt vời', color: 'bg-yellow-100 hover:bg-yellow-200', graphColor: '#FBBF24' },
-    { id: 'neutral', emoji: '😌', label: 'Bình yên', color: 'bg-blue-100 hover:bg-blue-200', graphColor: '#60A5FA' },
-    { id: 'sad', emoji: '😔', label: 'Buồn', color: 'bg-indigo-100 hover:bg-indigo-200', graphColor: '#818CF8' },
-    {id: 'worried', emoji: '😰', label: 'Lo lắng', color: 'bg-purple-100 hover:bg-purple-200', graphColor: '#A78BFA' },
-    { id: 'angry', emoji: '😡', label: 'Tức giận', color: 'bg-red-100 hover:bg-red-200', graphColor: '#F87171' },
-    { id: 'tired', emoji: '😴', label: 'Mệt mỏi', color: 'bg-gray-100 hover:bg-gray-200', graphColor: '#9CA3AF' },
-    // { id: 'stress', emoji: '😟', label: 'Căng thẳng', color: 'bg-gray-100 hover:bg-gray-200' },
+    {  id: 'happy', emoji: '😊', label: 'happy', color: 'bg-orange-200 hover:bg-orange-300', graphColor: '#ffba60ff' },
+    {  id: 'amazing', emoji: '🤩', label: 'amazing', color: 'bg-yellow-100 hover:bg-yellow-200', graphColor: '#e6d263ff' },
+    { id: 'love', emoji: '🥰', label: 'love', color: 'bg-pink-200 hover:bg-pink-300', graphColor: '#fc1aa5ff' },
+    { id: 'satisfied', emoji: '🤗', label: 'satisfied', color: 'bg-green-100 hover:bg-green-200', graphColor: '#a8e6cfff' },
+    { id: 'neutral', emoji: '😌', label: 'neutral', color: 'bg-gray-100 hover:bg-gray-200', graphColor: '#d1d3cfe7' },
+    { id: 'sad', emoji: '😔', label: 'sad', color: 'bg-indigo-100 hover:bg-indigo-200', graphColor: '#8690ecff' },
+    {id: 'worried', emoji: '😰', label: 'worried', color: 'bg-purple-100 hover:bg-purple-200', graphColor: '#d78bfaff' },
+    { id: 'angry', emoji: '😡', label: 'angry', color: 'bg-red-100 hover:bg-red-200', graphColor: '#e47b7bff' },
+    { id: 'tired', emoji: '😴', label: 'tired', color: 'bg-blue-100 hover:bg-blue-200', graphColor: '#b6c1d4ff' },
   ];

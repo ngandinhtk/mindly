@@ -159,7 +159,7 @@ const Journal = () => {
                   <div className='font-bold'>{t('daily_quote')}</div>
                 </h1>
                 <div className="flex items-start gap-4">
-                  <Quote className="w-7 h-7 text-purple-400 flex-shrink-0" />
+                  <Quote className="w-6 h-6 text-purple-400 flex-shrink-0" />
                   <div>
                     <p className="text-lg text-gray-800 font-medium mb-2">"{dailyQuote?.text}"</p>
                     <p className="text-sm text-gray-500">- {dailyQuote?.author}</p>

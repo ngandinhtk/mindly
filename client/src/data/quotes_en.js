@@ -4,32 +4,8 @@ export const quotes = [
     author: "Thich Nhat Hanh"
   },
   {
-    text: "Every day is a new page in the book of your life.",
-    author: "Unknown"
-  },
-  {
-    text: "Your smile can change someone's entire day.",
-    author: "Unknown"
-  },
-  {
-    text: "Today is hard, tomorrow will be better.",
-    author: "Unknown"
-  },
-  {
     text: "Peace comes from within, do not seek it without.",
     author: "Buddha"
-  },
-  {
-    text: "Every emotion has its value, embrace and understand it.",
-    author: "Unknown"
-  },
-  {
-    text: "The smallest happiness is still happiness.",
-    author: "Unknown"
-  },
-  {
-    text: "Everything will be okay, believe in that.",
-    author: "Unknown"
   },
   {
     text: "To love oneself is the beginning of a lifelong romance.",
@@ -44,60 +20,12 @@ export const quotes = [
     author: "Charles R. Swindoll"
   },
   {
-    text: "Be the best version of yourself.",
-    author: "Unknown"
-  },
-  {
-    text: "Sometimes the worst things that happen to us lead us to the best things.",
-    author: "Unknown"
-  },
-  {
-    text: "A drop of water can overflow a cup, but it can also make a flower bloom.",
-    author: "Unknown"
-  },
-  {
-    text: "Every small step brings us closer to our goal.",
-    author: "Unknown"
-  },
-  {
     text: "When you change the way you look at things, the things you look at change.",
     author: "Wayne Dyer"
   },
   {
-    text: "Don't compare yourself to others, compare yourself to who you were yesterday.",
-    author: "Unknown"
-  },
-  {
-    text: "It's not about how many times you fall, but how many times you get back up.",
-    author: "Unknown"
-  },
-  {
-    text: "Every day is a new opportunity to start over.",
-    author: "Unknown"
-  },
-  {
-    text: "Take time to do what makes your soul happy.",
-    author: "Unknown"
-  },
-  {
-    text: "Slow down, feel more.",
-    author: "Unknown"
-  },
-  {
-    text: "No emotion is wrong, only how we react to it.",
-    author: "Unknown"
-  },
-  {
     text: "Every breath is a gift of life.",
     author: "Thich Nhat Hanh"
-  },
-  {
-    text: "Happiness comes from knowing enough.",
-    author: "Unknown"
-  },
-  {
-    text: "You can't change the past, but you can start changing now.",
-    author: "Unknown"
   },
   { text: "The best way to predict the future is to create it.", author: "Peter Drucker" },
   { text: "You are never too old to set another goal or to dream a new dream.", author: "C.S. Lewis" },
@@ -144,7 +72,6 @@ export const quotes = [
   { text: "The first step towards getting somewhere is to decide that you are not going to stay where you are.", author: "J.P. Morgan" },
   { text: "There are far better things ahead than any we leave behind.", author: "C.S. Lewis" },
   { text: "The secret to change is to focus all of your energy, not on fighting the old, but on building the new.", author: "Socrates" },
-  { text: "I discovered that a fresh start is a process. A fresh start is a journey – a journey that requires a plan.", author: "Unknown" },
   { text: "Your present circumstances don't determine where you can go; they merely determine where you start.", author: "Nido Qubein" },
   { text: "Every day is a chance to begin again. Don’t focus on the failures of yesterday, start today with positive thoughts and expectations.", author: "Catherine Pulsifer" },
   { text: "You can learn new things at any time in your life if you're willing to be a beginner. If you actually learn to like being a beginner, the whole world opens up to you.", author: "Barbara Sher" },
@@ -170,10 +97,8 @@ export const quotes = [
   { text: "Things work out best for those who make the best of how things work out.", author: "John Wooden" },
   { text: "To live a creative life, we must lose our fear of being wrong.", author: "Unknown" },
   { text: "If you are not willing to risk the usual you will have to settle for the ordinary.", author: "Jim Rohn" },
-  { text: "Trust because you are willing to accept the risk, not because it's safe or certain.", author: "Unknown" },
   { text: "Take up one idea. Make that one idea your life - think of it, dream of it, live on that idea. Let the brain, muscles, nerves, every part of your body, be full of that idea, and just leave every other idea alone. This is the way to success.", author: "Swami Vivekananda" },
   { text: "All our dreams can come true if we have the courage to pursue them.", author: "Walt Disney" },
-  { text: "Good things come to people who wait, but better things come to those who go out and get them.", author: "Unknown" },
   { text: "If you do what you always did, you will get what you always got.", author: "Unknown" },
   { text: "Success is walking from failure to failure with no loss of enthusiasm.", author: "Winston Churchill" },
   { text: "Just when the caterpillar thought the world was ending, he turned into a butterfly.", author: "Proverb" },
@@ -188,16 +113,19 @@ export const quotes = [
   { text: "No one can make you feel inferior without your consent.", author: "Eleanor Roosevelt" },
   { text: "The whole secret of a successful life is to find out what is one's destiny to do, and then do it.", author: "Henry Ford" },
   { text: "If you're going through hell keep going.", author: "Winston Churchill" },
-  { text: "The ones who are crazy enough to think they can change the world, are the ones who do.", author: "Anonymous" },
   { text: "Don't raise your voice, improve your argument.", author: "Anonymous" },
   { text: "What seems to us as bitter trials are often blessings in disguise.", author: "Oscar Wilde" },
-  { text: "The meaning of life is to find your gift. The purpose of life is to give it away.", author: "Anonymous" },
   { text: "The distance between insanity and genius is measured only by success.", author: "Bruce Feirstein" },
   { text: "When you stop chasing the wrong things you give the right things a chance to catch you.", author: "Lolly Daskal" },
   { text: "I believe that the only courage anybody ever needs is the courage to follow your own dreams.", author: "Oprah Winfrey" },
   { text: "No masterpiece was ever created by a lazy artist.", author: "Anonymous" },
   { text: "If you can't explain it simply, you don't understand it well enough.", author: "Albert Einstein" },
   { text: "Blessed are those who can give without remembering and take without forgetting.", author: "Anonymous" },
-  { text: "Do one thing every day that scares you.", author: "Anonymous" },
-  { text: "What's the point of being alive if you don't at least try to do something remarkable.", author: "Anonymous" }
+  { text: "I can't change the direction of the wind, but I can adjust my sails to always reach my destination.", author: "Jimmy Dean" },
+   { text: "Move fast and break things. Unless you are breaking things, you are not moving fast enough.", author: "Mark Zuckerberg" },
+  { text: "It's not the load that breaks you down, it's the way you carry it.", author: "Lou Holtz" },
+  { text: "The harder I work, the luckier I get.", author: "Gary Player" },
+  { text: "The only thing standing between you and your goal is the bullshit story you keep telling yourself as to why you can't achieve it.", author: "Jordan Belfort" },
+  { text: "If you are working on something that you really care about, you don’t have to be pushed. The vision pulls you.", author: "Steve Jobs" }  
+
 ]

@@ -47,8 +47,11 @@ const EmotionStats = ({ entries, currentMonth }) => {
               <div className="w-2/6 text-sm text-gray-600">{t(emotion.id)}</div>
               <div className="w-4/6 bg-gray-200 rounded-full h-4">
                 <div
-                  className={`h-4 rounded-full ${emotion.graphColor}`}
-                  style={{ width: `${percentage}%` }}
+                  className="h-4 rounded-full"
+                  style={{
+                    width: `${percentage}%`,
+                    backgroundColor: emotion.graphColor,
+                  }}
                 ></div>
               </div>
               <div className="w-1/6 text-right text-gray-600">{count}</div>

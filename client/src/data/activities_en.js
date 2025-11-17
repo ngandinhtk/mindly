@@ -104,5 +104,17 @@ export const activities = {
     "Go to bed a little earlier tonight",
     "Read a book or listen to a podcast",
     "Take a warm bath before bed"
+  ],
+  excited: [
+    "Share your excitement with a friend",
+    "Plan something fun for the weekend",
+    "Write down what you're looking forward to",
+    "Create a vision board for your goals",
+    "Dance to your favorite upbeat song",
+    "Try something new that excites you",
+    "Watch a motivational video",
+    "Make a list of things that make you happy",
+    "Go for a walk and enjoy the moment",
+    "Treat yourself to something special"
   ]
 };

@@ -11,7 +11,7 @@ const Dashboard = () => {
   const [selectedEmotion, setSelectedEmotion] = React.useState(null);
   const [note, setNote] = React.useState('');
   const [entries, setEntries] = React.useState([]);
-  const [todayEntry, setTodayEntry] = React.useState(null);
+  const [todayEntries, setTodayEntries] = React.useState([]);
   const [activities, setActivities] = React.useState({});
   const [dailyQuote, setDailyQuote] = React.useState(null);
   const [username, setUsername] = React.useState(null);
@@ -42,9 +42,7 @@ const Dashboard = () => {
     // Dynamically import activities based on language
     const loadActivities = async () => {
       const lang = i18n.language;
-      const activitiesModule = await import(`../data/activities_${lang}.js`);
-      console.log(activitiesModule.activities);
-      
+      const activitiesModule = await import(`../data/activities_${lang}.js`);      
       setActivities(activitiesModule.activities);
     };
 
@@ -62,15 +60,11 @@ const Dashboard = () => {
     loadQuotes();
   }, [i18n.language]); // Re-run when language changes
 
-  // Check today's entry
+  // Check today's entries
   React.useEffect(() => {
     const today = new Date().toDateString();
-    const entry = entries.find(e => new Date(e.date).toDateString() === today);
-    setTodayEntry(entry);
-    if (entry) {
-      setSelectedEmotion(entry.emotion);
-      setNote(entry.note || '');
-    }
+    const todaysEntries = entries.filter(e => new Date(e.date).toDateString() === today);
+    setTodayEntries(todaysEntries);
   }, [entries]);
 
   const handleEmotionSelect = (emotion) => {
@@ -79,20 +73,24 @@ const Dashboard = () => {
 
   const handleSaveEntry = () => {
     const today = new Date();
+    if (todayEntries.length >= 2) {
+      alert("You have already checked in twice today."); // Or use a more user-friendly notification
+      return;
+    }
+
     const newEntry = {
       date: today,
       emotion: selectedEmotion,
       note: note.trim()
     };
 
-    const updatedEntries = entries.filter(e => 
-      new Date(e.date).toDateString() !== today.toDateString()
-    );
-    updatedEntries.push(newEntry);
-
+    const updatedEntries = [...entries, newEntry];
     setEntries(updatedEntries);
     localStorage.setItem('moodEntries', JSON.stringify(updatedEntries));
-    setTodayEntry(newEntry);
+    
+    // Reset form
+    setSelectedEmotion(null);
+    setNote('');
   };
 
   const getRandomActivity = (emotion) => {
@@ -113,7 +111,7 @@ const Dashboard = () => {
     const mostCommonEmotion = Object.entries(emotionCounts)
       .sort(([,a], [,b]) => b - a)[0][0];
 
-    return emotions.find(e => e.id === mostCommonEmotion)?.label || 'N/A';
+    return t(emotions.find(e => e.id === mostCommonEmotion)?.label) || 'N/A';
     
   };
 
@@ -137,8 +135,8 @@ const Dashboard = () => {
       
            {/* Mood Selection */}
           
-        {!todayEntry ? (
-          <div className="p-6 mb-6">
+        {todayEntries.length < 2 ? (
+          <div className="px-6 mb-6">
             <h2 className="text-lg font-medium text-gray-700 mb-4">{t('how_are_you_today')}</h2>
              <div className="mb-6">
                 {/* <p className="text-sm font-medium text-gray-600 mb-3">Chọn tâm trạng của bạn</p> */}
@@ -152,7 +150,7 @@ const Dashboard = () => {
                       }`}
                     >
                       <div className="text-3xl mb-1">{mood.emoji}</div>
-                      <div className="text-xs font-medium text-gray-700">{mood.label}</div>
+                      <div className="text-xs font-medium text-gray-700">{t(mood.label)}</div>
                     </button>
                   ))}
                 </div>
@@ -198,21 +196,25 @@ const Dashboard = () => {
         ) : (
           <div className="bg-white rounded-3xl shadow-lg p-6 mb-6">
             <h2 className="text-lg font-bold text-gray-800 mb-4">{t('your_day')}</h2>
-            <div className="flex items-center space-x-4 mb-4">
-              <span className="text-2xl">
-                {emotions.find(e => e.id === todayEntry.emotion)?.emoji}
-              </span>
-              <span className="text-gray-600">
-                {emotions.find(e => e.id === todayEntry.emotion)?.label}
-              </span>
-            </div>
-            {todayEntry.note && (
-              <p className="text-gray-600 italic">{todayEntry.note}</p>
-            )}
-            <div className="mt-4 p-4 bg-purple-50 rounded-xl">
-              <h3 className="text-sm font-medium text-purple-800 mb-2">{t('suggestion_for_you')}</h3>
-              <p className="text-purple-900">{getRandomActivity(todayEntry.emotion)}</p>
-            </div>
+            {todayEntries.map((todayEntry, index) => (
+              <div key={index} className="mb-4">
+                <div className="flex items-center space-x-4 mb-4">
+                  <span className="text-2xl">
+                    {emotions.find(e => e.id === todayEntry.emotion)?.emoji}
+                  </span>
+                  <span className="text-gray-600">
+                    {emotions.find(e => e.id === todayEntry.emotion)?.label}
+                  </span>
+                </div>
+                {todayEntry.note && (
+                  <p className="text-gray-600 italic">{todayEntry.note}</p>
+                )}
+                <div className="mt-4 p-4 bg-purple-50 rounded-xl">
+                  <h3 className="text-sm font-medium text-purple-800 mb-2">{t('suggestion_for_you')}</h3>
+                  <p className="text-purple-900">{getRandomActivity(todayEntry.emotion)}</p>
+                </div>
+              </div>
+            ))}
           </div>
         )}
 

@@ -104,5 +104,17 @@ export const activities = {
     "Đi ngủ sớm hơn một chút vào tối nay",
     "Đọc sách hoặc nghe podcast",
     "Tắm nước ấm trước khi đi ngủ"
+  ],
+  excited: [
+    "Lên kế hoạch cho một chuyến đi hoặc hoạt động thú vị",
+    "Chia sẻ niềm vui với bạn bè",
+    "Thử một món ăn mới",
+    "Tham gia một sự kiện hoặc buổi biểu diễn",
+    "Tạo một danh sách những điều bạn muốn làm trong tương lai",
+    "Chụp ảnh khoảnh khắc vui vẻ",
+    "Viết ra những điều làm bạn hào hứng",
+    "Tổ chức một bữa tiệc nhỏ với bạn bè",
+    "Học một kỹ năng mới mà bạn luôn muốn thử",
+    "Tham gia vào một hoạt động thể thao hoặc giải trí yêu thích"
   ]
 };
