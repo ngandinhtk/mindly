@@ -123,6 +123,7 @@ export const quotes = [
   { text: "Tôi tin rằng lòng can đảm duy nhất mà bất kỳ ai cũng cần là lòng can đảm để theo đuổi ước mơ của riêng mình.", author: "Oprah Winfrey" },
   { text: "Không có kiệt tác nào được tạo ra bởi một nghệ sĩ lười biếng.", author: "Vô danh" },
   { text: "Nếu bạn không thể giải thích nó một cách đơn giản, bạn không hiểu nó đủ rõ.", author: "Albert Einstein" },
+  { text: "'Hãy học cách chấp nhận và tha thứ cho những lồi lầm của bản thân, vì con người ai cũng mắc sai lầm", author: "Unknown" },
 ]
 
 // Function to get a random quote for the day

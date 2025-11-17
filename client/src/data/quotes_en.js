@@ -126,6 +126,7 @@ export const quotes = [
   { text: "It's not the load that breaks you down, it's the way you carry it.", author: "Lou Holtz" },
   { text: "The harder I work, the luckier I get.", author: "Gary Player" },
   { text: "The only thing standing between you and your goal is the bullshit story you keep telling yourself as to why you can't achieve it.", author: "Jordan Belfort" },
-  { text: "If you are working on something that you really care about, you don’t have to be pushed. The vision pulls you.", author: "Steve Jobs" }  
+  { text: "If you are working on something that you really care about, you don’t have to be pushed. The vision pulls you.", author: "Steve Jobs" }  ,
+  { text: "Learn to accept and forgive your own mistakes, because everyone makes them.", author: "Unknown" },
 
 ]

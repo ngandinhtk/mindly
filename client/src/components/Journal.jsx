@@ -143,12 +143,14 @@ const Journal = () => {
     setSelectedDate(date);
   };
 
-  const getSelectedEntry = () => {
-    if (!selectedDate) return null;
-    return entries.find(e => 
+  const getSelectedEntries = () => {
+    if (!selectedDate) return [];
+    return entries.filter(e => 
       new Date(e.date).toDateString() === selectedDate.toDateString()
     );
   };
+
+  const selectedEntries = getSelectedEntries();
 
   return (
     <div className="max-w-3xl mx-auto px-4">
@@ -181,28 +183,36 @@ const Journal = () => {
 
       {/* Selected Day Details */}
       {selectedDate && (
-        <div className="bg-white mt-6 p-8 rounded-3xl shadow-lg p-6">
+        <div className="bg-white mt-6 p-8 rounded-3xl shadow-lg">
           <h3 className="text-lg font-medium text-gray-700 mb-4">
-            {selectedDate.toLocaleDateString('en-US', { 
+            {selectedDate.toLocaleDateString(i18n.language, { 
               weekday: 'long', 
               year: 'numeric', 
               month: 'long', 
               day: 'numeric' 
             })}
           </h3>
-          {getSelectedEntry() ? (
-            <div>
-              <div className="flex items-center gap-3 mb-3">
-                <span className="text-2xl">
-                  {emotions.find(e => e.id === getSelectedEntry().emotion)?.emoji}
-                </span>
-                <span className="text-gray-600">
-                  {emotions.find(e => e.id === getSelectedEntry().emotion)?.label}
-                </span>
-              </div>
-              {getSelectedEntry().note && (
-                <p className="text-gray-600 italic">{getSelectedEntry().note}</p>
-              )}
+          {selectedEntries.length > 0 ? (
+            <div className="space-y-4">
+              {selectedEntries.map((entry, index) => {
+                const emotion = emotions.find(e => e.id === entry.emotion);
+                return (
+                  <div key={index} className="border-b border-gray-200 pb-4 last:border-b-0">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="text-3xl">{emotion?.emoji}</span>
+                      <div>
+                        <span className="font-bold text-gray-800">{t(emotion?.label)}</span>
+                        <span className="text-sm text-gray-500 ml-2">
+                          {new Date(entry.date).toLocaleTimeString(i18n.language, { hour: '2-digit', minute: '2-digit' })}
+                        </span>
+                      </div>
+                    </div>
+                    {entry.note && (
+                      <p className="text-gray-600 italic bg-gray-50 p-3 rounded-lg">{entry.note}</p>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           ) : (
             <p className="text-gray-500">{t('no_entry')}</p>

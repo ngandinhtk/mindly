@@ -16,12 +16,8 @@ const Dashboard = () => {
   const [dailyQuote, setDailyQuote] = React.useState(null);
   const [username, setUsername] = React.useState(null);
   const [showMenu, setShowMenu] = React.useState(false);
-    const [activeTab, setActiveTab] = useState('journal');
-
-  // const navigate = useNavigate();
-
-
-
+  const [activeTab, setActiveTab] = useState('journal');
+  
   const handleLogout = () => {
     localStorage.removeItem('username');
     window.location.reload();
@@ -203,7 +199,10 @@ const Dashboard = () => {
                     {emotions.find(e => e.id === todayEntry.emotion)?.emoji}
                   </span>
                   <span className="text-gray-600">
-                    {emotions.find(e => e.id === todayEntry.emotion)?.label}
+                    {t(emotions.find(e => e.id === todayEntry.emotion)?.label)}
+                  </span>
+                  <span className="text-xs text-gray-500">
+                    {new Date(todayEntry.date).toLocaleTimeString(i18n.language, { hour: '2-digit', minute: '2-digit' })}
                   </span>
                 </div>
                 {todayEntry.note && (
