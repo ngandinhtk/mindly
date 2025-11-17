@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/mindly/static/css/main.d35d6f35.css",
-    "main.js": "/mindly/static/js/main.59a5bd6e.js",
+    "main.css": "/mindly/static/css/main.3c4f8756.css",
+    "main.js": "/mindly/static/js/main.abba8396.js",
     "static/js/192.fc8730e4.chunk.js": "/mindly/static/js/192.fc8730e4.chunk.js",
     "static/js/562.80c047c2.chunk.js": "/mindly/static/js/562.80c047c2.chunk.js",
-    "static/js/432.60b51cf3.chunk.js": "/mindly/static/js/432.60b51cf3.chunk.js",
-    "static/js/330.a8b69f75.chunk.js": "/mindly/static/js/330.a8b69f75.chunk.js",
+    "static/js/432.a6af6608.chunk.js": "/mindly/static/js/432.a6af6608.chunk.js",
+    "static/js/330.a4245a80.chunk.js": "/mindly/static/js/330.a4245a80.chunk.js",
     "static/js/977.4f357189.chunk.js": "/mindly/static/js/977.4f357189.chunk.js",
     "static/js/455.5edc9ea2.chunk.js": "/mindly/static/js/455.5edc9ea2.chunk.js",
     "index.html": "/mindly/index.html",
-    "main.d35d6f35.css.map": "/mindly/static/css/main.d35d6f35.css.map",
-    "main.59a5bd6e.js.map": "/mindly/static/js/main.59a5bd6e.js.map",
+    "main.3c4f8756.css.map": "/mindly/static/css/main.3c4f8756.css.map",
+    "main.abba8396.js.map": "/mindly/static/js/main.abba8396.js.map",
     "192.fc8730e4.chunk.js.map": "/mindly/static/js/192.fc8730e4.chunk.js.map",
     "562.80c047c2.chunk.js.map": "/mindly/static/js/562.80c047c2.chunk.js.map",
-    "432.60b51cf3.chunk.js.map": "/mindly/static/js/432.60b51cf3.chunk.js.map",
-    "330.a8b69f75.chunk.js.map": "/mindly/static/js/330.a8b69f75.chunk.js.map",
+    "432.a6af6608.chunk.js.map": "/mindly/static/js/432.a6af6608.chunk.js.map",
+    "330.a4245a80.chunk.js.map": "/mindly/static/js/330.a4245a80.chunk.js.map",
     "977.4f357189.chunk.js.map": "/mindly/static/js/977.4f357189.chunk.js.map",
     "455.5edc9ea2.chunk.js.map": "/mindly/static/js/455.5edc9ea2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d35d6f35.css",
-    "static/js/main.59a5bd6e.js"
+    "static/css/main.3c4f8756.css",
+    "static/js/main.abba8396.js"
   ]
 }
