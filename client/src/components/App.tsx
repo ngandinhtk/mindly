@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link, Redirect, RouteProps, useLocation } from 'react-router-dom';
+import React from 'react';  
+import { BrowserRouter as Router, Routes, Route, Link, Navigate, Outlet } from 'react-router-dom';
 import { Home, User, Calendar, TrendingUp, Heart, LogOut } from 'lucide-react';
 import Dashboard from './Dashboard';
 import Profile from './Profile';
@@ -10,29 +10,10 @@ import UserPage from './UserPage';
 import Insight from './Insight';
 import LanguageSwitcher from './LanguageSwitcher';
 
-interface PrivateRouteProps extends RouteProps {
-  component: React.ComponentType<any>;
-  username: string | null;
-}
-
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ component: Component, username, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) =>
-      username ? (
-        <Component {...props} />
-      ) : (
-        <Redirect
-          to={{
-            pathname: '/login',
-            state: { from: props.location },
-          }}
-        />
-      )
-    }
-  />
-);
-
+const PrivateRoutes = () => {
+  const username = localStorage.getItem('username');
+  return username ? <Outlet /> : <Navigate to="/login" />;
+};
 
 const App: React.FC = () => {
   const { t } = useTranslation();
@@ -49,11 +30,11 @@ const App: React.FC = () => {
     
     };
   
-    const handleLogoutConfirm = () => {
-      setShowLogoutConfirm(false);
-      localStorage.removeItem('username');
-      window.location.reload();
-    };
+    // const handleLogoutConfirm = () => {
+    //   setShowLogoutConfirm(false);
+    //   localStorage.removeItem('username');
+    //   window.location.reload();
+    // };
 
 
   const confirmLogout = () => {
@@ -99,16 +80,16 @@ const App: React.FC = () => {
         )}
            
         <main className="flex-grow overflow-y-auto pb-20 max-w-3xl mx-auto w-full">
-          <Switch>
-            <Route path="/login">
-              <UserPage onLogin={handleLogin} />
+          <Routes>
+            <Route path="/login" element={<UserPage onLogin={handleLogin} />} />
+            <Route element={<PrivateRoutes />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/journal"element={<Journal />} />
+              <Route path="/insights" element={<Insight />} />
             </Route>
-            <PrivateRoute exact path="/" component={Dashboard} username={username} />
-            <PrivateRoute path="/profile" component={Profile} username={username} />
-            <PrivateRoute path="/journal" component={Journal} username={username} />
-            <PrivateRoute path="/insights" component={Insight} username={username} />
-            <Redirect from="*" to="/" />
-          </Switch>
+            <Route path="*" element={<Navigate to="/dashboard" />} />
+          </Routes>
         </main>
 
         {username && (
@@ -146,8 +127,6 @@ const App: React.FC = () => {
           </nav>
         )}
       </div>
-
-
       
  {/* Logout Confirmation Popup */}
       {showLogoutConfirm && (

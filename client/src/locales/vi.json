@@ -52,6 +52,8 @@
   "trending_analysis": "Xu hướng chung",
   "positive_trend" : "Bạn đang có xu hướng tích cực! Hãy tiếp tục phát huy 🌟",
   "negative_trend" : "Bạn đang có xu hướng tiêu cực. Hãy nhớ rằng, có những lúc thăng trầm là điều bình thường. Hãy chăm sóc bản thân nhé! 🌈",
-  "netive_trend" : "Bạn đang duy trì trạng thái ổn định. Hãy tiếp tục giữ vững tinh thần nhé! 🌟"
+  "netive_trend" : "Bạn đang duy trì trạng thái ổn định. Hãy tiếp tục giữ vững tinh thần nhé! 🌟",
+  "export_pdf": "Xuất file PDF",
+  "no_data_trend": "Chưa có dữ liệu."
 
 }

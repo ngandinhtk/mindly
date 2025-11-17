@@ -3,33 +3,10 @@ export const quotes = [
     text: "Hạnh phúc không phải là đích đến, mà là cách ta đi",
     author: "Thích Nhất Hạnh"
   },
-  {
-    text: "Mỗi ngày là một trang mới trong cuốn sách cuộc đời của bạn",
-    author: "Unknown"
-  },
-  {
-    text: "Nụ cười của bạn có thể thay đổi cả ngày của ai đó",
-    author: "Unknown"
-  },
-  {
-    text: "Hôm nay khó khăn, ngày mai sẽ tốt hơn",
-    author: "Unknown"
-  },
+  
   {
     text: "Bình an đến từ bên trong, đừng tìm kiếm nó từ bên ngoài",
     author: "Buddha"
-  },
-  {
-    text: "Mỗi cảm xúc đều có giá trị của nó, hãy đón nhận và thấu hiểu",
-    author: "Unknown"
-  },
-  {
-    text: "Hạnh phúc nhỏ nhất cũng là hạnh phúc",
-    author: "Unknown"
-  },
-  {
-    text: "Mọi việc sẽ ổn thôi, tin vào điều đó",
-    author: "Unknown"
   },
   {
     text: "Yêu thương bản thân là khởi đầu của một cuộc phiêu lưu suốt đời",
@@ -44,60 +21,13 @@ export const quotes = [
     author: "Charles R. Swindoll"
   },
   {
-    text: "Hãy là phiên bản tốt nhất của chính mình",
-    author: "Unknown"
-  },
-  {
-    text: "Đôi khi những điều tồi tệ nhất lại dẫn đến những điều tốt đẹp nhất",
-    author: "Unknown"
-  },
-  {
-    text: "Giọt nước có thể làm tràn ly, nhưng cũng có thể làm nở hoa",
-    author: "Unknown"
-  },
-  {
-    text: "Mỗi bước đi nhỏ đều đưa ta đến gần hơn với mục tiêu",
-    author: "Unknown"
-  },
-  {
     text: "Khi bạn thay đổi cách nhìn về mọi thứ, những thứ bạn nhìn cũng sẽ thay đổi",
     author: "Wayne Dyer"
   },
-  {
-    text: "Đừng so sánh bản thân với người khác, hãy so sánh với chính mình của ngày hôm qua",
-    author: "Unknown"
-  },
-  {
-    text: "Điều quan trọng không phải là vấp ngã mấy lần, mà là đứng dậy được bao nhiêu lần",
-    author: "Unknown"
-  },
-  {
-    text: "Mỗi ngày đều là cơ hội để bắt đầu lại",
-    author: "Unknown"
-  },
-  {
-    text: "Hãy dành thời gian để làm những điều khiến tâm hồn bạn hạnh phúc",
-    author: "Unknown"
-  },
-  {
-    text: "Sống chậm lại, cảm nhận nhiều hơn",
-    author: "Unknown"
-  },
-  {
-    text: "Không có cảm xúc nào là sai, chỉ có cách ta phản ứng với nó",
-    author: "Unknown"
-  },
+
   {
     text: "Mỗi hơi thở là một món quà của cuộc sống",
     author: "Thích Nhất Hạnh"
-  },
-  {
-    text: "Hạnh phúc đến từ việc biết đủ",
-    author: "Unknown"
-  },
-  {
-    text: "Bạn không thể thay đổi quá khứ, nhưng bạn có thể bắt đầu thay đổi từ bây giờ",
-    author: "Unknown"
   },
   { text: "Cách tốt nhất để dự đoán tương lai là tạo ra nó.", author: "Peter Drucker" },
   { text: "Bạn không bao giờ quá già để đặt ra một mục tiêu khác hoặc mơ một giấc mơ mới.", author: "C.S. Lewis" },
@@ -144,7 +74,6 @@ export const quotes = [
   { text: "Bước đầu tiên để đến một nơi nào đó là quyết định rằng bạn sẽ không ở lại nơi bạn đang ở.", author: "J.P. Morgan" },
   { text: "Có những điều tốt đẹp hơn nhiều ở phía trước hơn bất kỳ điều gì chúng ta để lại phía sau.", author: "C.S. Lewis" },
   { text: "Bí quyết để thay đổi là tập trung tất cả năng lượng của bạn, không phải vào việc chống lại cái cũ, mà là vào việc xây dựng cái mới.", author: "Socrates" },
-  { text: "Tôi phát hiện ra rằng một khởi đầu mới là một quá trình. Một khởi đầu mới là một cuộc hành trình - một cuộc hành trình đòi hỏi một kế hoạch.", author: "Unknown" },
   { text: "Hoàn cảnh hiện tại của bạn không quyết định nơi bạn có thể đến; chúng chỉ đơn thuần xác định nơi bạn bắt đầu.", author: "Nido Qubein" },
   { text: "Mỗi ngày là một cơ hội để bắt đầu lại. Đừng tập trung vào những thất bại của ngày hôm qua, hãy bắt đầu ngày hôm nay với những suy nghĩ và kỳ vọng tích cực.", author: "Catherine Pulsifer" },
   { text: "Bạn có thể học những điều mới bất cứ lúc nào trong đời nếu bạn sẵn sàng trở thành người mới bắt đầu. Nếu bạn thực sự học cách thích làm người mới bắt đầu, cả thế giới sẽ mở ra với bạn.", author: "Barbara Sher" },
@@ -173,11 +102,8 @@ export const quotes = [
   { text: "Hãy tin tưởng vì bạn sẵn sàng chấp nhận rủi ro, không phải vì nó an toàn hay chắc chắn.", author: "Unknown" },
   { text: "Hãy chọn một ý tưởng. Biến ý tưởng đó thành cuộc sống của bạn - nghĩ về nó, mơ về nó, sống với ý tưởng đó. Hãy để bộ não, cơ bắp, dây thần kinh, mọi bộ phận của cơ thể bạn, tràn đầy ý tưởng đó, và chỉ để lại mọi ý tưởng khác một mình. Đây là con đường dẫn đến thành công.", author: "Swami Vivekananda" },
   { text: "Tất cả những giấc mơ của chúng ta đều có thể trở thành sự thật nếu chúng ta có can đảm để theo đuổi chúng.", author: "Walt Disney" },
-  { text: "Những điều tốt đẹp đến với những người chờ đợi, nhưng những điều tốt đẹp hơn đến với những người đi ra ngoài và giành lấy chúng.", author: "Unknown" },
-  { text: "Nếu bạn làm những gì bạn đã luôn làm, bạn sẽ nhận được những gì bạn đã luôn nhận được.", author: "Unknown" },
   { text: "Thành công là đi từ thất bại này đến thất bại khác mà không mất đi sự nhiệt tình.", author: "Winston Churchill" },
   { text: "Ngay khi con sâu bướm nghĩ rằng thế giới sắp kết thúc, nó đã biến thành một con bướm.", author: "Tục ngữ" },
-  { text: "Những doanh nhân thành đạt là những người cho đi chứ không phải là những người lấy đi năng lượng tích cực.", author: "Unknown" },
   { text: "Bất cứ khi nào bạn nhìn thấy một người thành công, bạn chỉ nhìn thấy những vinh quang công khai, không bao giờ là những hy sinh riêng tư để đạt được chúng.", author: "Vaibhav Shah" },
   { text: "Cơ hội không tự nhiên xảy ra, bạn tạo ra chúng.", author: "Chris Grosser" },
   { text: "Đừng cố gắng trở thành một người thành công, mà hãy cố gắng trở thành một người có giá trị.", author: "Albert Einstein" },
@@ -197,9 +123,6 @@ export const quotes = [
   { text: "Tôi tin rằng lòng can đảm duy nhất mà bất kỳ ai cũng cần là lòng can đảm để theo đuổi ước mơ của riêng mình.", author: "Oprah Winfrey" },
   { text: "Không có kiệt tác nào được tạo ra bởi một nghệ sĩ lười biếng.", author: "Vô danh" },
   { text: "Nếu bạn không thể giải thích nó một cách đơn giản, bạn không hiểu nó đủ rõ.", author: "Albert Einstein" },
-  { text: "Phúc cho những ai có thể cho đi mà không cần nhớ và nhận mà không cần quên.", author: "Vô danh" },
-  { text: "Hãy làm một điều mỗi ngày khiến bạn sợ hãi.", author: "Vô danh" },
-  { text: "Sống để làm gì nếu bạn không ít nhất cố gắng làm một điều gì đó đáng chú ý.", author: "Vô danh" }
 ]
 
 // Function to get a random quote for the day

@@ -52,5 +52,7 @@
   "trending_analysis": "Trending Analysis",
   "positive_trend" : "You are showing a positive trend! Keep it up 🌟",
   "negative_trend" : "You are showing a negative trend. Remember, it's okay to have ups and downs. Take care of yourself! 🌈",
-  "netive_trend" : "You are maintaining a stable state. Keep up the good spirit! 🌟"
+  "netive_trend" : "You are maintaining a stable state. Keep up the good spirit! 🌟",
+  "export_pdf": "Export to PDF",
+  "no_data_trend": "No data available."
 }

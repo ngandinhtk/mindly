@@ -116,5 +116,17 @@ export const activities = {
     "Tổ chức một bữa tiệc nhỏ với bạn bè",
     "Học một kỹ năng mới mà bạn luôn muốn thử",
     "Tham gia vào một hoạt động thể thao hoặc giải trí yêu thích"
-  ]
+  ],
+  satisfies: [
+    "Thưởng thức một bữa ăn ngon",
+    "Dành thời gian với người thân yêu",
+    "Hoàn thành một dự án cá nhân",
+    "Tham gia vào một hoạt động sáng tạo",
+    "Tập thể dục và cảm nhận cơ thể mình",
+    "Nghe nhạc yêu thích",
+    "Tham quan một địa điểm mới",
+    "Thư giãn với một cuốn sách hay",
+    "Chia sẻ niềm vui với bạn bè",
+    "Lên kế hoạch cho những mục tiêu tương lai"
+    ]
 };

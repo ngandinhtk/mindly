@@ -116,5 +116,17 @@ export const activities = {
     "Make a list of things that make you happy",
     "Go for a walk and enjoy the moment",
     "Treat yourself to something special"
-  ]
+  ],
+  satisfies: [
+    "Reflect on your recent achievements",
+    "Share your satisfaction with a friend",
+    "Set new personal goals",
+    "Take time to relax and enjoy the moment",
+    "Write down what makes you feel satisfied",
+    "Engage in a hobby you love",
+    "Spend time in nature",
+    "Practice gratitude for what you have",
+    "Listen to calming music",
+    "Plan a small celebration for yourself"
+  ] 
 };
