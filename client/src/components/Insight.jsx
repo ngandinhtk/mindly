@@ -107,7 +107,7 @@ const Insight = () => {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {emotionStats.length > 0 ? (
                     emotionStats.map(stat => (
-                        <div key={stat.id} className={`${stat.color} p-6 rounded-xl transform transition-transform hover:scale-105`}>
+                        <div key={stat.id} className={`${stat.color} text-center p-6 rounded-xl transform transition-transform hover:scale-105`}>
                             <div className="text-4xl mb-2">{stat.emoji}</div>
                             <div className="text-2xl font-bold text-gray-800">{stat.percentage}%</div>
                             <div className="text-sm text-gray-600">{stat.count} {t('day')} {stat.label}</div>
