@@ -7,6 +7,7 @@
   "thu": "T5",
   "fri": "T6",
   "sat": "T7",
+  "day": "ngày",
   "no_entry": "Chưa có ghi chép cho ngày này",
   "felt": "Tôi cảm thấy",
   "let_me_know_your_name": "Hãy cho mình biết tên của bạn",
@@ -54,6 +55,12 @@
   "negative_trend" : "Bạn đang có xu hướng tiêu cực. Hãy nhớ rằng, có những lúc thăng trầm là điều bình thường. Hãy chăm sóc bản thân nhé! 🌈",
   "netive_trend" : "Bạn đang duy trì trạng thái ổn định. Hãy tiếp tục giữ vững tinh thần nhé! 🌟",
   "export_pdf": "Xuất file PDF",
-  "no_data_trend": "Chưa có dữ liệu."
-
+  "no_data_trend": "Chưa có dữ liệu.",
+  "weekly_summary": "Tổng kết tuần",
+  "weekly_trend": "Cảm xúc đã thay đổi như thế nào trong tuần này?",
+  "no_data_for_week": "Không có dữ liệu cho tuần này",
+  "add_entries_for_summary": "Hãy thêm ghi chép để xem tổng kết tuần của bạn.",
+  "positive_week_trend": "Bạn đã có một tuần tuyệt vời! Hãy tiếp tục giữ vững tinh thần tích cực. ✨",
+  "negative_week_trend": "Có vẻ như bạn đã có một tuần khó khăn. Hãy nhớ đối xử tốt với bản thân. Mọi chuyện rồi sẽ ổn thôi. ❤️",
+  "mixed_week_trend": "Bạn đã có một tuần với nhiều cảm xúc lẫn lộn. Điều đó hoàn toàn bình thường. Cố lên! 👍"
 }

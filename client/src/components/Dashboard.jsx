@@ -229,7 +229,7 @@ const Dashboard = () => {
             <div className="bg-purple-50 rounded-xl p-4">
               <TrendingUp className="w-5 h-5 text-purple-500 mb-2" />
               <div className="text-sm text-purple-600">{t('most_common_emotion')}</div>
-              <div className="text-2xl font-semibold text-purple-900">
+              <div className="text-xl font-bold text-purple-900">
                 {getMostCommonEmotion()}
               </div>
             </div>

@@ -3,6 +3,7 @@ import { emotions } from '../data/emotions';
 import { t } from 'i18next';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import WeeklySummary from './WeeklySummary';
 
 const Insight = () => {
     window.html2canvas = html2canvas;
@@ -99,17 +100,17 @@ const Insight = () => {
     };
 
     return (
-         <div className="space-y-6">
+         <div className="space-y-6 ">
+
             <div className="p-8" ref={insightRef}>
-              <h3 className="text-2xl font-bold text-gray-800 mb-6">{t('emotion_stats')}</h3>
-              
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              <h3 className="text-2xl font-bold  text-gray-800 mb-6">{t('emotion_stats')}</h3>              
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {emotionStats.length > 0 ? (
                     emotionStats.map(stat => (
                         <div key={stat.id} className={`${stat.color} p-6 rounded-xl transform transition-transform hover:scale-105`}>
                             <div className="text-4xl mb-2">{stat.emoji}</div>
                             <div className="text-2xl font-bold text-gray-800">{stat.percentage}%</div>
-                            <div className="text-sm text-gray-600">{stat.count} ngày {stat.label}</div>
+                            <div className="text-sm text-gray-600">{stat.count} {t('day')} {stat.label}</div>
                         </div>
                     ))
                 ) : (
@@ -119,23 +120,24 @@ const Insight = () => {
                     </div>
                 )}
                             <div className="text-center">
-                <button
-                    onClick={handleExportPDF}
-                    className="bg-purple-600 hover:bg-purple-700 text-white font-bold  px-4 rounded"
-                >
-                    {t('export_pdf')}
-                </button>
+        
             </div>
               </div>
-
-              <div className="border-t pt-6">
-                <h4 className="font-semibold text-gray-800 mb-3">{t('trending_analysis')}</h4>
+                {/* <h4 className="font-semibold text-gray-800 mb-3">{t('trending_analysis')}</h4> */}
                 <p className="text-gray-600">
                   {getOverallTrend()}
                 </p>
+                
+              <div className=" text-center ">
+                     <button
+                    onClick={handleExportPDF}
+                    className=" bg-purple-600 hover:bg-purple-700 text-white font-bold  px-4 m-4  rounded"
+                >
+                    {t('export_pdf')}
+                </button>
               </div>
             </div>
-
+         <WeeklySummary />
           </div>
     );
 };

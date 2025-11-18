@@ -7,6 +7,7 @@
   "thu": "Thu",
   "fri": "Fri",
   "sat": "Sat",
+  "day": "day(s)",
   "no_entry": "No entry for this day",
   "let_me_know_your_name": "Let me know your name",
   "felt": "I feel",
@@ -54,5 +55,12 @@
   "negative_trend" : "You are showing a negative trend. Remember, it's okay to have ups and downs. Take care of yourself! 🌈",
   "netive_trend" : "You are maintaining a stable state. Keep up the good spirit! 🌟",
   "export_pdf": "Export to PDF",
-  "no_data_trend": "No data available."
+  "no_data_trend": "No data available.",
+  "weekly_summary": "Weekly Summary",
+  "weekly_trend": "How have your emotions changed this week?",
+  "no_data_for_week": "No data for this week",
+  "add_entries_for_summary": "Add some entries to see your weekly summary.",
+  "positive_week_trend": "You've had a great week! Keep up the positive vibes. ✨",
+  "negative_week_trend": "It seems like you've had a tough week. Remember to be kind to yourself. Things will get better. ❤️",
+  "mixed_week_trend": "You've had a mix of emotions this week. That's completely normal. Keep going! 👍"
 }
