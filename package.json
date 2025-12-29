@@ -1,12 +1,17 @@
 {
-  "name": "mindly-heroku-root",
   "version": "1.0.0",
   "homepage": "https://ngandinhtk.github.io/mindly",
   "description": "Root for Heroku deployment",
+  "name": "mindly-root",
+  "private": true,
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -b master -d build",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm start",
+    "client": "cd client && npm start",
+    "install:all": "cd client && npm install && cd ../server && npm install"
   },
   "engines": {
     "node": "16.x"
@@ -15,6 +20,7 @@
     "gh-pages": "^6.3.0"
   },
   "dependencies": {
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "concurrently": "^8.2.2"
   }
 }

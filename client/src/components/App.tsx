@@ -1,6 +1,6 @@
 import React from 'react';  
 import { BrowserRouter as Router, Routes, Route, Link, Navigate, Outlet } from 'react-router-dom';
-import { Home, User, Calendar, TrendingUp, Heart, LogOut } from 'lucide-react';
+import { Home, User, Calendar, TrendingUp, Heart, LogOut, FileText } from 'lucide-react';
 import Dashboard from './Dashboard';
 import Profile from './Profile';
 import Journal from './Journal';
@@ -8,6 +8,7 @@ import '../styles/index.css';
 import { useTranslation } from 'react-i18next';
 import UserPage from './UserPage';
 import Insight from './Insight';
+import Notes from './Notes';
 import LanguageSwitcher from './LanguageSwitcher';
 
 const PrivateRoutes = () => {
@@ -87,6 +88,7 @@ const App: React.FC = () => {
               <Route path="/profile" element={<Profile />} />
               <Route path="/journal"element={<Journal />} />
               <Route path="/insights" element={<Insight />} />
+              <Route path="/notes" element={<Notes />} />
             </Route>
             <Route path="*" element={<Navigate to="/dashboard" />} />
           </Routes>
@@ -99,6 +101,7 @@ const App: React.FC = () => {
                 to="/"
                 className="flex flex-col items-center p-1 text-gray-600 hover:text-purple-600 transition-colors"
               >
+               
                 <Home className="w-6 h-6" />
                 <span className="text-xs mt-1">{t('home')}</span>
               </Link>
@@ -116,6 +119,13 @@ const App: React.FC = () => {
                 <TrendingUp className="w-6 h-6" />
                 <span className="text-xs mt-1">{t('insights')}</span>
               </Link>
+               <Link
+                to="/notes"
+                className="flex flex-col items-center p-1 text-gray-600 hover:text-purple-600 transition-colors"
+              >
+                <FileText className="w-6 h-6" />
+                <span className="text-xs mt-1">{t('notes')}</span>
+              </Link>
               <Link
                 to="/profile"
                 className="flex flex-col items-center p-1 text-gray-600 hover:text-purple-600 transition-colors"
@@ -123,6 +133,7 @@ const App: React.FC = () => {
                 <User className="w-6 h-6" />
                 <span className="text-xs mt-1">{t('profile')}</span>
               </Link>
+              
             </div>
           </nav>
         )}
