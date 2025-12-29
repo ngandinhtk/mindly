@@ -38,7 +38,7 @@ const UserPage = ({ onLogin }) => {
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-3xl mx-4 px-6 py-8">
         <div className="mb-4">
           <h2 className="text-left text-3xl font-bold text-gray-900">Welcome to Mindly!</h2>
-          {/* <p className="mt-2 text-left italic text-gray-600">{t('let_me_know_your_name')}</p> */}
+          <p className="mt-2 text-left italic text-gray-600">{t('let_me_know_your_name')}</p>
         </div>
         <div className="mb-4 ">
           {/* <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">Username</label> */}
@@ -82,7 +82,7 @@ const UserPage = ({ onLogin }) => {
             className="bg-white rounded-2xl shadow-2xl p-8 w-4/5 max-w-xl transform transition-all duration-300 scale-100 animate-fade-in-up"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="text-xl font-semibold text-red-500 mb-4">Lỗi đăng nhập</h3>
+            <h3 className="text-xl font-semibold text-red-500 mb-4">{t('login_error')}</h3>
             <p className="text-gray-600 mb-6">{t('pass_confirmation') || 'Mật khẩu không đúng'}</p>
             <div className="flex justify-end gap-4">
               <button
