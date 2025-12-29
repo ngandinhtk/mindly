@@ -8,10 +8,13 @@ const WeeklySummary = () => {
   const [weekRange, setWeekRange] = useState('');
 
   useEffect(() => {
-    const savedEntries = localStorage.getItem('moodEntries');
-    if (savedEntries) {
-      const parsedEntries = JSON.parse(savedEntries);
-      calculateWeeklyStats(parsedEntries);
+    const username = localStorage.getItem('username');
+    if (username) {
+      const savedEntries = localStorage.getItem(`moodEntries_${username}`);
+      if (savedEntries) {
+        const parsedEntries = JSON.parse(savedEntries);
+        calculateWeeklyStats(parsedEntries);
+      }
     }
   }, []);
 

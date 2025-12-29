@@ -25,14 +25,13 @@ const Dashboard = () => {
 
   // Load data from localStorage
   React.useEffect(() => {
-    const savedEntries = localStorage.getItem('moodEntries');
-    if (savedEntries) {
-      setEntries(JSON.parse(savedEntries));
-    }
-
     const storedUsername = localStorage.getItem('username');
     if (storedUsername) {
       setUsername(storedUsername);
+      const savedEntries = localStorage.getItem(`moodEntries_${storedUsername}`);
+      if (savedEntries) {
+        setEntries(JSON.parse(savedEntries));
+      }
     }
 
     // Dynamically import activities based on language
@@ -82,7 +81,7 @@ const Dashboard = () => {
 
     const updatedEntries = [...entries, newEntry];
     setEntries(updatedEntries);
-    localStorage.setItem('moodEntries', JSON.stringify(updatedEntries));
+    localStorage.setItem(`moodEntries_${username}`, JSON.stringify(updatedEntries));
     
     // Reset form
     setSelectedEmotion(null);

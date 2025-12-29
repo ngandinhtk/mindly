@@ -121,9 +121,12 @@ const Journal = () => {
 
   useEffect(() => {
     // Load entries from localStorage
-    const savedEntries = localStorage.getItem('moodEntries');
-    if (savedEntries) {
-      setEntries(JSON.parse(savedEntries));
+    const username = localStorage.getItem('username');
+    if (username) {
+      const savedEntries = localStorage.getItem(`moodEntries_${username}`);
+      if (savedEntries) {
+        setEntries(JSON.parse(savedEntries));
+      }
     }
 
     // Fetch daily quote

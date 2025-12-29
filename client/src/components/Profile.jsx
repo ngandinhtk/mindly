@@ -18,44 +18,22 @@ const Profile = () => {
     setSelectedNote(note);
   };
   
-
   const closePopup = () => {
     setSelectedNote(null);
   };
 
-  const handleLogout = () => {
-    setShowLogoutConfirm(true);
-  };
-
-  const confirmLogout = () => {
-    localStorage.removeItem('username');
-    window.location.href = '/';
-  }
-
-  const cancelLogout = () => {
-    setShowLogoutConfirm(false);
-  }
-
-  const handleClearData = () => {
-    if (window.confirm(t('clear_data_confirmation'))) {
-      localStorage.removeItem('moodEntries');
-      window.location.reload();
-    }
-  };
-
   // Load emotion history and username from localStorage
   useEffect(() => {
-    const savedEntries = localStorage.getItem('moodEntries');
-    if (savedEntries) {
-      const entries = JSON.parse(savedEntries);
-      // Sort entries by date
-      const sortedEntries = entries.sort((a, b) => new Date(a.date) - new Date(b.date));
-      setEmotionHistory(sortedEntries);
-    }
-
     const storedUsername = localStorage.getItem('username');
     if (storedUsername) {
       setUserData(prevUserData => ({ ...prevUserData, username: storedUsername }));
+      const savedEntries = localStorage.getItem(`moodEntries_${storedUsername}`);
+      if (savedEntries) {
+        const entries = JSON.parse(savedEntries);
+        // Sort entries by date
+        const sortedEntries = entries.sort((a, b) => new Date(a.date) - new Date(b.date));
+        setEmotionHistory(sortedEntries);
+      }
     }
   }, []);
 
