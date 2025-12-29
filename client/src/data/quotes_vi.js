@@ -69,7 +69,7 @@ export const quotes = [
   { text: "Tôi càng làm việc chăm chỉ, tôi càng may mắn.", author: "Gary Player" },
   { text: "Điều duy nhất đứng giữa bạn và mục tiêu của bạn là câu chuyện nhảm nhí mà bạn không ngừng kể cho bản thân nghe về lý do tại sao bạn không thể đạt được nó.", author: "Jordan Belfort" },
   { text: "Nếu bạn đang làm việc gì đó mà bạn thực sự quan tâm, bạn không cần phải bị thúc ép. Tầm nhìn sẽ kéo bạn đi.", author: "Steve Jobs" },
-  { text: "Điều về những khởi đầu mới là chúng đòi hỏi một cái gì đó khác phải kết thúc.", author: "Unknown" },
+  // { text: "Điều về những khởi đầu mới là chúng đòi hỏi một cái gì đó khác phải kết thúc.", author: "Unknown" },
   { text: "Và đột nhiên bạn biết: Đã đến lúc bắt đầu một cái gì đó mới và tin tưởng vào sự kỳ diệu của những khởi đầu.", author: "Meister Eckhart" },
   { text: "Bước đầu tiên để đến một nơi nào đó là quyết định rằng bạn sẽ không ở lại nơi bạn đang ở.", author: "J.P. Morgan" },
   { text: "Có những điều tốt đẹp hơn nhiều ở phía trước hơn bất kỳ điều gì chúng ta để lại phía sau.", author: "C.S. Lewis" },
@@ -95,11 +95,11 @@ export const quotes = [
   { text: "Đừng ngại từ bỏ cái tốt để đi tìm cái vĩ đại.", author: "John D. Rockefeller" },
   { text: "Tôi thấy rằng tôi càng làm việc chăm chỉ, tôi càng có vẻ may mắn.", author: "Thomas Jefferson" },
   { text: "Thành công là tổng của những nỗ lực nhỏ, được lặp đi lặp lại hàng ngày.", author: "Robert Collier" },
-  { text: "Nếu bạn muốn đạt được sự vĩ đại, hãy ngừng xin phép.", author: "Unknown" },
+  // { text: "Nếu bạn muốn đạt được sự vĩ đại, hãy ngừng xin phép.", author: "Unknown" },
   { text: "Mọi việc diễn ra tốt nhất cho những người tận dụng tốt nhất cách mọi việc diễn ra.", author: "John Wooden" },
-  { text: "Để sống một cuộc sống sáng tạo, chúng ta phải mất đi nỗi sợ bị sai.", author: "Unknown" },
+  // { text: "Để sống một cuộc sống sáng tạo, chúng ta phải mất đi nỗi sợ bị sai.", author: "Unknown" },
   { text: "Nếu bạn không sẵn sàng mạo hiểm những điều thông thường, bạn sẽ phải chấp nhận những điều bình thường.", author: "Jim Rohn" },
-  { text: "Hãy tin tưởng vì bạn sẵn sàng chấp nhận rủi ro, không phải vì nó an toàn hay chắc chắn.", author: "Unknown" },
+  // { text: "Hãy tin tưởng vì bạn sẵn sàng chấp nhận rủi ro, không phải vì nó an toàn hay chắc chắn.", author: "Unknown" },
   { text: "Hãy chọn một ý tưởng. Biến ý tưởng đó thành cuộc sống của bạn - nghĩ về nó, mơ về nó, sống với ý tưởng đó. Hãy để bộ não, cơ bắp, dây thần kinh, mọi bộ phận của cơ thể bạn, tràn đầy ý tưởng đó, và chỉ để lại mọi ý tưởng khác một mình. Đây là con đường dẫn đến thành công.", author: "Swami Vivekananda" },
   { text: "Tất cả những giấc mơ của chúng ta đều có thể trở thành sự thật nếu chúng ta có can đảm để theo đuổi chúng.", author: "Walt Disney" },
   { text: "Thành công là đi từ thất bại này đến thất bại khác mà không mất đi sự nhiệt tình.", author: "Winston Churchill" },
@@ -123,7 +123,7 @@ export const quotes = [
   { text: "Tôi tin rằng lòng can đảm duy nhất mà bất kỳ ai cũng cần là lòng can đảm để theo đuổi ước mơ của riêng mình.", author: "Oprah Winfrey" },
   { text: "Không có kiệt tác nào được tạo ra bởi một nghệ sĩ lười biếng.", author: "Vô danh" },
   { text: "Nếu bạn không thể giải thích nó một cách đơn giản, bạn không hiểu nó đủ rõ.", author: "Albert Einstein" },
-  { text: "'Hãy học cách chấp nhận và tha thứ cho những lồi lầm của bản thân, vì con người ai cũng mắc sai lầm", author: "Unknown" },
+  // { text: "'Hãy học cách chấp nhận và tha thứ cho những lồi lầm của bản thân, vì con người ai cũng mắc sai lầm", author: "Unknown" },
 ]
 
 // Function to get a random quote for the day
