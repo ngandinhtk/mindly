@@ -174,7 +174,7 @@ const Dashboard = () => {
                   value={note}
                   onChange={(e) => setNote(e.target.value)}
                   placeholder={t('note_placeholder')}
-                  className=" shadow-lg w-full h-32 px-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-xl focus:outline-none focus:border-purple-300 focus:bg-white transition-all resize-none"
+                  className=" shadow-sm w-full h-32 px-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-xl focus:outline-none focus:border-purple-300 focus:bg-white transition-all resize-none"
                   rows={3}
                 />
       
@@ -189,7 +189,7 @@ const Dashboard = () => {
             )}
           </div>
         ) : (
-          <div className="bg-white rounded-3xl shadow-lg p-6 mb-6">
+          <div className="bg-white rounded-3xl shadow-sm p-6 mb-6">
             <h2 className="text-lg font-bold text-gray-800 mb-4">{t('your_day')}</h2>
             {todayEntries.map((todayEntry, index) => (
               <div key={index} className="mb-4">
@@ -217,7 +217,7 @@ const Dashboard = () => {
         )}
 
         {/* Statistics Section */}
-        <div className="bg-white rounded-3xl shadow-lg p-6">
+        <div className="bg-white rounded-3xl shadow-md p-6">
           <h2 className="text-lg font-medium text-gray-700 mb-4">{t('monthly_overview')}</h2>
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-purple-50 rounded-xl p-4">

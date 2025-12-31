@@ -14,6 +14,19 @@ const Profile = () => {
   const [selectedNote, setSelectedNote] = useState(null);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
+  const handleLogout = () => {
+    setShowLogoutConfirm(true);
+  };
+
+  const confirmLogout = () => {
+    localStorage.removeItem('username');
+    window.location.href = '/';
+  };
+
+  const cancelLogout = () => {
+    setShowLogoutConfirm(false);
+  };
+
   const handleNoteClick = (note) => {
     setSelectedNote(note);
   };
@@ -63,7 +76,7 @@ const Profile = () => {
   return (
     <div className="max-w-3xl mx-auto p-4 pt-6">
       {/* Profile Header */}
-      <div className="bg-white rounded-3xl shadow-lg p-4 mb-6" >
+      <div className="bg-white rounded-3xl shadow-sm p-4 mb-6" >
         <div className="flex items-center space-x-4">
           <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center">
             {userData.avatar ? (
@@ -82,13 +95,18 @@ const Profile = () => {
               <h1 className="text-2xl font-semibold text-gray-800">{userData.username}</h1>
               <p className="text-gray-500 text-sm">{t('your_emotion_journal')}</p>
             </div>
-       
+            <button
+              onClick={handleLogout}
+              className="ml-auto p-3 bg-red-50 text-red-500 rounded-2xl hover:bg-red-100 transition-colors"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
           </div>
         </div>
       </div>
 
       {/* Emotion Chart */}
-      <div className="bg-white rounded-3xl shadow-lg p-4">
+      <div className="bg-white rounded-3xl shadow-sm p-4">
         <div className="flex items-center gap-2 mb-6">
           <BarChart2 className="w-5 h-5 text-purple-500" />
           <h2 className="text-lg font-medium text-gray-700">{t('emotion_history_7_days')}</h2>
@@ -168,9 +186,38 @@ const Profile = () => {
         </div>
       )}
 
+      {/* Logout Confirmation Popup */}
+      {showLogoutConfirm && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center z-50 transition-opacity duration-300"
+          onClick={cancelLogout}
+        >
+          <div 
+            className="bg-white rounded-2xl shadow-2xl p-8 w-4/5 max-w-xl transform transition-all duration-300 scale-95 opacity-0 animate-fade-in-up"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="text-xl font-semibold text-gray-800 mb-4">{t('logout')}</h3>
+            <p className="text-gray-600 mb-6">{t('logout_confirmation')}</p>
+            <div className="flex justify-end gap-4">
+              <button
+                onClick={cancelLogout}
+                className="px-6 py-2 rounded-lg text-gray-600 bg-gray-100 hover:bg-gray-200 transition-colors"
+              >
+                {t('cancel')}
+              </button>
+              <button
+                onClick={confirmLogout}
+                className="px-6 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition-colors"
+              >
+                {t('logout')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Author Information */}
-      <div className="mt-6 text-center text-gray-400 text-sm">
+      <div className="mt-2 text-center text-gray-400 text-xs">
         {t('developed_by')}
       </div>
     </div>

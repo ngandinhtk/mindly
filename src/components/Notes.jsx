@@ -67,7 +67,7 @@ const Notes = () => {
     <div className="p-4 max-w-4xl mx-auto">
       <div className="bg-white  p-4 rounded-xl shadow-sm mb-6 border border-gray-100">
         <textarea
-          className="w-full p-3 border border-gray-300  rounded-lg focus:ring-2 focus:ring-pink-300 focus:border-transparent outline-none resize-none min-h-[100px]"
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-300 focus:border-transparent outline-none resize-none min-h-[100px]"
           placeholder={t('write_note_placeholder') || "Write a note..."}
           value={newNote}
           onChange={(e) => setNewNote(e.target.value)}

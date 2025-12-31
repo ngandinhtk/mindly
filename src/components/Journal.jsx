@@ -37,7 +37,7 @@ const Calendar = ({ entries, onDateSelect, selectedDate, currentMonth, setCurren
 
     // Add empty cells for days before the first day of the month
     for (let i = 0; i < firstDay; i++) {
-      days.push(<div key={`empty-${i}`} className="h-12" />);
+      days.push(<div key={`empty-${i}`} className="h-10" />);
     }
 
     // Add cells for each day of the month
@@ -52,13 +52,13 @@ const Calendar = ({ entries, onDateSelect, selectedDate, currentMonth, setCurren
         <button
           key={day}
           onClick={() => onDateSelect(date)}
-          className={`h-12 relative flex items-center justify-center group ${
+          className={`h-10 relative flex items-center justify-center group ${
             isSelected ? 'ring-2 ring-purple-500' : ''
           }`}
         >
           <div
             className={`w-8 h-8 rounded-full flex items-center justify-center relative
-              ${isToday ? 'ring-2 ring-purple-500' : ''}
+              ${isToday ? 'ring-2 ring-pink-500' : ''}
             `}
             style={{ backgroundColor: emotionObject ? emotionObject.color : 'transparent' }}
           >
@@ -158,13 +158,13 @@ const Journal = () => {
   return (
     <div className="max-w-3xl mx-auto px-4">
       {/* Daily Quote */}
-             <div className="p-6 mb-6">
+             <div className="p-6">
                 <h1 className="text-gray-700 text-xl mb-4 flex items-center gap-2">
-                  <CalendarIcon className="w-8 h-8  text-purple-600" />
-                  <div className='font-bold'>{t('daily_quote')}</div>
+                  <CalendarIcon className="w-8 h-8 text-purple-600" />
+                  <div className='font-bold '>{t('daily_quote')}</div>
                 </h1>
                 <div className="flex items-start gap-4">
-                  <Quote className="w-6 h-6 text-purple-400 flex-shrink-0" />
+                  <Quote className="w-4 h-4 text-pink-400 flex-shrink-0" />
                   <div>
                     <p className="text-lg text-gray-800 font-medium mb-2">"{dailyQuote?.text}"</p>
                     <p className="text-sm text-gray-500">- {dailyQuote?.author}</p>
