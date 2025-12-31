@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/mindly/static/css/main.b3f2f98e.css",
-    "main.js": "/mindly/static/js/main.24f46ce7.js",
+    "main.js": "/mindly/static/js/main.135ae79f.js",
     "static/js/192.fc8730e4.chunk.js": "/mindly/static/js/192.fc8730e4.chunk.js",
     "static/js/562.80c047c2.chunk.js": "/mindly/static/js/562.80c047c2.chunk.js",
     "static/js/432.a6af6608.chunk.js": "/mindly/static/js/432.a6af6608.chunk.js",
@@ -10,7 +10,7 @@
     "static/js/455.5edc9ea2.chunk.js": "/mindly/static/js/455.5edc9ea2.chunk.js",
     "index.html": "/mindly/index.html",
     "main.b3f2f98e.css.map": "/mindly/static/css/main.b3f2f98e.css.map",
-    "main.24f46ce7.js.map": "/mindly/static/js/main.24f46ce7.js.map",
+    "main.135ae79f.js.map": "/mindly/static/js/main.135ae79f.js.map",
     "192.fc8730e4.chunk.js.map": "/mindly/static/js/192.fc8730e4.chunk.js.map",
     "562.80c047c2.chunk.js.map": "/mindly/static/js/562.80c047c2.chunk.js.map",
     "432.a6af6608.chunk.js.map": "/mindly/static/js/432.a6af6608.chunk.js.map",
@@ -20,6 +20,6 @@
   },
   "entrypoints": [
     "static/css/main.b3f2f98e.css",
-    "static/js/main.24f46ce7.js"
+    "static/js/main.135ae79f.js"
   ]
 }

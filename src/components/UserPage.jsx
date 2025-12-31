@@ -37,8 +37,8 @@ const UserPage = ({ onLogin }) => {
     <div className="flex items-center justify-center h-full bg-[none]">
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-3xl mx-4 px-6 py-8">
         <div className="mb-4">
-          <h2 className="text-left text-3xl font-bold text-gray-900">Welcome to Mindly!</h2>
-          {/* <p className="mt-2 text-left italic text-gray-600">{t('let_me_know_your_name')}</p> */}
+          <h2 className="text-left text-3xl font-bold text-gray-900">Welcome to Mindly</h2>
+          <p className="mt-2 text-left italic text-gray-600">{t('let_me_know_your_name')}</p>
         </div>
         <div className="mb-4 ">
           {/* <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">Username</label> */}
