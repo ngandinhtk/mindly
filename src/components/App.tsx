@@ -29,7 +29,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <div className="app h-screen flex flex-col bg-gradient-to-br from-blue-50 via-purple-50 to-pink-60">
-        {username && (
+        {/* {username && ( */}
           <>
           <header className="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -84,7 +84,7 @@ const App: React.FC = () => {
             </div>
           )}
           </>
-        )}
+        {/* )} */}
            
         <main className="flex-grow overflow-y-auto pb-20 max-w-3xl mx-auto w-full">
           <Routes>
