@@ -1,8 +1,8 @@
 {
-  "name": "mindly-client",
+  "name": "client",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://ngandinhtk.github.io/mindly",
+  "homepage": ".",
   "description": "Mindly Client",
   "scripts": {
     "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
