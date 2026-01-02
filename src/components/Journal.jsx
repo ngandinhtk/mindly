@@ -76,7 +76,7 @@ const Calendar = ({ entries, onDateSelect, selectedDate, currentMonth, setCurren
   };
 
   return (
-    <div className="bg-white rounded-3xl shadow-lg p-6">
+    <div className="bg-white rounded-3xl shadow-sm p-6">
       {/* Calendar Header */}
       <div className="flex justify-between items-center mb-6">
         <button 
@@ -131,12 +131,16 @@ const Journal = () => {
 
     // Fetch daily quote
         const loadQuotes = async () => {
-      const lang = i18n.language;
-      const quotesModule = await import(`../data/quotes_${lang}.js`);
-      const quotes = quotesModule.quotes;
-      const today = new Date().getDate();
-      const quoteIndex = today % quotes.length;
-      setDailyQuote(quotes[quoteIndex]);
+      const lang = i18n.language?.split('-')[0] || 'vi';
+      try {
+        const quotesModule = await import(`../data/quotes_${lang}.js`);
+        const quotes = quotesModule.quotes;
+        const today = new Date().getDate();
+        const quoteIndex = today % quotes.length;
+        setDailyQuote(quotes[quoteIndex]);
+      } catch (error) {
+        console.error("Error loading quotes:", error);
+      }
     };
     loadQuotes();
 
@@ -166,8 +170,14 @@ const Journal = () => {
                 <div className="flex items-start gap-4">
                   <Quote className="w-4 h-4 text-pink-400 flex-shrink-0" />
                   <div>
-                    <p className="text-lg text-gray-800 font-medium mb-2">"{dailyQuote?.text}"</p>
-                    <p className="text-sm text-gray-500">- {dailyQuote?.author}</p>
+                    {dailyQuote ? (
+                      <>
+                        <p className="text-lg text-gray-800 font-medium mb-2">"{dailyQuote.text}"</p>
+                        <p className="text-sm text-gray-500">- {dailyQuote.author}</p>
+                      </>
+                    ) : (
+                      <p className="text-gray-500 italic">...</p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -186,7 +196,7 @@ const Journal = () => {
 
       {/* Selected Day Details */}
       {selectedDate && (
-        <div className="bg-white mt-6 p-8 rounded-3xl shadow-lg">
+        <div className="bg-white mt-6 p-8 rounded-3xl shadow-sm">
           <h3 className="text-lg font-medium text-gray-700 mb-4">
             {selectedDate.toLocaleDateString(i18n.language, { 
               weekday: 'long', 

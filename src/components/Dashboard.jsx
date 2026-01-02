@@ -36,19 +36,27 @@ const Dashboard = () => {
 
     // Dynamically import activities based on language
     const loadActivities = async () => {
-      const lang = i18n.language;
-      const activitiesModule = await import(`../data/activities_${lang}.js`);      
-      setActivities(activitiesModule.activities);
+      const lang = i18n.language?.split('-')[0] || 'vi';
+      try {
+        const activitiesModule = await import(`../data/activities_${lang}.js`);      
+        setActivities(activitiesModule.activities);
+      } catch (error) {
+        console.error("Error loading activities:", error);
+      }
     };
 
     
     const loadQuotes = async () => {
-      const lang = i18n.language;
-      const quotesModule = await import(`../data/quotes_${lang}.js`);
-      const quotes = quotesModule.quotes;
-      const today = new Date().getDate();
-      const quoteIndex = today % quotes.length;
-      setDailyQuote(quotes[quoteIndex]);
+      const lang = i18n.language?.split('-')[0] || 'vi';
+      try {
+        const quotesModule = await import(`../data/quotes_${lang}.js`);
+        const quotes = quotesModule.quotes;
+        const today = new Date().getDate();
+        const quoteIndex = today % quotes.length;
+        setDailyQuote(quotes[quoteIndex]);
+      } catch (error) {
+        console.error("Error loading quotes:", error);
+      }
     };
 
     loadActivities();
@@ -76,7 +84,8 @@ const Dashboard = () => {
     const newEntry = {
       date: today,
       emotion: selectedEmotion,
-      note: note.trim()
+      note: note.trim(),
+      activity: getRandomActivity(selectedEmotion)
     };
 
     const updatedEntries = [...entries, newEntry];
@@ -130,7 +139,7 @@ const Dashboard = () => {
       
            {/* Mood Selection */}
           
-        {todayEntries.length < 2 ? (
+        {todayEntries.length < 2 && (
           <div className="px-6 mb-6">
             <h2 className="text-lg font-medium text-gray-700 mb-4">{t('how_are_you_today')}</h2>
              <div className="mb-6">
@@ -188,7 +197,9 @@ const Dashboard = () => {
               </div>
             )}
           </div>
-        ) : (
+        )}
+
+        {todayEntries.length > 0 && (
           <div className="bg-white rounded-3xl shadow-sm p-6 mb-6">
             <h2 className="text-lg font-bold text-gray-800 mb-4">{t('your_day')}</h2>
             {todayEntries.map((todayEntry, index) => (
@@ -209,7 +220,7 @@ const Dashboard = () => {
                 )}
                 <div className="mt-4 p-4 bg-purple-50 rounded-xl">
                   <h3 className="text-sm font-medium text-purple-800 mb-2">{t('suggestion_for_you')}</h3>
-                  <p className="text-purple-900">{getRandomActivity(todayEntry.emotion)}</p>
+                  <p className="text-purple-900">{todayEntry.activity || getRandomActivity(todayEntry.emotion)}</p>
                 </div>
               </div>
             ))}
