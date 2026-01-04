@@ -1,5 +1,5 @@
 [build]
-  base = "client"          # Tell Netlify to cd into client first
+  base = "client"      # Tell Netlify to cd into client first
   command = ""             # No build command needed for a pre-built site
   publish = "build"        # Output folder for Create React App (inside client)
 
