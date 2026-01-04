@@ -1,0 +1,10 @@
+[build]
+  base = "client"          # Tell Netlify to cd into client first
+  command = ""             # No build command needed for a pre-built site
+  publish = "build"        # Output folder for Create React App (inside client)
+
+# Optional: For SPA routing (React Router) - prevents 404 on refresh
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
