@@ -13,15 +13,15 @@ const Dashboard = () => {
   const [entries, setEntries] = React.useState([]);
   const [todayEntries, setTodayEntries] = React.useState([]);
   const [activities, setActivities] = React.useState({});
-  const [dailyQuote, setDailyQuote] = React.useState(null);
+  // const [dailyQuote, setDailyQuote] = React.useState(null);
   const [username, setUsername] = React.useState(null);
-  const [showMenu, setShowMenu] = React.useState(false);
-  const [activeTab, setActiveTab] = useState('journal');
+  // const [showMenu, setShowMenu] = React.useState(false);
+  // const [activeTab, setActiveTab] = useState('journal');
   
-  const handleLogout = () => {
-    localStorage.removeItem('username');
-    window.location.reload();
-  };
+  // const handleLogout = () => {
+  //   localStorage.removeItem('username');
+  //   window.location.reload();
+  // };
 
   // Load data from localStorage
   React.useEffect(() => {
@@ -40,27 +40,30 @@ const Dashboard = () => {
       try {
         const activitiesModule = await import(`../data/activities_${lang}.js`);      
         setActivities(activitiesModule.activities);
+        // console.log(activitiesModule.activities);
+        
       } catch (error) {
         console.error("Error loading activities:", error);
+        setActivities({}); // Fallback to empty activities
       }
     };
 
     
-    const loadQuotes = async () => {
-      const lang = i18n.language?.split('-')[0] || 'vi';
-      try {
-        const quotesModule = await import(`../data/quotes_${lang}.js`);
-        const quotes = quotesModule.quotes;
-        const today = new Date().getDate();
-        const quoteIndex = today % quotes.length;
-        setDailyQuote(quotes[quoteIndex]);
-      } catch (error) {
-        console.error("Error loading quotes:", error);
-      }
-    };
+    // const loadQuotes = async () => {
+    //   const lang = i18n.language?.split('-')[0] || 'vi';
+    //   try {
+    //     const quotesModule = await import(`../data/quotes_${lang}.js`);
+    //     const quotes = quotesModule.quotes;
+    //     const today = new Date().getDate();
+    //     const quoteIndex = today % quotes.length;
+    //     setDailyQuote(quotes[quoteIndex]);
+    //   } catch (error) {
+    //     console.error("Error loading quotes:", error);
+    //   }
+    // };
 
     loadActivities();
-    loadQuotes();
+    // loadQuotes();
   }, [i18n.language]); // Re-run when language changes
 
   // Check today's entries
@@ -74,18 +77,39 @@ const Dashboard = () => {
     setSelectedEmotion(emotion);
   };
 
-  const handleSaveEntry = () => {
+  const handleSaveEntry = async () => {
     const today = new Date();
     if (todayEntries.length >= 2) {
       alert("You have already checked in twice today."); // Or use a more user-friendly notification
       return;
     }
 
+    let activityToSave = null;
+    // Ensure activities are loaded to get a suggestion
+    if (selectedEmotion) {
+      let currentActivities = activities;
+      if (Object.keys(currentActivities).length === 0) {
+        const lang = i18n.language?.split('-')[0] || 'vi';
+        try {
+          const activitiesModule = await import(`../data/activities_${lang}.js`);
+          currentActivities = activitiesModule.activities;
+          setActivities(currentActivities); // Update state for future renders
+        } catch (error) {
+          console.error("Error loading activities for entry:", error);
+        }
+      }
+      
+      if (currentActivities[selectedEmotion]) {
+        const emotionActivities = currentActivities[selectedEmotion];
+        activityToSave = emotionActivities[Math.floor(Math.random() * emotionActivities.length)];
+      }
+    }
+
     const newEntry = {
       date: today,
       emotion: selectedEmotion,
       note: note.trim(),
-      activity: getRandomActivity(selectedEmotion)
+      activity: activityToSave
     };
 
     const updatedEntries = [...entries, newEntry];
@@ -100,8 +124,10 @@ const Dashboard = () => {
   const getRandomActivity = (emotion) => {
     if (!emotion || !activities[emotion]) return null;
     const emotionActivities = activities[emotion];
+    // console.log(emotionActivities);
     return emotionActivities[Math.floor(Math.random() * emotionActivities.length)];
   };
+  
 
   // Get most common emotion 
   const getMostCommonEmotion = () => {
