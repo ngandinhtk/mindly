@@ -217,7 +217,7 @@ const Profile = () => {
       )}
 
       {/* Author Information */}
-      <div className="mt-2 text-center text-gray-400 text-xs">
+      <div className="mt-2 text-right text-gray-300 text-xs">
         {t('developed_by')}
       </div>
     </div>

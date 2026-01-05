@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { emotions } from '../data/emotions';
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import WeeklySummary from './WeeklySummary';
 
 const Insight = () => {
+    const { t } = useTranslation();
     window.html2canvas = html2canvas;
 
     const doc = new jsPDF({
@@ -113,13 +114,13 @@ const Insight = () => {
                         <div key={stat.id} className={`${stat.color} text-center p-6 rounded-xl transform transition-transform hover:scale-105`}>
                             <div className="text-4xl mb-2">{stat.emoji}</div>
                             <div className="text-2xl font-bold text-gray-800">{stat.percentage}%</div>
-                            <div className="text-sm text-gray-600">{stat.count} {t('day')} {stat.label}</div>
+                            <div className="text-sm text-gray-600">{stat.count} {t('day')} {t(stat.label)}</div>
                         </div>
                     ))
                 ) : (
                     <div className="col-span-full text-center py-8">
-                        <p className="text-gray-600">Chưa có đủ dữ liệu để hiển thị thống kê.</p>
-                        <p className="text-sm text-gray-400">Hãy bắt đầu ghi lại cảm xúc mỗi ngày nhé!</p>
+                        <p className="text-gray-600">{t('no_data_for_week')}</p>
+                        <p className="text-sm text-gray-400">{t('start_journaling')}</p>
                     </div>
                 )}
                             <div className="text-center">

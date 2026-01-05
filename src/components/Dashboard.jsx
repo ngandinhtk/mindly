@@ -84,32 +84,12 @@ const Dashboard = () => {
       return;
     }
 
-    let activityToSave = null;
-    // Ensure activities are loaded to get a suggestion
-    if (selectedEmotion) {
-      let currentActivities = activities;
-      if (Object.keys(currentActivities).length === 0) {
-        const lang = i18n.language?.split('-')[0] || 'vi';
-        try {
-          const activitiesModule = await import(`../data/activities_${lang}.js`);
-          currentActivities = activitiesModule.activities;
-          setActivities(currentActivities); // Update state for future renders
-        } catch (error) {
-          console.error("Error loading activities for entry:", error);
-        }
-      }
-      
-      if (currentActivities[selectedEmotion]) {
-        const emotionActivities = currentActivities[selectedEmotion];
-        activityToSave = emotionActivities[Math.floor(Math.random() * emotionActivities.length)];
-      }
-    }
-
     const newEntry = {
       date: today,
       emotion: selectedEmotion,
       note: note.trim(),
-      activity: activityToSave
+      // Activity is no longer saved with the entry.
+      // It will be generated dynamically on display to support multiple languages.
     };
 
     const updatedEntries = [...entries, newEntry];
@@ -121,11 +101,16 @@ const Dashboard = () => {
     setNote('');
   };
 
-  const getRandomActivity = (emotion) => {
-    if (!emotion || !activities[emotion]) return null;
+  const getActivityForEmotion = (emotion, date) => {
+    if (!emotion || !activities[emotion] || !activities[emotion].length) {
+      return null;
+    }
     const emotionActivities = activities[emotion];
-    // console.log(emotionActivities);
-    return emotionActivities[Math.floor(Math.random() * emotionActivities.length)];
+    // Use the day of the month from the entry's date as a seed
+    // to provide a consistent suggestion for that day.
+    const seed = new Date(date).getDate();
+    const index = seed % emotionActivities.length;
+    return emotionActivities[index];
   };
   
 
@@ -246,7 +231,7 @@ const Dashboard = () => {
                 )}
                 <div className="mt-4 p-4 bg-purple-50 rounded-xl">
                   <h3 className="text-sm font-medium text-purple-800 mb-2">{t('suggestion_for_you')}</h3>
-                  <p className="text-purple-900">{todayEntry.activity || getRandomActivity(todayEntry.emotion)}</p>
+                  <p className="text-purple-900">{getActivityForEmotion(todayEntry.emotion, todayEntry.date)}</p>
                 </div>
               </div>
             ))}
