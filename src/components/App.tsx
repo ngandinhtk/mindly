@@ -1,5 +1,5 @@
 import React from 'react';  
-import { BrowserRouter as Router, Routes, Route, Link, Navigate, Outlet } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Link, Navigate, Outlet } from 'react-router-dom';
 import { Home, User, Calendar, TrendingUp, Heart, FileText, Menu, X } from 'lucide-react';
 import Dashboard from './Dashboard';
 import Profile from './Profile';
