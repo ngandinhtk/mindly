@@ -76,7 +76,7 @@ const Calendar = ({ entries, onDateSelect, selectedDate, currentMonth, setCurren
   };
 
   return (
-    <div className="bg-white rounded-3xl shadow-sm p-6">
+    <div className="bg-white rounded-3xl shadow-xs p-6">
       {/* Calendar Header */}
       <div className="flex justify-between items-center mb-6">
         <button 
@@ -196,7 +196,7 @@ const Journal = () => {
 
       {/* Selected Day Details */}
       {selectedDate && (
-        <div className="bg-white mt-6 p-8 rounded-3xl shadow-sm">
+        <div className="bg-white mt-6 p-8 rounded-3xl shadow-xs">
           <h3 className="text-lg font-medium text-gray-700 mb-4">
             {selectedDate.toLocaleDateString(i18n.language, { 
               weekday: 'long', 

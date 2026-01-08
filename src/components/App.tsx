@@ -10,6 +10,7 @@ import UserPage from './UserPage';
 import Insight from './Insight';
 import Notes from './Notes';
 import LanguageSwitcher from './LanguageSwitcher';
+import AdsenseAd from './AdSenseAd';
 
 const PrivateRoutes = () => {
   const username = localStorage.getItem('username');
@@ -94,7 +95,12 @@ const App: React.FC = () => {
               <Route path="/profile" element={<Profile />} />
               <Route path="/journal"element={<Journal />} />
               <Route path="/insights" element={<Insight />} />
-              <Route path="/notes" element={<Notes />} />
+              <Route path="/notes" element={
+                <>
+                  <Notes />
+                  <AdsenseAd />
+                </>
+              } />
             </Route>
             <Route path="*" element={<Navigate to="/dashboard" />} />
           </Routes>
