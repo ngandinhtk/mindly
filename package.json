@@ -13,6 +13,7 @@
     "deploy": "gh-pages -d build"
   },
   "dependencies": {
+    "@ctrl/react-adsense": "^2.1.0",
     "html2canvas": "^1.4.1",
     "i18next": "^25.6.0",
     "jspdf": "^3.0.3",

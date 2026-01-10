@@ -45,12 +45,7 @@ const App: React.FC = () => {
                 </div>
                     <div className="flex items-center space-x-2 ml-auto">
                     <LanguageSwitcher />
-                    {/* <button
-                      onClick={() => setIsMenuOpen(!isMenuOpen)}
-                      className="p-2 text-gray-600 bg-white hover:text-purple-600 transition-colors md:hidden"
-                    >
-                      {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                    </button> */}
+                    
                     </div>
               </div>
 
