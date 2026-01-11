@@ -4,6 +4,7 @@ import { Calendar, TrendingUp, LogOut , Heart, Brain, Plus, Menu, X  } from 'luc
 import { emotions } from '../data/emotions';
 import { useTranslation } from 'react-i18next';
 // import { useNavigate } from 'react-router-dom';
+import { Adsense } from '@ctrl/react-adsense';
 
 
 const Dashboard = () => {
@@ -255,6 +256,17 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* AdSense Unit */}
+        <div className="mt-6">
+          <Adsense
+            client="ca-pub-YOUR_CLIENT_ID"
+            slot="YOUR_SLOT_ID"
+            style={{ display: 'block' }}
+            format="auto"
+            responsive="true"
+          />
         </div>
       </div>
     </div>
