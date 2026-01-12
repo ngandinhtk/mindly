@@ -120,7 +120,7 @@ const Insight = () => {
                 ) : (
                     <div className="col-span-full text-center py-8">
                         <p className="text-gray-600">{t('no_data_for_week')}</p>
-                        <p className="text-sm text-gray-400">{t('start_journaling')}</p>
+                        <p className="text-sm text-gray-400">{t('start_journalling')}</p>
                     </div>
                 )}
                             <div className="text-center">
