@@ -132,15 +132,15 @@ const Dashboard = () => {
   };
 
   return (
-    <div>
-      <div className="max-w-2xl px-4 place-content-center">
+    <div className="w-full min-w-0">
+      <div className="w-full max-w-2xl mx-auto px-3 sm:px-4">
 
        {/* Today's Entry Card */}
-            <div className="px-8 pt-8 transform hover:scale-[1.01] transition-transform">
-              <div className="flex items-center justify-between mb-6">
+            <div className="px-1 sm:px-4 pt-6 sm:pt-8 transform hover:scale-[1.01] transition-transform">
+              <div className="flex items-start justify-between gap-3 mb-6">
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-800 mb-1">{t('greeting')}<span className='italic font-light'>{username}</span></h2>
-                  <p className="text-gray-500 flex items-center">
+                  <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-1 break-words">{t('greeting')}<span className='italic font-light'>{username}</span></h2>
+                  <p className="text-sm sm:text-base text-gray-500 flex items-start sm:items-center">
                     <Calendar className="w-4 h-4 mr-2" />
                    {new Date().toLocaleDateString(i18n.language, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
 
@@ -152,16 +152,16 @@ const Dashboard = () => {
            {/* Mood Selection */}
           
         {todayEntries.length < 2 && (
-          <div className="px-6 mb-6">
+          <div className="px-1 sm:px-2 mb-6">
             <h2 className="text-lg font-medium text-gray-700 mb-4">{t('how_are_you_today')}</h2>
              <div className="mb-6">
                 {/* <p className="text-sm font-medium text-gray-600 mb-3">Chọn tâm trạng của bạn</p> */}
-                <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 sm:gap-3">
                   {emotions.map((mood, idx) => (
                     <button
                       key={idx}
                       onClick={() => handleEmotionSelect(mood.id)}
-                      className={`${mood.color} p-4 rounded-xl transition-all transform hover:scale-105 ${
+                      className={`${mood.color} p-3 sm:p-4 rounded-xl transition-all transform hover:scale-105 ${
                         selectedEmotion === mood.id ? 'ring-2 ring-purple-500 scale-105' : ''
                       }`}
                     >
@@ -212,11 +212,11 @@ const Dashboard = () => {
         )}
 
         {todayEntries.length > 0 && (
-          <div className="bg-white rounded-3xl shadow-sm p-6 mb-6">
+          <div className="bg-white rounded-3xl shadow-sm p-4 sm:p-6 mb-6">
             <h2 className="text-lg font-bold text-gray-800 mb-4">{t('your_day')}</h2>
             {todayEntries.map((todayEntry, index) => (
               <div key={index} className="mb-4">
-                <div className="flex items-center space-x-4 mb-4">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-4">
                   <span className="text-2xl">
                     {emotions.find(e => e.id === todayEntry.emotion)?.emoji}
                   </span>
@@ -242,16 +242,16 @@ const Dashboard = () => {
         {/* Statistics Section */}
         <div className="bg-white rounded-3xl shadow-md p-6">
           <h2 className="text-lg font-medium text-gray-700 mb-4">{t('monthly_overview')}</h2>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-purple-50 rounded-xl p-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="bg-purple-50 rounded-xl p-4 min-w-0">
               <Calendar className="w-5 h-5 text-purple-500 mb-2" />
               <div className="text-2xl font-semibold text-purple-900">{entries.length}</div>
               <div className="text-sm text-purple-600">{t('days_recorded')}</div>
             </div>
-            <div className="bg-purple-50 rounded-xl p-4">
+            <div className="bg-purple-50 rounded-xl p-4 min-w-0">
               <TrendingUp className="w-5 h-5 text-purple-500 mb-2" />
               <div className="text-sm text-purple-600">{t('most_common_emotion')}</div>
-              <div className="text-xl font-bold text-purple-900">
+              <div className="text-xl font-bold text-purple-900 break-words">
                 {getMostCommonEmotion()}
               </div>
             </div>

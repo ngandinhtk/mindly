@@ -4,7 +4,7 @@ import { Home, User, Calendar, TrendingUp, Heart, FileText, Menu, X } from 'luci
 import Dashboard from './Dashboard';
 import Profile from './Profile';
 import Journal from './Journal';
-import '../styles/index.css';
+import '../styles/styles.css';
 import { useTranslation } from 'react-i18next';
 import UserPage from './UserPage';
 import Insight from './Insight';
@@ -22,6 +22,52 @@ const App: React.FC = () => {
   const [username, setUsername] = React.useState<string | null>(localStorage.getItem('username'));
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
+  React.useEffect(() => {
+    const checkReminder = () => {
+      const currentUsername = localStorage.getItem('username');
+      if (!currentUsername || !('Notification' in window)) return;
+
+      const savedReminder = localStorage.getItem(`checkInReminder_${currentUsername}`);
+      if (!savedReminder) return;
+
+      const reminder = JSON.parse(savedReminder);
+      if (!reminder.enabled || Notification.permission !== 'granted') return;
+
+      const now = new Date();
+      const [hours, minutes] = reminder.time.split(':').map(Number);
+      const reminderTime = new Date(now);
+      reminderTime.setHours(hours, minutes, 0, 0);
+      const todayKey = now.toISOString().slice(0, 10);
+      const lastNotified = localStorage.getItem(`checkInReminderLast_${currentUsername}`);
+      const entries = JSON.parse(localStorage.getItem(`moodEntries_${currentUsername}`) || '[]');
+      const hasCheckedInToday = entries.some((entry: { date: string }) => (
+        new Date(entry.date).toDateString() === now.toDateString()
+      ));
+
+      if (now >= reminderTime && lastNotified !== todayKey && !hasCheckedInToday) {
+        const notification = new Notification(t('checkin_reminder_title'), {
+          body: t('checkin_reminder_body'),
+          icon: '/favicon.ico',
+        });
+        notification.onclick = () => {
+          window.focus();
+          window.location.hash = '#/dashboard';
+          notification.close();
+        };
+        localStorage.setItem(`checkInReminderLast_${currentUsername}`, todayKey);
+      }
+    };
+
+    checkReminder();
+    const reminderInterval = window.setInterval(checkReminder, 30000);
+    window.addEventListener('mindly-reminder-updated', checkReminder);
+
+    return () => {
+      window.clearInterval(reminderInterval);
+      window.removeEventListener('mindly-reminder-updated', checkReminder);
+    };
+  }, [t]);
+
   const handleLogin = (name: string) => {
     localStorage.setItem('username', name);
     setUsername(name);
@@ -29,17 +75,17 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <div className="app h-screen flex flex-col bg-gradient-to-br from-blue-50 via-purple-50 to-pink-60">
+      <div className="app min-h-screen flex flex-col bg-gradient-to-br from-blue-50 via-purple-50 to-pink-60">
         {/* {username && ( */}
           <>
           <header className="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
                     <Heart className="w-6 h-6 text-white" />
                   </div>
-                  <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                     Mindly
                   </h1>
                 </div>
@@ -82,7 +128,7 @@ const App: React.FC = () => {
           </>
         {/* )} */}
            
-        <main className="flex-grow overflow-y-auto pb-20 max-w-3xl mx-auto w-full">
+        <main className="flex-grow min-w-0 overflow-y-auto pb-24 sm:pb-20 w-full max-w-3xl mx-auto">
           <Routes>
             <Route path="/login" element={<UserPage onLogin={handleLogin} />} />
             <Route element={<PrivateRoutes />}>
@@ -102,43 +148,43 @@ const App: React.FC = () => {
         </main>
 
         {username && (
-          <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 py-1">
-            <div className="max-w-2xl mx-auto flex justify-around">
+          <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-t border-gray-100 px-2 sm:px-4 pt-1 pb-[calc(0.25rem+env(safe-area-inset-bottom))]">
+            <div className="max-w-2xl mx-auto flex justify-around gap-1">
               <Link
                 to="/"
-                className="flex flex-col items-center p-1 text-gray-600 hover:text-purple-600 transition-colors"
+                className="flex min-w-0 flex-1 flex-col items-center p-1 text-gray-600 hover:text-purple-600 transition-colors"
               >
                
                 <Home className="w-6 h-6" />
-                <span className="text-xs mt-1">{t('home')}</span>
+                <span className="text-[11px] sm:text-xs mt-1 truncate max-w-full">{t('home')}</span>
               </Link>
               <Link
                 to="/journal"
-                className="flex flex-col items-center p-1 text-gray-600 hover:text-purple-600 transition-colors"
+                className="flex min-w-0 flex-1 flex-col items-center p-1 text-gray-600 hover:text-purple-600 transition-colors"
               >
                 <Calendar className="w-6 h-6" />
-                <span className="text-xs mt-1">{t('journal')}</span>
+                <span className="text-[11px] sm:text-xs mt-1 truncate max-w-full">{t('journal')}</span>
               </Link>
               <Link
                 to="/insights"
-                className="flex flex-col items-center p-1 text-gray-600 hover:text-purple-600 transition-colors"
+                className="flex min-w-0 flex-1 flex-col items-center p-1 text-gray-600 hover:text-purple-600 transition-colors"
               >
                 <TrendingUp className="w-6 h-6" />
-                <span className="text-xs mt-1">{t('insights')}</span>
+                <span className="text-[11px] sm:text-xs mt-1 truncate max-w-full">{t('insights')}</span>
               </Link>
                <Link
                 to="/notes"
-                className="flex flex-col items-center p-1 text-gray-600 hover:text-purple-600 transition-colors"
+                className="flex min-w-0 flex-1 flex-col items-center p-1 text-gray-600 hover:text-purple-600 transition-colors"
               >
                 <FileText className="w-6 h-6" />
-                <span className="text-xs mt-1">{t('notes')}</span>
+                <span className="text-[11px] sm:text-xs mt-1 truncate max-w-full">{t('notes')}</span>
               </Link>
               <Link
                 to="/profile"
-                className="flex flex-col items-center p-1 text-gray-600 hover:text-purple-600 transition-colors"
+                className="flex min-w-0 flex-1 flex-col items-center p-1 text-gray-600 hover:text-purple-600 transition-colors"
               >
                 <User className="w-6 h-6" />
-                <span className="text-xs mt-1">{t('profile')}</span>
+                <span className="text-[11px] sm:text-xs mt-1 truncate max-w-full">{t('profile')}</span>
               </Link>
               
             </div>

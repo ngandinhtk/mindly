@@ -104,14 +104,14 @@ const Insight = () => {
     };
 
     return (
-         <div className="space-y-6 ">
+                 <div className="w-full min-w-0 space-y-6">
 
-            <div className="p-8" ref={insightRef}>
-              <h3 className="text-2xl font-bold  text-gray-800 mb-6">{t('emotion_stats')}</h3>              
+                        <div className="p-4 sm:p-8" ref={insightRef}>
+                            <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-6">{t('emotion_stats')}</h3>              
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {emotionStats.length > 0 ? (
                     emotionStats.map(stat => (
-                        <div key={stat.id} className={`${stat.color} text-center p-6 rounded-xl transform transition-transform hover:scale-105`}>
+                        <div key={stat.id} className={`${stat.color} text-center p-4 sm:p-6 rounded-xl transform transition-transform hover:scale-105`}>
                             <div className="text-4xl mb-2">{stat.emoji}</div>
                             <div className="text-2xl font-bold text-gray-800">{stat.percentage}%</div>
                             <div className="text-sm text-gray-600">{stat.count} {t('day')} {t(stat.label)}</div>

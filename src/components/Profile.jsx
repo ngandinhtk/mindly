@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation, initReactI18next } from 'react-i18next';
-import { User, BarChart2, LogOut, Trash2 } from 'lucide-react';
+import { User, BarChart2, Bell, LogOut } from 'lucide-react';
 import { emotions } from '../data/emotions';
 
 
@@ -13,6 +13,8 @@ const Profile = () => {
   });
   const [selectedNote, setSelectedNote] = useState(null);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [reminder, setReminder] = useState({ enabled: false, time: '20:00' });
+  const [reminderMessage, setReminderMessage] = useState('');
 
   const handleLogout = () => {
     setShowLogoutConfirm(true);
@@ -47,8 +49,34 @@ const Profile = () => {
         const sortedEntries = entries.sort((a, b) => new Date(a.date) - new Date(b.date));
         setEmotionHistory(sortedEntries);
       }
+
+      const savedReminder = localStorage.getItem(`checkInReminder_${storedUsername}`);
+      if (savedReminder) {
+        setReminder(JSON.parse(savedReminder));
+      }
     }
   }, []);
+
+  const updateReminder = async (nextReminder) => {
+    setReminderMessage('');
+
+    if (nextReminder.enabled && !('Notification' in window)) {
+      setReminderMessage(t('notifications_not_supported'));
+      return;
+    }
+
+    if (nextReminder.enabled && Notification.permission !== 'granted') {
+      const permission = await Notification.requestPermission();
+      if (permission !== 'granted') {
+        setReminderMessage(t('notifications_permission_denied'));
+        return;
+      }
+    }
+
+    setReminder(nextReminder);
+    localStorage.setItem(`checkInReminder_${userData.username}`, JSON.stringify(nextReminder));
+    window.dispatchEvent(new Event('mindly-reminder-updated'));
+  };
 
   const getEmotionColor = (emotionId) => {
     const emotion = emotions.find(e => e.id === emotionId);
@@ -101,6 +129,44 @@ const Profile = () => {
             >
               <LogOut className="w-4 h-4" />
             </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Check-in Reminder */}
+      <div className="bg-white rounded-3xl shadow-sm p-4 sm:p-6 mb-6">
+        <div className="flex items-start gap-3">
+          <div className="rounded-xl bg-purple-100 p-2 text-purple-600">
+            <Bell className="w-5 h-5" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <h2 className="text-lg font-medium text-gray-700">{t('checkin_reminder')}</h2>
+                <p className="text-sm text-gray-500 mt-1">{t('checkin_reminder_description')}</p>
+              </div>
+              <button
+                type="button"
+                role="switch"
+                aria-checked={reminder.enabled}
+                aria-label={t('checkin_reminder')}
+                onClick={() => updateReminder({ ...reminder, enabled: !reminder.enabled })}
+                className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${reminder.enabled ? 'bg-purple-600' : 'bg-gray-300'}`}
+              >
+                <span className={`absolute top-1 h-4 w-4 rounded-full bg-white transition-transform ${reminder.enabled ? 'translate-x-6' : 'translate-x-1'}`} />
+              </button>
+            </div>
+            <div className="mt-4 flex flex-wrap items-center gap-3">
+              <label htmlFor="checkin-time" className="text-sm text-gray-600">{t('reminder_time')}</label>
+              <input
+                id="checkin-time"
+                type="time"
+                value={reminder.time}
+                onChange={(event) => updateReminder({ ...reminder, time: event.target.value })}
+                className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-gray-700 focus:border-purple-400 focus:outline-none"
+              />
+            </div>
+            {reminderMessage && <p className="mt-3 text-sm text-red-500">{reminderMessage}</p>}
           </div>
         </div>
       </div>
