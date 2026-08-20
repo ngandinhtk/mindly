@@ -4,7 +4,7 @@ import { Home, User, Calendar, TrendingUp, Heart, FileText, Menu, X } from 'luci
 import Dashboard from './Dashboard';
 import Profile from './Profile';
 import Journal from './Journal';
-import '../styles/styles.css';
+import '../styles/index.css';
 import { useTranslation } from 'react-i18next';
 import UserPage from './UserPage';
 import Insight from './Insight';
