@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Trash2, Pin } from 'lucide-react';
+import { readJson, writeJson } from '../utils/safeStorage';
 
 const Notes = () => {
   const { t, i18n } = useTranslation();
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [noteMessage, setNoteMessage] = useState('');
   const notesPerPage = 10; // Number of notes to show per page
   const username = localStorage.getItem('username');
 
@@ -26,11 +28,7 @@ const Notes = () => {
 
   useEffect(() => {
     if (username) {
-      const savedNotes = localStorage.getItem(`notes_${username}`);
-      if (savedNotes) {
-        const parsedNotes = JSON.parse(savedNotes);
-        setNotes(parsedNotes);
-      }
+      setNotes(readJson(`notes_${username}`, []));
     }
   }, [username]);
 
@@ -50,21 +48,37 @@ const Notes = () => {
       }
       return a.pinned ? -1 : 1;
     });
-    setNotes(updatedNotes);
-    localStorage.setItem(`notes_${username}`, JSON.stringify(updatedNotes));
+    try {
+      writeJson(`notes_${username}`, updatedNotes);
+      setNotes(updatedNotes);
+    } catch (error) {
+      setNoteMessage(t('storage_save_failed'));
+      window.setTimeout(() => setNoteMessage(''), 2500);
+      return;
+    }
     setNewNote('');
     setCurrentPage(1);
+    setNoteMessage(t('note_saved'));
+    window.setTimeout(() => setNoteMessage(''), 2500);
   };
 
   const handleDeleteNote = (id) => {
     const updatedNotes = notes.filter((note) => (note.id || note._id) !== id);
-    setNotes(updatedNotes);
-    localStorage.setItem(`notes_${username}`, JSON.stringify(updatedNotes));
+    try {
+      writeJson(`notes_${username}`, updatedNotes);
+      setNotes(updatedNotes);
+    } catch (error) {
+      setNoteMessage(t('storage_save_failed'));
+      window.setTimeout(() => setNoteMessage(''), 2500);
+      return;
+    }
 
     const newTotalPages = Math.ceil(updatedNotes.length / notesPerPage);
     if (currentPage > newTotalPages) {
       setCurrentPage(newTotalPages || 1);
     }
+    setNoteMessage(t('note_deleted'));
+    window.setTimeout(() => setNoteMessage(''), 2500);
   };
 
   const handlePinNote = (id) => {
@@ -82,8 +96,16 @@ const Notes = () => {
       return a.pinned ? -1 : 1;
     });
 
-    setNotes(updatedNotes);
-    localStorage.setItem(`notes_${username}`, JSON.stringify(updatedNotes));
+    try {
+      writeJson(`notes_${username}`, updatedNotes);
+      setNotes(updatedNotes);
+    } catch (error) {
+      setNoteMessage(t('storage_save_failed'));
+      window.setTimeout(() => setNoteMessage(''), 2500);
+      return;
+    }
+    setNoteMessage(t('note_pinned'));
+    window.setTimeout(() => setNoteMessage(''), 2500);
   };
 
   // --- Pagination Logic ---
@@ -119,9 +141,19 @@ const Notes = () => {
             {t('saveing') || "Save"}
           </button>
         </div>
+        {noteMessage && (
+          <p className="mt-2 text-center text-sm text-emerald-700" role="status" aria-live="polite">
+            {noteMessage}
+          </p>
+        )}
       </div>
 
-      {dateKeys.map(dateKey => (
+      {notes.length === 0 ? (
+        <div className="rounded-xl border border-dashed border-gray-300 bg-white/60 px-6 py-12 text-center">
+          <p className="font-medium text-gray-700">{t('no_notes')}</p>
+          <p className="mt-1 text-sm text-gray-500">{t('no_notes_description')}</p>
+        </div>
+      ) : dateKeys.map(dateKey => (
         <div key={dateKey} className="mb-8">
           <h2 className="text-lg font-semibold text-gray-500 mb-3 border-b pb-2">
             {new Date(dateKey).toLocaleDateString(i18n.language, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}

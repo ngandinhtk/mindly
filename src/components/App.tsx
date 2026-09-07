@@ -1,16 +1,16 @@
 import React from 'react';  
-import { HashRouter as Router, Routes, Route, Link, Navigate, Outlet } from 'react-router-dom';
-import { Home, User, Calendar, TrendingUp, Heart, FileText, Menu, X } from 'lucide-react';
+import { HashRouter as Router, Routes, Route, Link, NavLink, Navigate, Outlet } from 'react-router-dom';
+import { Home, User, Calendar, TrendingUp, Heart, FileText } from 'lucide-react';
 import Dashboard from './Dashboard';
 import Profile from './Profile';
 import Journal from './Journal';
-import '../styles/index.css';
 import { useTranslation } from 'react-i18next';
 import UserPage from './UserPage';
 import Insight from './Insight';
 import Notes from './Notes';
 import LanguageSwitcher from './LanguageSwitcher';
 import AdsenseAd from './AdSenseAd';
+import { readJson, writeJson } from '../utils/safeStorage';
 
 const PrivateRoutes = () => {
   const username = localStorage.getItem('username');
@@ -20,17 +20,14 @@ const PrivateRoutes = () => {
 const App: React.FC = () => {
   const { t } = useTranslation();
   const [username, setUsername] = React.useState<string | null>(localStorage.getItem('username'));
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   React.useEffect(() => {
     const checkReminder = () => {
       const currentUsername = localStorage.getItem('username');
       if (!currentUsername || !('Notification' in window)) return;
 
-      const savedReminder = localStorage.getItem(`checkInReminder_${currentUsername}`);
-      if (!savedReminder) return;
-
-      const reminder = JSON.parse(savedReminder);
+      const reminder = readJson(`checkInReminder_${currentUsername}`, null);
+      if (!reminder) return;
       if (!reminder.enabled || Notification.permission !== 'granted') return;
 
       const now = new Date();
@@ -39,7 +36,7 @@ const App: React.FC = () => {
       reminderTime.setHours(hours, minutes, 0, 0);
       const todayKey = now.toISOString().slice(0, 10);
       const lastNotified = localStorage.getItem(`checkInReminderLast_${currentUsername}`);
-      const entries = JSON.parse(localStorage.getItem(`moodEntries_${currentUsername}`) || '[]');
+      const entries = readJson(`moodEntries_${currentUsername}`, []);
       const hasCheckedInToday = entries.some((entry: { date: string }) => (
         new Date(entry.date).toDateString() === now.toDateString()
       ));
@@ -89,42 +86,24 @@ const App: React.FC = () => {
                     Mindly
                   </h1>
                 </div>
-                    <div className="flex items-center space-x-2 ml-auto">
-                    <LanguageSwitcher />
-                    
-                    </div>
+                {username && (
+                  <nav className="hidden md:flex items-center gap-1 ml-auto mr-4">
+                    <NavLink to="/dashboard" className={({ isActive }) => `px-3 py-2 rounded-lg text-sm font-medium transition-colors ${isActive ? 'bg-purple-100 text-purple-700' : 'text-gray-600 hover:bg-gray-100'}`}>{t('home')}</NavLink>
+                    <NavLink to="/journal" className={({ isActive }) => `px-3 py-2 rounded-lg text-sm font-medium transition-colors ${isActive ? 'bg-purple-100 text-purple-700' : 'text-gray-600 hover:bg-gray-100'}`}>{t('journal')}</NavLink>
+                    <NavLink to="/insights" className={({ isActive }) => `px-3 py-2 rounded-lg text-sm font-medium transition-colors ${isActive ? 'bg-purple-100 text-purple-700' : 'text-gray-600 hover:bg-gray-100'}`}>{t('insights')}</NavLink>
+                    <NavLink to="/notes" className={({ isActive }) => `px-3 py-2 rounded-lg text-sm font-medium transition-colors ${isActive ? 'bg-purple-100 text-purple-700' : 'text-gray-600 hover:bg-gray-100'}`}>{t('notes')}</NavLink>
+                    <NavLink to="/profile" className={({ isActive }) => `px-3 py-2 rounded-lg text-sm font-medium transition-colors ${isActive ? 'bg-purple-100 text-purple-700' : 'text-gray-600 hover:bg-gray-100'}`}>{t('profile')}</NavLink>
+                  </nav>
+                )}
+                <div className="flex items-center gap-2 ml-auto">
+                  <LanguageSwitcher />
+                </div>
               </div>
 
 
                
             </div>
           </header>
-          {isMenuOpen && (
-            <div className="fixed inset-0 z-40 bg-white pt-24 px-6 md:hidden">
-              <nav className="flex flex-col space-y-4">
-                <Link to="/" onClick={() => setIsMenuOpen(false)} className="flex items-center space-x-4 p-3 hover:bg-purple-50 rounded-xl text-gray-600 hover:text-purple-600 transition-all">
-                  <Home className="w-6 h-6" />
-                  <span className="font-medium">{t('home')}</span>
-                </Link>
-                <Link to="/journal" onClick={() => setIsMenuOpen(false)} className="flex items-center space-x-4 p-3 hover:bg-purple-50 rounded-xl text-gray-600 hover:text-purple-600 transition-all">
-                  <Calendar className="w-6 h-6" />
-                  <span className="font-medium">{t('journal')}</span>
-                </Link>
-                <Link to="/insights" onClick={() => setIsMenuOpen(false)} className="flex items-center space-x-4 p-3 hover:bg-purple-50 rounded-xl text-gray-600 hover:text-purple-600 transition-all">
-                  <TrendingUp className="w-6 h-6" />
-                  <span className="font-medium">{t('insights')}</span>
-                </Link>
-                <Link to="/notes" onClick={() => setIsMenuOpen(false)} className="flex items-center space-x-4 p-3 hover:bg-purple-50 rounded-xl text-gray-600 hover:text-purple-600 transition-all">
-                  <FileText className="w-6 h-6" />
-                  <span className="font-medium">{t('notes')}</span>
-                </Link>
-                <Link to="/profile" onClick={() => setIsMenuOpen(false)} className="flex items-center space-x-4 p-3 hover:bg-purple-50 rounded-xl text-gray-600 hover:text-purple-600 transition-all">
-                  <User className="w-6 h-6" />
-                  <span className="font-medium">{t('profile')}</span>
-                </Link>
-              </nav>
-            </div>
-          )}
           </>
         {/* )} */}
            
@@ -150,42 +129,42 @@ const App: React.FC = () => {
         {username && (
           <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-t border-gray-100 px-2 sm:px-4 pt-1 pb-[calc(0.25rem+env(safe-area-inset-bottom))]">
             <div className="max-w-2xl mx-auto flex justify-around gap-1">
-              <Link
-                to="/"
-                className="flex min-w-0 flex-1 flex-col items-center p-1 text-gray-600 hover:text-purple-600 transition-colors"
+              <NavLink
+                to="/dashboard"
+                className={({ isActive }) => `flex min-w-0 flex-1 flex-col items-center rounded-lg p-1 transition-colors ${isActive ? 'text-purple-700' : 'text-gray-600 hover:text-purple-600'}`}
               >
                
                 <Home className="w-6 h-6" />
                 <span className="text-[11px] sm:text-xs mt-1 truncate max-w-full">{t('home')}</span>
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 to="/journal"
-                className="flex min-w-0 flex-1 flex-col items-center p-1 text-gray-600 hover:text-purple-600 transition-colors"
+                className={({ isActive }) => `flex min-w-0 flex-1 flex-col items-center rounded-lg p-1 transition-colors ${isActive ? 'text-purple-700' : 'text-gray-600 hover:text-purple-600'}`}
               >
                 <Calendar className="w-6 h-6" />
                 <span className="text-[11px] sm:text-xs mt-1 truncate max-w-full">{t('journal')}</span>
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 to="/insights"
-                className="flex min-w-0 flex-1 flex-col items-center p-1 text-gray-600 hover:text-purple-600 transition-colors"
+                className={({ isActive }) => `flex min-w-0 flex-1 flex-col items-center rounded-lg p-1 transition-colors ${isActive ? 'text-purple-700' : 'text-gray-600 hover:text-purple-600'}`}
               >
                 <TrendingUp className="w-6 h-6" />
                 <span className="text-[11px] sm:text-xs mt-1 truncate max-w-full">{t('insights')}</span>
-              </Link>
-               <Link
+              </NavLink>
+               <NavLink
                 to="/notes"
-                className="flex min-w-0 flex-1 flex-col items-center p-1 text-gray-600 hover:text-purple-600 transition-colors"
+                className={({ isActive }) => `flex min-w-0 flex-1 flex-col items-center rounded-lg p-1 transition-colors ${isActive ? 'text-purple-700' : 'text-gray-600 hover:text-purple-600'}`}
               >
                 <FileText className="w-6 h-6" />
                 <span className="text-[11px] sm:text-xs mt-1 truncate max-w-full">{t('notes')}</span>
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 to="/profile"
-                className="flex min-w-0 flex-1 flex-col items-center p-1 text-gray-600 hover:text-purple-600 transition-colors"
+                className={({ isActive }) => `flex min-w-0 flex-1 flex-col items-center rounded-lg p-1 transition-colors ${isActive ? 'text-purple-700' : 'text-gray-600 hover:text-purple-600'}`}
               >
                 <User className="w-6 h-6" />
                 <span className="text-[11px] sm:text-xs mt-1 truncate max-w-full">{t('profile')}</span>
-              </Link>
+              </NavLink>
               
             </div>
           </nav>

@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkclient=self.webpackChunkclient||[]).push([[637],{1637:(e,o,t)=>{t.d(o,{reflections:()=>a});const a=["What made you smile today?","What would you like to acknowledge about yourself today?","Was there a moment today that made you feel at peace?","What do you need most for yourself right now?","What are you grateful for today?","What would you like to let go of before the day ends?"]}}]);
+//# sourceMappingURL=637.468dcf17.chunk.js.map

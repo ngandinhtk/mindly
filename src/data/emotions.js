@@ -17,5 +17,6 @@ export const emotions = [
     { id: 'worried', emoji: '😰', label: 'worried', color: 'bg-purple-100 hover:bg-purple-200', graphColor: '#e4b0fcd5' },
     { id: 'angry', emoji: '😡', label: 'angry', color: 'bg-red-300 hover:bg-red-400', graphColor: '#e4907bff' },
     { id: 'tired', emoji: '😴', label: 'tired', color: 'bg-blue-100 hover:bg-blue-200', graphColor: '#b2cffcff' },
+    { id: 'excited', emoji: '😎', label: 'excited', color: 'bg-orange-100 hover:bg-orange-200', graphColor: '#f6ad55' },
   ];
   

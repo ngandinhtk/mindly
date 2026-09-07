@@ -1,33 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { emotions } from '../data/emotions';
+import { readJson } from '../utils/safeStorage';
 
 const WeeklySummary = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [weeklyStats, setWeeklyStats] = useState([]);
   const [weekRange, setWeekRange] = useState('');
 
   useEffect(() => {
+    setWeeklyStats([]);
+    setWeekRange('');
     const username = localStorage.getItem('username');
     if (username) {
-      const savedEntries = localStorage.getItem(`moodEntries_${username}`);
-      if (savedEntries) {
-        const parsedEntries = JSON.parse(savedEntries);
-        calculateWeeklyStats(parsedEntries);
-      }
+      calculateWeeklyStats(readJson(`moodEntries_${username}`, []));
     }
-  }, []);
+  }, [i18n.language]);
 
   const calculateWeeklyStats = (entries) => {
+    const now = new Date();
+    const startOfWeek = new Date(now);
+    startOfWeek.setHours(0, 0, 0, 0);
+    startOfWeek.setDate(now.getDate() - now.getDay());
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
+    endOfWeek.setHours(23, 59, 59, 999);
+
+    setWeekRange(`${startOfWeek.toLocaleDateString(i18n.language)} - ${endOfWeek.toLocaleDateString(i18n.language)}`);
+
     if (!entries || entries.length === 0) {
       return;
     }
-
-    const now = new Date();
-    const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
-    const endOfWeek = new Date(now.setDate(now.getDate() - now.getDay() + 6));
-
-    setWeekRange(`${startOfWeek.toLocaleDateString()} - ${endOfWeek.toLocaleDateString()}`);
 
     const weeklyEntries = entries.filter(entry => {
       const entryDate = new Date(entry.date);
@@ -86,7 +89,7 @@ const WeeklySummary = () => {
               <div key={stat.id} className={`p-4 rounded-lg text-center ${stat.color}`}>
                 <div className="text-3xl">{stat.emoji}</div>
                 <div className="font-bold text-lg">{stat.percentage}%</div>
-                <div className="text-sm text-gray-600">{stat.count}  {t('day')} {stat.label}</div>
+                <div className="text-sm text-gray-600">{stat.count} {t('day')} {t(stat.label)}</div>
 
               </div>
             ))}

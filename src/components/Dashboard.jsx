@@ -1,11 +1,18 @@
 // import React from 'react';
 import React, { useState } from 'react';
-import { Calendar, TrendingUp, LogOut , Heart, Brain, Plus, Menu, X  } from 'lucide-react';
+import { Calendar, TrendingUp, LogOut , Heart, Brain, Plus, Menu, X, Sparkles  } from 'lucide-react';
 import { emotions } from '../data/emotions';
 import { useTranslation } from 'react-i18next';
 // import { useNavigate } from 'react-router-dom';
 import { Adsense } from '@ctrl/react-adsense';
+import { readJson, writeJson } from '../utils/safeStorage';
 
+const getLocalDateKey = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
 
 const Dashboard = () => {
   const { t, i18n } = useTranslation();
@@ -14,6 +21,11 @@ const Dashboard = () => {
   const [entries, setEntries] = React.useState([]);
   const [todayEntries, setTodayEntries] = React.useState([]);
   const [activities, setActivities] = React.useState({});
+  const [reflectionPrompt, setReflectionPrompt] = React.useState('');
+  const [reflectionAnswer, setReflectionAnswer] = React.useState('');
+  const [savedReflectionAnswer, setSavedReflectionAnswer] = React.useState('');
+  const [reflectionMessage, setReflectionMessage] = React.useState('');
+  const [saveMessage, setSaveMessage] = React.useState('');
   // const [dailyQuote, setDailyQuote] = React.useState(null);
   const [username, setUsername] = React.useState(null);
   // const [showMenu, setShowMenu] = React.useState(false);
@@ -29,10 +41,7 @@ const Dashboard = () => {
     const storedUsername = localStorage.getItem('username');
     if (storedUsername) {
       setUsername(storedUsername);
-      const savedEntries = localStorage.getItem(`moodEntries_${storedUsername}`);
-      if (savedEntries) {
-        setEntries(JSON.parse(savedEntries));
-      }
+      setEntries(readJson(`moodEntries_${storedUsername}`, []));
     }
 
     // Dynamically import activities based on language
@@ -46,6 +55,30 @@ const Dashboard = () => {
       } catch (error) {
         console.error("Error loading activities:", error);
         setActivities({}); // Fallback to empty activities
+      }
+    };
+
+    const loadReflection = async () => {
+      const lang = i18n.language?.split('-')[0] || 'vi';
+      try {
+        const reflectionsModule = await import(`../data/reflections_${lang}.js`);
+        const reflectionDate = new Date();
+        const daySeed = Math.floor(new Date(
+          reflectionDate.getFullYear(),
+          reflectionDate.getMonth(),
+          reflectionDate.getDate()
+        ).getTime() / 86400000);
+        const prompt = reflectionsModule.reflections[daySeed % reflectionsModule.reflections.length];
+        setReflectionPrompt(prompt);
+
+        if (storedUsername) {
+          const answerKey = `dailyReflection_${storedUsername}_${getLocalDateKey(reflectionDate)}`;
+          const savedAnswer = localStorage.getItem(answerKey) || '';
+          setReflectionAnswer(savedAnswer);
+          setSavedReflectionAnswer(savedAnswer);
+        }
+      } catch (error) {
+        console.error('Error loading reflection:', error);
       }
     };
 
@@ -64,8 +97,24 @@ const Dashboard = () => {
     // };
 
     loadActivities();
+    loadReflection();
     // loadQuotes();
   }, [i18n.language]); // Re-run when language changes
+
+  const handleReflectionSave = () => {
+    const trimmedAnswer = reflectionAnswer.trim();
+    if (!username || !trimmedAnswer || trimmedAnswer === savedReflectionAnswer) return;
+
+    try {
+      const todayKey = getLocalDateKey(new Date());
+      localStorage.setItem(`dailyReflection_${username}_${todayKey}`, trimmedAnswer);
+      setReflectionAnswer(trimmedAnswer);
+      setSavedReflectionAnswer(trimmedAnswer);
+      setReflectionMessage(t('reflection_saved'));
+    } catch (error) {
+      setReflectionMessage(t('reflection_save_failed'));
+    }
+  };
 
   // Check today's entries
   React.useEffect(() => {
@@ -81,7 +130,8 @@ const Dashboard = () => {
   const handleSaveEntry = async () => {
     const today = new Date();
     if (todayEntries.length >= 2) {
-      alert("You have already checked in twice today."); // Or use a more user-friendly notification
+      setSaveMessage(t('checkin_limit_reached'));
+      window.setTimeout(() => setSaveMessage(''), 3000);
       return;
     }
 
@@ -94,12 +144,20 @@ const Dashboard = () => {
     };
 
     const updatedEntries = [...entries, newEntry];
-    setEntries(updatedEntries);
-    localStorage.setItem(`moodEntries_${username}`, JSON.stringify(updatedEntries));
+    try {
+      writeJson(`moodEntries_${username}`, updatedEntries);
+      setEntries(updatedEntries);
+    } catch (error) {
+      setSaveMessage(t('storage_save_failed'));
+      window.setTimeout(() => setSaveMessage(''), 3000);
+      return;
+    }
     
     // Reset form
     setSelectedEmotion(null);
     setNote('');
+    setSaveMessage(t('mood_saved'));
+    window.setTimeout(() => setSaveMessage(''), 3000);
   };
 
   const getActivityForEmotion = (emotion, date) => {
@@ -148,12 +206,17 @@ const Dashboard = () => {
                 </div>
               </div>  
           </div>
-      
+
            {/* Mood Selection */}
           
         {todayEntries.length < 2 && (
           <div className="px-1 sm:px-2 mb-6">
-            <h2 className="text-lg font-medium text-gray-700 mb-4">{t('how_are_you_today')}</h2>
+            <div className="flex items-start justify-between gap-3 mb-4">
+              <h2 className="text-lg font-medium text-gray-700">{t('how_are_you_today')}</h2>
+              <span className="shrink-0 rounded-full bg-purple-50 px-3 py-1 text-xs font-medium text-purple-700">
+                {t('checkin_progress', { count: todayEntries.length, total: 2 })}
+              </span>
+            </div>
              <div className="mb-6">
                 {/* <p className="text-sm font-medium text-gray-600 mb-3">Chọn tâm trạng của bạn</p> */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 sm:gap-3">
@@ -206,8 +269,19 @@ const Dashboard = () => {
                   <Plus className="w-5 h-5" />
                   <span>{t('save')}</span>
                 </button>
+                {saveMessage && (
+                  <p className="mt-2 text-sm text-emerald-700" role="status" aria-live="polite">
+                    {saveMessage}
+                  </p>
+                )}
               </div>
             )}
+          </div>
+        )}
+
+        {todayEntries.length >= 2 && (
+          <div className="mb-6 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-800" role="status">
+            {t('checkin_complete')}
           </div>
         )}
 
@@ -236,6 +310,40 @@ const Dashboard = () => {
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {reflectionPrompt && (
+          <div className="bg-gradient-to-br from-amber-50 via-white to-pink-50 rounded-3xl border border-amber-100 shadow-sm p-4 sm:p-6 mb-6">
+            <div className="flex items-start gap-3">
+              <div className="rounded-xl bg-amber-100 p-2 text-amber-600 shrink-0">
+                <Sparkles className="w-5 h-5" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-semibold uppercase tracking-wide text-amber-700 mb-2">{t('daily_reflection')}</p>
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-800 break-words">{reflectionPrompt}</h2>
+                <textarea
+                  value={reflectionAnswer}
+                  onChange={(event) => setReflectionAnswer(event.target.value)}
+                  placeholder={t('daily_reflection_placeholder')}
+                  className="mt-4 w-full min-h-[96px] resize-y rounded-xl border border-amber-100 bg-white/80 px-3 py-3 text-gray-700 outline-none transition focus:border-amber-300 focus:ring-2 focus:ring-amber-100"
+                  aria-label={reflectionPrompt}
+                />
+                <button
+                  type="button"
+                  onClick={handleReflectionSave}
+                        disabled={!reflectionAnswer.trim() || reflectionAnswer.trim() === savedReflectionAnswer}
+                  className="mt-3 w-full sm:w-auto rounded-xl bg-gray-800 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  {t('save_reflection')}
+                </button>
+                      {reflectionMessage && (
+                        <p className="mt-2 text-sm text-emerald-700" role="status" aria-live="polite">
+                          {reflectionMessage}
+                        </p>
+                      )}
+              </div>
+            </div>
           </div>
         )}
 
