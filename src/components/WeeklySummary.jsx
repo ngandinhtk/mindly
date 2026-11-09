@@ -1,40 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { emotions } from '../data/emotions';
-import { readJson } from '../utils/safeStorage';
+import { getEmotionSentiment, getWeekBounds, readMoodEntries } from './moodStats';
 
 const WeeklySummary = () => {
   const { t, i18n } = useTranslation();
   const [weeklyStats, setWeeklyStats] = useState([]);
   const [weekRange, setWeekRange] = useState('');
+  const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
     setWeeklyStats([]);
     setWeekRange('');
+    setLoadError(false);
     const username = localStorage.getItem('username');
     if (username) {
-      calculateWeeklyStats(readJson(`moodEntries_${username}`, []));
+      const result = readMoodEntries(username);
+      setLoadError(result.error);
+      calculateWeeklyStats(result.entries);
     }
   }, [i18n.language]);
 
   const calculateWeeklyStats = (entries) => {
-    const now = new Date();
-    const startOfWeek = new Date(now);
-    startOfWeek.setHours(0, 0, 0, 0);
-    startOfWeek.setDate(now.getDate() - now.getDay());
-    const endOfWeek = new Date(startOfWeek);
-    endOfWeek.setDate(startOfWeek.getDate() + 6);
-    endOfWeek.setHours(23, 59, 59, 999);
+    const { startOfWeek, endOfWeek } = getWeekBounds();
 
     setWeekRange(`${startOfWeek.toLocaleDateString(i18n.language)} - ${endOfWeek.toLocaleDateString(i18n.language)}`);
 
-    if (!entries || entries.length === 0) {
+    if (!Array.isArray(entries) || entries.length === 0) {
       return;
     }
 
     const weeklyEntries = entries.filter(entry => {
+      if (!entry || typeof entry.emotion !== 'string') return false;
       const entryDate = new Date(entry.date);
-      return entryDate >= startOfWeek && entryDate <= endOfWeek;
+      return Number.isFinite(entryDate.getTime()) && entryDate >= startOfWeek && entryDate <= endOfWeek;
     });
 
     if (weeklyEntries.length === 0) {
@@ -68,10 +67,11 @@ const WeeklySummary = () => {
     }
     const topEmotion = weeklyStats[0];
 
-    if (['happy', 'excited', 'grateful', 'amazing', 'satisfies'].includes(topEmotion.id)) {
+    const sentiment = getEmotionSentiment(topEmotion.id);
+    if (sentiment === 'positive') {
       return t('positive_week_trend');
     }
-    if (['sad', 'angry', 'anxious', 'worried'].includes(topEmotion.id)) {
+    if (sentiment === 'negative') {
       return t('negative_week_trend');
     }
     return t('mixed_week_trend');
@@ -80,6 +80,7 @@ const WeeklySummary = () => {
   return (
     <div className=" p-6 mb-6 border-t">
       <h4 className="text-xl font-bold text-gray-800 mb-4">{t('weekly_summary')}</h4>
+      {loadError && <p role="alert" className="mb-4 text-sm text-red-700">{t('insight_data_load_failed')}</p>}
       <p className="text-sm text-gray-500 mb-4">{weekRange}</p>
       
       {weeklyStats.length > 0 ? (
@@ -89,7 +90,7 @@ const WeeklySummary = () => {
               <div key={stat.id} className={`p-4 rounded-lg text-center ${stat.color}`}>
                 <div className="text-3xl">{stat.emoji}</div>
                 <div className="font-bold text-lg">{stat.percentage}%</div>
-                <div className="text-sm text-gray-600">{stat.count} {t('day')} {t(stat.label)}</div>
+                <div className="text-sm text-gray-600">{stat.count} {t('check_in_count')} · {t(stat.label)}</div>
 
               </div>
             ))}

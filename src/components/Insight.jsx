@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import WeeklySummary from './WeeklySummary';
-import { readJson } from '../utils/safeStorage';
+import { getMoodTrend, readMoodEntries } from './moodStats';
 
 const Insight = () => {
     const { t } = useTranslation();
@@ -18,26 +18,33 @@ const Insight = () => {
       });
       
     const [emotionStats, setEmotionStats] = useState([]);
+    const [trendKey, setTrendKey] = useState('no_data_trend');
+    const [loadError, setLoadError] = useState(false);
     const insightRef = useRef();
 
     useEffect(() => {
         const username = localStorage.getItem('username');
         if (username) {
-            calculateStats(readJson(`moodEntries_${username}`, []));
+            const result = readMoodEntries(username);
+            calculateStats(result.entries);
+            setTrendKey(getMoodTrend(result.entries));
+            setLoadError(result.error);
         }
     }, []);
 
     const calculateStats = (entries) => {
-        if (!entries || entries.length === 0) {
+        if (!Array.isArray(entries) || entries.length === 0) {
             return;
         }
 
         const emotionCounts = entries.reduce((acc, entry) => {
+            if (!entry || typeof entry.emotion !== 'string') return acc;
             acc[entry.emotion] = (acc[entry.emotion] || 0) + 1;
             return acc;
         }, {});
 
-        const totalEntries = entries.length;
+        const totalEntries = Object.values(emotionCounts).reduce((total, count) => total + count, 0);
+        if (totalEntries === 0) return;
         const stats = Object.entries(emotionCounts)
             .map(([emotionId, count]) => {
                 const emotionDetails = emotions.find(e => e.id === emotionId);
@@ -51,22 +58,6 @@ const Insight = () => {
             .sort((a, b) => b.count - a.count);
 
         setEmotionStats(stats);
-    };
-
-    const getOverallTrend = () => {
-        if (emotionStats.length === 0) {
-            return t('no_data_trend');
-        }
-        const topEmotion = emotionStats[0];
-        
-        // Simple trend message based on the most frequent emotion's ID
-        if (['happy', 'excited', 'grateful', 'amazing', 'satisfies'].includes(topEmotion.id)) {
-            return t('positive_trend');
-        }
-        if (['sad', 'angry', 'anxious', 'worried'].includes(topEmotion.id)) {
-            return t('negative_trend');
-        }
-        return t('netive_trend');
     };
 
     const handleExportPDF = () => {
@@ -105,13 +96,14 @@ const Insight = () => {
 
                         <div className="p-4 sm:p-8" ref={insightRef}>
                             <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-6">{t('emotion_stats')}</h3>              
+                            {loadError && <p role="alert" className="mb-4 text-sm text-red-700">{t('insight_data_load_failed')}</p>}
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {emotionStats.length > 0 ? (
                     emotionStats.map(stat => (
                         <div key={stat.id} className={`${stat.color} text-center p-4 sm:p-6 rounded-xl transform transition-transform hover:scale-105`}>
                             <div className="text-4xl mb-2">{stat.emoji}</div>
                             <div className="text-2xl font-bold text-gray-800">{stat.percentage}%</div>
-                            <div className="text-sm text-gray-600">{stat.count} {t('day')} {t(stat.label)}</div>
+                            <div className="text-sm text-gray-600">{stat.count} {t('check_in_count')} · {t(stat.label)}</div>
                         </div>
                     ))
                 ) : (
@@ -126,7 +118,7 @@ const Insight = () => {
               </div>
                 {/* <h4 className="font-semibold text-gray-800 mb-3">{t('trending_analysis')}</h4> */}
                 <p className="text-gray-600">
-                  {getOverallTrend()}
+                  {t(trendKey)}
                 </p>
                 
             </div>
