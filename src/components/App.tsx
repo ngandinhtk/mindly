@@ -18,7 +18,8 @@ const PrivateRoutes = () => {
 };
 
 const App: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isVietnamese = i18n.resolvedLanguage?.split('-')[0] === 'vi';
   const [username, setUsername] = React.useState<string | null>(localStorage.getItem('username'));
 
   React.useEffect(() => {
@@ -72,17 +73,17 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <div className="app min-h-screen flex flex-col bg-gradient-to-br from-blue-50 via-purple-50 to-pink-60">
+      <div className={`app min-h-screen flex flex-col bg-gradient-to-br from-blue-50 via-purple-50 to-pink-60${isVietnamese ? ' mindly-lang-vi' : ''}`}>
         {/* {username && ( */}
           <>
           <header className="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50">
             <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                  <div className="mindly-brand-mark w-10 h-10 rounded-xl flex items-center justify-center">
                     <Heart className="w-6 h-6 text-white" />
                   </div>
-                  <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  <h1 className="mindly-brand-name text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                     Mindly
                   </h1>
                 </div>
@@ -107,7 +108,7 @@ const App: React.FC = () => {
           </>
         {/* )} */}
            
-        <main className="flex-grow min-w-0 overflow-y-auto pb-24 sm:pb-20 w-full max-w-3xl mx-auto">
+        <main className="flex-grow min-w-0 overflow-y-auto pb-24 sm:pb-20 md:pb-8 w-full max-w-3xl mx-auto">
           <Routes>
             <Route path="/login" element={<UserPage onLogin={handleLogin} />} />
             <Route element={<PrivateRoutes />}>
@@ -127,11 +128,11 @@ const App: React.FC = () => {
         </main>
 
         {username && (
-          <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-t border-gray-100 px-2 sm:px-4 pt-1 pb-[calc(0.25rem+env(safe-area-inset-bottom))]">
+          <nav aria-label={t('main_navigation')} className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-t border-gray-100 px-2 sm:px-4 pt-1 pb-[calc(0.25rem+env(safe-area-inset-bottom))]">
             <div className="max-w-2xl mx-auto flex justify-around gap-1">
               <NavLink
                 to="/dashboard"
-                className={({ isActive }) => `flex min-w-0 flex-1 flex-col items-center rounded-lg p-1 transition-colors ${isActive ? 'text-purple-700' : 'text-gray-600 hover:text-purple-600'}`}
+                className={({ isActive }) => `flex min-w-0 flex-1 flex-col items-center rounded-lg p-1 transition-colors ${isActive ? 'text-purple-700' : 'text-gray-600 hover:text-purple-900'}`}
               >
                
                 <Home className="w-6 h-6" />
@@ -139,28 +140,28 @@ const App: React.FC = () => {
               </NavLink>
               <NavLink
                 to="/journal"
-                className={({ isActive }) => `flex min-w-0 flex-1 flex-col items-center rounded-lg p-1 transition-colors ${isActive ? 'text-purple-700' : 'text-gray-600 hover:text-purple-600'}`}
+                className={({ isActive }) => `flex min-w-0 flex-1 flex-col items-center rounded-lg p-1 transition-colors ${isActive ? 'text-purple-700' : 'text-gray-600 hover:text-purple-900'}`}
               >
                 <Calendar className="w-6 h-6" />
                 <span className="text-[11px] sm:text-xs mt-1 truncate max-w-full">{t('journal')}</span>
               </NavLink>
               <NavLink
                 to="/insights"
-                className={({ isActive }) => `flex min-w-0 flex-1 flex-col items-center rounded-lg p-1 transition-colors ${isActive ? 'text-purple-700' : 'text-gray-600 hover:text-purple-600'}`}
+                className={({ isActive }) => `flex min-w-0 flex-1 flex-col items-center rounded-lg p-1 transition-colors ${isActive ? 'text-purple-700' : 'text-gray-600 hover:text-purple-900'}`}
               >
                 <TrendingUp className="w-6 h-6" />
                 <span className="text-[11px] sm:text-xs mt-1 truncate max-w-full">{t('insights')}</span>
               </NavLink>
                <NavLink
                 to="/notes"
-                className={({ isActive }) => `flex min-w-0 flex-1 flex-col items-center rounded-lg p-1 transition-colors ${isActive ? 'text-purple-700' : 'text-gray-600 hover:text-purple-600'}`}
+                className={({ isActive }) => `flex min-w-0 flex-1 flex-col items-center rounded-lg p-1 transition-colors ${isActive ? 'text-purple-700' : 'text-gray-600 hover:text-purple-900'}`}
               >
                 <FileText className="w-6 h-6" />
                 <span className="text-[11px] sm:text-xs mt-1 truncate max-w-full">{t('notes')}</span>
               </NavLink>
               <NavLink
                 to="/profile"
-                className={({ isActive }) => `flex min-w-0 flex-1 flex-col items-center rounded-lg p-1 transition-colors ${isActive ? 'text-purple-700' : 'text-gray-600 hover:text-purple-600'}`}
+                className={({ isActive }) => `flex min-w-0 flex-1 flex-col items-center rounded-lg p-1 transition-colors ${isActive ? 'text-purple-700' : 'text-gray-600 hover:text-purple-900'}`}
               >
                 <User className="w-6 h-6" />
                 <span className="text-[11px] sm:text-xs mt-1 truncate max-w-full">{t('profile')}</span>

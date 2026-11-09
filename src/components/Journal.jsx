@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { emotions } from '../data/emotions';
 import EmotionStats from './EmotionStats';
-import { CalendarIcon, ChevronLeft, ChevronRight, Quote  } from 'lucide-react';
+import JournalEntries from './JournalEntries';
+import { CalendarIcon, ChevronLeft, ChevronRight  } from 'lucide-react';
 import { readJson } from '../utils/safeStorage';
 
 const Calendar = ({ entries, onDateSelect, selectedDate, currentMonth, setCurrentMonth }) => {
@@ -26,6 +27,7 @@ const Calendar = ({ entries, onDateSelect, selectedDate, currentMonth, setCurren
   const changeMonth = (delta) => {
     setCurrentMonth(prev => {
       const newDate = new Date(prev);
+      newDate.setDate(1);
       newDate.setMonth(prev.getMonth() + delta);
       return newDate;
     });
@@ -55,15 +57,15 @@ const Calendar = ({ entries, onDateSelect, selectedDate, currentMonth, setCurren
           onClick={() => onDateSelect(date)}
           aria-label={date.toLocaleDateString(i18n.language, { day: 'numeric', month: 'long', year: 'numeric' })}
           aria-pressed={isSelected}
-          className={`h-10 relative flex items-center justify-center group ${
-            isSelected ? 'rounded-lg ring-2 ring-purple-500 ring-offset-1' : ''
+          className={`mindly-calendar-day text-gray-700 bg-transparent hover:bg-purple-50 hover:ring-2 p-0 h-10 relative flex items-center justify-center group ${
+            isSelected ? 'rounded-lg ring-2 ring-offset-1' : ''
           }`}
         >
           <div
             className={`w-8 h-8 rounded-full flex items-center justify-center relative
-              ${isToday ? 'ring-2 ring-pink-500' : ''}
+              ${isToday ? 'mindly-calendar-today ring-2' : ''}
             `}
-            style={{ backgroundColor: emotionObject ? emotionObject.color : 'transparent' }}
+            style={{ backgroundColor: emotionObject ? emotionObject.graphColor : 'transparent' }}
           >
             {emotionObject ? (
               <span className="text-2xl">{emotionObject.emoji}</span>
@@ -85,7 +87,7 @@ const Calendar = ({ entries, onDateSelect, selectedDate, currentMonth, setCurren
         <button 
           onClick={() => changeMonth(-1)}
           aria-label={t('previous_month')}
-          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          className="p-2 bg-transparent text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
@@ -95,7 +97,7 @@ const Calendar = ({ entries, onDateSelect, selectedDate, currentMonth, setCurren
         <button 
           onClick={() => changeMonth(1)}
           aria-label={t('next_month')}
-          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          className="p-2 bg-transparent text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
         >
           <ChevronRight className="w-5 h-5" />
         </button>
@@ -164,25 +166,15 @@ const Journal = () => {
     setSelectedDate(date);
   };
 
-  const getSelectedEntries = () => {
-    if (!selectedDate) return [];
-    return entries.filter(e => 
-      new Date(e.date).toDateString() === selectedDate.toDateString()
-    );
-  };
-
-  const selectedEntries = getSelectedEntries();
-
   return (
     <div className="max-w-3xl mx-auto px-4">
       {/* Daily Quote */}
              <div className="p-6">
                 <h1 className="text-gray-700 text-xl mb-4 flex items-center gap-2">
-                  <CalendarIcon className="w-8 h-8 text-purple-600" />
+                  <CalendarIcon className="w-8 h-8 text-purple-900" />
                   <div className='font-bold '>{t('daily_quote')}</div>
                 </h1>
                 <div className="flex items-start gap-4">
-                  <Quote className="w-4 h-4 text-pink-400 flex-shrink-0" />
                   <div>
                     {dailyQuote ? (
                       <>
@@ -229,44 +221,7 @@ const Journal = () => {
       {/* Emotion Stats */}
       <EmotionStats entries={entries} currentMonth={currentMonth} />
 
-      {/* Selected Day Details */}
-      {selectedDate && (
-        <div className="bg-white mt-6 p-8 rounded-3xl shadow-xs">
-          <h3 className="text-lg font-medium text-gray-700 mb-4">
-            {selectedDate.toLocaleDateString(i18n.language, { 
-              weekday: 'long', 
-              year: 'numeric', 
-              month: 'long', 
-              day: 'numeric' 
-            })}
-          </h3>
-          {selectedEntries.length > 0 ? (
-            <div className="space-y-4">
-              {selectedEntries.map((entry, index) => {
-                const emotion = emotions.find(e => e.id === entry.emotion);
-                return (
-                  <div key={index} className="border-b border-gray-200 pb-4 last:border-b-0">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="text-3xl">{emotion?.emoji}</span>
-                      <div>
-                        <span className="font-bold text-gray-800">{t(emotion?.label)}</span>
-                        <span className="text-sm text-gray-500 ml-2">
-                          {new Date(entry.date).toLocaleTimeString(i18n.language, { hour: '2-digit', minute: '2-digit' })}
-                        </span>
-                      </div>
-                    </div>
-                    {entry.note && (
-                      <p className="text-gray-600 italic bg-gray-50 p-3 rounded-lg">{entry.note}</p>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <p className="text-gray-500">{t('no_entry')}</p>
-          )}
-        </div>
-      )}
+      <JournalEntries entries={entries} setEntries={setEntries} selectedDate={selectedDate} clearDate={() => setSelectedDate(null)} />
       </div>
   );
 };

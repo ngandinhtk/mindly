@@ -167,13 +167,13 @@ const Notes = () => {
                   <div className="flex items-center">
                     <button
                       onClick={() => handleDeleteNote(note._id || note.id)}
-                      className="px-1 text-red-400 hover:text-red-600 opacity-0 bg-yellow-50 group-hover:opacity-100 transition-opacity"
+                      className="px-1 text-red-400 hover:text-red-600 opacity-0 bg-yellow-50 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => handlePinNote(note._id || note.id)}
-                      className={`px-1 hover:text-green-600 bg-yellow-50 transition-opacity ${note.pinned ? 'text-green-600 opacity-100' : 'text-gray-700 opacity-0 group-hover:opacity-100'}`}
+                      className={`px-1 hover:text-green-600 bg-yellow-50 transition-opacity ${note.pinned ? 'text-green-600 opacity-100' : 'text-gray-700 opacity-0 group-hover:opacity-100 focus-visible:opacity-100'}`}
                     >
                       <Pin className="w-4 h-4" fill={note.pinned ? "currentColor" : "none"} />
                     </button>

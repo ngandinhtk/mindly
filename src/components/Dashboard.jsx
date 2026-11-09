@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Calendar, TrendingUp, LogOut , Heart, Brain, Plus, Menu, X, Sparkles  } from 'lucide-react';
 import { emotions } from '../data/emotions';
+import { getMonthlyMoodSummary } from './moodStats';
 import { useTranslation } from 'react-i18next';
 // import { useNavigate } from 'react-router-dom';
 import { Adsense } from '@ctrl/react-adsense';
@@ -174,19 +175,10 @@ const Dashboard = () => {
   
 
   // Get most common emotion 
+  const { recordedDays, mostCommonEmotion } = getMonthlyMoodSummary(entries);
   const getMostCommonEmotion = () => {
-    if (!entries.length) return null;
-    
-    const emotionCounts = entries.reduce((acc, entry) => {
-      acc[entry.emotion] = (acc[entry.emotion] || 0) + 1;
-      return acc;
-    }, {});
-
-    const mostCommonEmotion = Object.entries(emotionCounts)
-      .sort(([,a], [,b]) => b - a)[0][0];
-
-    return t(emotions.find(e => e.id === mostCommonEmotion)?.label) || 'N/A';
-    
+    const emotion = emotions.find(item => item.id === mostCommonEmotion);
+    return emotion ? t(emotion.label) : t('no_month_data');
   };
 
   return (
@@ -224,9 +216,8 @@ const Dashboard = () => {
                     <button
                       key={idx}
                       onClick={() => handleEmotionSelect(mood.id)}
-                      className={`${mood.color} p-3 sm:p-4 rounded-xl transition-all transform hover:scale-105 ${
-                        selectedEmotion === mood.id ? 'ring-2 ring-purple-500 scale-105' : ''
-                      }`}
+                      aria-pressed={selectedEmotion === mood.id}
+                      className={`mindly-mood-button ${mood.color} p-3 sm:p-4 rounded-xl transition-all transform hover:scale-105`}
                     >
                       <div className="text-3xl mb-1">{mood.emoji}</div>
                       <div className="text-xs font-medium text-gray-700">{t(mood.label)}</div>
@@ -352,13 +343,11 @@ const Dashboard = () => {
           <h2 className="text-lg font-medium text-gray-700 mb-4">{t('monthly_overview')}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="bg-purple-50 rounded-xl p-4 min-w-0">
-              <Calendar className="w-5 h-5 text-purple-500 mb-2" />
-              <div className="text-2xl font-semibold text-purple-900">{entries.length}</div>
-              <div className="text-sm text-purple-600">{t('days_recorded')}</div>
+              <div className="text-2xl font-semibold text-purple-900">{recordedDays}</div>
+              <div className="text-sm text-purple-900">{t('days_recorded')}</div>
             </div>
             <div className="bg-purple-50 rounded-xl p-4 min-w-0">
-              <TrendingUp className="w-5 h-5 text-purple-500 mb-2" />
-              <div className="text-sm text-purple-600">{t('most_common_emotion')}</div>
+              <div className="text-sm text-purple-900">{t('most_common_emotion')}</div>
               <div className="text-xl font-bold text-purple-900 break-words">
                 {getMostCommonEmotion()}
               </div>

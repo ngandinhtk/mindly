@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useTranslation, initReactI18next } from 'react-i18next';
-import { User, BarChart2, Bell, LogOut, Download, Upload, ChevronDown } from 'lucide-react';
-import { emotions } from '../data/emotions';
+import { useTranslation } from 'react-i18next';
+import ProfileContent from './ProfileContent';
+import { User, Bell, LogOut, Download, Upload, ChevronDown } from 'lucide-react';
 import { readJson, writeJson } from '../utils/safeStorage';
 
 
 const Profile = () => {
-  const { t, i18n } = useTranslation();
-  const [emotionHistory, setEmotionHistory] = useState([]);
+  const { t } = useTranslation();
   const [userData, setUserData] = useState({
     username: '',
     avatar: null // Will store avatar URL when implemented
   });
-  const [selectedNote, setSelectedNote] = useState(null);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [reminder, setReminder] = useState({ enabled: false, time: '20:00' });
   const [reminderMessage, setReminderMessage] = useState('');
   const [backupMessage, setBackupMessage] = useState('');
   const [showSettings, setShowSettings] = useState(false);
   const [avatarMessage, setAvatarMessage] = useState('');
+  const [profileRevision, setProfileRevision] = useState(0);
 
   const handleLogout = () => {
     setShowLogoutConfirm(true);
@@ -33,13 +32,6 @@ const Profile = () => {
     setShowLogoutConfirm(false);
   };
 
-  const handleNoteClick = (note) => {
-    setSelectedNote(note);
-  };
-  
-  const closePopup = () => {
-    setSelectedNote(null);
-  };
 
   const handleAvatarChange = (event) => {
     const file = event.target.files?.[0];
@@ -103,6 +95,7 @@ const Profile = () => {
       notes: readJson(`notes_${username}`, []),
       reminder: readJson(`checkInReminder_${username}`, { enabled: false, time: '20:00' }),
       reflections: getReflectionBackup(username),
+      profileDetails: readJson(`profileDetails_${username}`, { about: "", intention: "" }),
     };
     const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
     const downloadUrl = URL.createObjectURL(blob);
@@ -135,6 +128,12 @@ const Profile = () => {
         throw new Error('Invalid backup');
       }
 
+      if (importedBackup.profileDetails !== undefined && (
+        !importedBackup.profileDetails ||
+        typeof importedBackup.profileDetails.about !== 'string' ||
+        typeof importedBackup.profileDetails.intention !== 'string'
+      )) throw new Error('Invalid profile details');
+
       if (!window.confirm(t('backup_import_confirm'))) return;
 
       writeJson(`moodEntries_${userData.username}`, importedBackup.moodEntries);
@@ -145,7 +144,10 @@ const Profile = () => {
           localStorage.setItem(`dailyReflection_${userData.username}_${date}`, answer);
         }
       });
-      setEmotionHistory(importedBackup.moodEntries.sort((a, b) => new Date(a.date) - new Date(b.date)));
+      if (importedBackup.profileDetails) {
+        writeJson(`profileDetails_${userData.username}`, importedBackup.profileDetails);
+        setProfileRevision(current => current + 1);
+      }
       setReminder(importedBackup.reminder);
       setBackupMessage(t('backup_imported'));
     } catch (error) {
@@ -153,7 +155,7 @@ const Profile = () => {
     }
   };
 
-  // Load emotion history and username from localStorage
+  // Load profile settings from localStorage
   useEffect(() => {
     const storedUsername = localStorage.getItem('username');
     if (storedUsername) {
@@ -162,10 +164,6 @@ const Profile = () => {
         username: storedUsername,
         avatar: localStorage.getItem(`avatar_${storedUsername}`),
       }));
-      const entries = readJson(`moodEntries_${storedUsername}`, []);
-      const sortedEntries = entries.sort((a, b) => new Date(a.date) - new Date(b.date));
-      setEmotionHistory(sortedEntries);
-
       setReminder(readJson(`checkInReminder_${storedUsername}`, { enabled: false, time: '20:00' }));
     }
   }, []);
@@ -191,27 +189,6 @@ const Profile = () => {
     window.dispatchEvent(new Event('mindly-reminder-updated'));
   };
 
-  const getEmotionColor = (emotionId) => {
-    const emotion = emotions.find(e => e.id === emotionId);
-    return emotion ? emotion.graphColor : '#E0E0E0';
-  };
-
-  // Group emotions by date for the chart
-  const getChartData = () => {
-    const last7Days = [...Array(7)].map((_, i) => {
-      const d = new Date();
-      d.setDate(d.getDate() - i);
-      return d.toDateString();
-    }).reverse();
-
-    return last7Days.map(date => {
-      const entries = emotionHistory.filter(e => new Date(e.date).toDateString() === date);
-      return {
-        date: new Date(date).toLocaleDateString(i18n.language, { weekday: 'short', month: 'numeric', day: 'numeric' }),
-        entries,
-      };
-    });
-  };
 
   return (
     <div className="max-w-3xl mx-auto p-4 pt-6">
@@ -230,8 +207,8 @@ const Profile = () => {
             )}
           </div>
           <div className="flex shrink-0 flex-col gap-1">
-            <label className="cursor-pointer text-sm font-medium text-purple-600 hover:text-purple-700">
-              {/* {t('change_avatar')} */}
+            <label className="cursor-pointer text-sm font-medium text-purple-900 hover:text-purple-700">
+              {t('change_avatar')}
               <input
                 type="file"
                 accept="image/*"
@@ -248,7 +225,7 @@ const Profile = () => {
                 {t('remove_avatar')}
               </button>
             )}
-            {/* {avatarMessage && <p className="max-w-32 text-xs text-gray-500" role="status" aria-live="polite">{avatarMessage}</p>} */}
+            {avatarMessage && <p className="max-w-32 text-xs text-gray-500" role="status" aria-live="polite">{avatarMessage}</p>}
           </div>
           <div className="flex-1 flex items-center gap-4">
             <div>
@@ -258,6 +235,7 @@ const Profile = () => {
             </div>
             <button
               onClick={handleLogout}
+              aria-label={t('logout')}
               className="ml-auto p-3 bg-red-50 text-red-500 rounded-2xl hover:bg-red-100 transition-colors"
             >
               <LogOut className="w-4 h-4" />
@@ -268,87 +246,7 @@ const Profile = () => {
 
      
 
-      {/* Emotion Chart */}
-      <div className="bg-white rounded-3xl shadow-sm p-4">
-        <div className="flex items-start gap-2 mb-6">
-          <BarChart2 className="w-5 h-5 text-purple-500" />
-          <div>
-            <h2 className="text-lg font-medium text-gray-700">{t('emotion_history_7_days')}</h2>
-            <p className="text-sm text-gray-500 mt-1">{t('emotion_history_description')}</p>
-          </div>
-        </div>
-        
-        <div className="space-y-4">
-          {getChartData().map((day, index) => (
-            <div key={index} className="flex items-center gap-4">
-              <div className="w-20 text-sm text-gray-600">
-                {day.date}
-              </div>
-              <div className="flex-1">
-                {day.entries.length > 0 ? (
-                  <div className="flex flex-wrap gap-2">
-                    {day.entries.map((entry) => (
-                      <button
-                        key={entry.date}
-                        type="button"
-                        className="flex min-h-8 items-center gap-2 rounded-lg px-3 text-sm text-gray-800 transition-opacity hover:opacity-80"
-                        style={{ backgroundColor: getEmotionColor(entry.emotion) }}
-                        onClick={() => entry.note && handleNoteClick(entry.note)}
-                      >
-                        <span>{emotions.find((emotion) => emotion.id === entry.emotion)?.emoji}</span>
-                        <span>{t(entry.emotion)}</span>
-                      </button>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="h-8 rounded-lg bg-gray-100" aria-label={t('no_checkin')} />
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <p className="mt-4 text-xs text-gray-400">{t('emotion_history_hint')}</p>
-
-        {/* Legend */}
-        <div className="mt-6 pt-6 border-t">
-          <div className="flex flex-wrap gap-4">
-            {emotions.map(emotion => (
-              <div key={emotion.id} className="flex items-center gap-1">
-                <div 
-                  className="w-3 h-3 rounded-full"
-                  style={{ backgroundColor: getEmotionColor(emotion.id) }}
-                />
-                <span className="text-sm text-gray-600">
-                  {t(emotion.id)}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Note Popup */}
-      {selectedNote && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center z-50 transition-opacity duration-300"
-          onClick={closePopup}
-        >
-          <div 
-            className="bg-white rounded-2xl shadow-2xl p-8 w-4/5 max-w-xl transform transition-all duration-300 scale-95 opacity-0 animate-fade-in-up"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">{t('note_details')}</h3>
-            <p className="text-gray-600 mb-6 whitespace-pre-wrap">{selectedNote}</p>
-            <button
-              onClick={closePopup}
-              className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
-            >
-              {t('close')}
-            </button>
-          </div>
-        </div>
-      )}
+      <ProfileContent key={profileRevision} username={userData.username} />
 
       {/* Logout Confirmation Popup */}
       {showLogoutConfirm && (
@@ -385,7 +283,7 @@ const Profile = () => {
           type="button"
           aria-expanded={showSettings}
           onClick={() => setShowSettings((isVisible) => !isVisible)}
-          className="flex w-full items-center justify-between text-left"
+          className="flex w-full items-center justify-between rounded-xl bg-transparent p-0 text-left hover:bg-gray-50"
         >
           <span className="text-lg font-semibold text-gray-800">{t('settings')}</span>
           <ChevronDown className={`h-5 w-5 text-gray-500 transition-transform ${showSettings ? 'rotate-180' : ''}`} />
@@ -394,7 +292,7 @@ const Profile = () => {
         {showSettings && <div>
         <section className="mt-5">
           <div className="flex items-start gap-3">
-            <div className="rounded-xl bg-purple-100 p-2 text-purple-600">
+            <div className="rounded-xl bg-purple-100 p-2 text-purple-900">
               <Bell className="w-5 h-5" />
             </div>
             <div className="min-w-0 flex-1">
